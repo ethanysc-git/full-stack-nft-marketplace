@@ -17,24 +17,9 @@ const Service = () => {
              <p className={Style.service_box_item_step}>
                 <span> Step 1</span>
              </p>
-             <h3>Filter and Discover</h3>
+             <h3>Upload your photograph</h3>
              <p>
-                connet the wallet, discover , buy NFTs, sell your NFTs and earn money
-             </p>
-        </div>
-        <div className={Style.service_box_item}>
-            <Image
-             src={images.service1} 
-             alt='Filter and Discover'
-             width={100}
-             height={100}
-             />
-             <p className={Style.service_box_item_step}>
-                <span> Step 1</span>
-             </p>
-             <h3>Filter and Discover</h3>
-             <p>
-                connet the wallet, discover , buy NFTs, sell your NFTs and earn money
+                  Upload your photograph to IPFS Network
              </p>
         </div>
         <div className={Style.service_box_item}>
@@ -49,7 +34,7 @@ const Service = () => {
              </p>
              <h3>Connect Wallet</h3>
              <p>
-                connet the wallet, discover , buy NFTs, sell your NFTs and earn money
+                  Connect to your Wallet
              </p>
         </div>
         
@@ -63,9 +48,9 @@ const Service = () => {
              <p className={Style.service_box_item_step}>
                 <span> Step 3</span>
              </p>
-             <h3>Start Trading</h3>
+             <h3>Start Minting</h3>
              <p>
-                connet the wallet, discover , buy NFTs, sell your NFTs and earn money
+                connet the wallet, mint NFTs, sell your NFTs and earn money
              </p>
         </div>
      </div>

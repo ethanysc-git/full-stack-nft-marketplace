@@ -12,6 +12,7 @@ import creatorbackground10 from "./creatorbackground-10.jpg";
 import creatorbackground11 from "./creatorbackground-11.jpg";
 
 import dragonsvg from "./dragonsvg.svg";
+import profile from "./profile.png";
 import user1 from "./user-1.png";
 import user2 from "./user-2.png";
 import user3 from "./user-3.png";
@@ -66,6 +67,7 @@ export default {
   creatorbackground10,
   creatorbackground11,
   dragonsvg,
+  profile,
   user1,
   user2,
   user3,

@@ -123,10 +123,10 @@ const NavBar = () => {
           <div className={Style.navbar_container_right_profile_box}>
             <div className={Style.navbar_container_right_profile}>
               <Image
-                src={images.user1}
+                src={images.profile}
                 alt='Profile'
-                width={40}
-                height={40}
+                width={60}
+                height={60}
                 onClick={() => openProfile()}
                 className={Style.navbar_container_right_profile}
               />

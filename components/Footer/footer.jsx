@@ -23,7 +23,7 @@ const footer = () => {
     <div className={Style.footer}>
       <div className={Style.footer_box}>
         <div className={Style.footer_box_social}>
-          <Image src={images.logo} alt='footer logo' height={100} width={100} />
+          <Image src={images.hero} alt='footer logo' height={100} width={100} />
           <p>The world largest and first marketplace for non-fungible tockens
             (NFTs) buy and sell exclusive digital items.
           </p>
