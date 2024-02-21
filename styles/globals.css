@@ -62,7 +62,7 @@ a {
     color-scheme: dark;
   }
   body {
-    color: white;
-    background: black;
+    color: rgb(0, 0, 0);
+    background: rgb(160, 190, 220);
   }
 }
