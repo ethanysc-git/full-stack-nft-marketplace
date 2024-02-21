@@ -72,7 +72,7 @@ const NavBar = () => {
         <div className={Style.navbar_container_left}>
           <div className={Style.logo}>
             <Image
-              src={images.logo}
+              src={images.hero}
               alt='NFT MARKET PLACE LOGO'
               width={100}
               height={100}
