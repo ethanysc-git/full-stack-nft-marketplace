@@ -9,7 +9,7 @@ const Notification = () => {
       <p>Notification</p>
       <div className={Style.notification_box}>
         <div className={Style.notification_box_img}>
-          <Image src={images.user1} alt='Profile image'
+          <Image src={images.hero} alt='Profile image'
            width={50} height={50}
            className={Style.notification_box_img}/>
         </div>
