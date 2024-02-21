@@ -10,20 +10,21 @@ const HeroSection = () => {
     <div className={Style.heroSection}>
         <div className={Style.heroSection_box}>
             <div className={Style.heroSection_box_left}>
-                {/* <h1>Discover, Collect and sell NFT</h1>
+                <h1>Discover, Collect and sell NFT</h1>
                 <p>
                     Discover the most outstanding NFTs in all topics 
                     your NFTs and sell them.
-                </p> */}
+                </p>
                 <Button btnName="Start your Search"/>
             </div>
             <div className={Style.heroSection_box_right}>
-                {/* <Image
+                <Image
                  src={images.hero}
                  alt='Hero Section'
-                 width={600}
-                 height={600}
-                /> */}
+                //  width={600}
+                //  height={600}
+                className={Style.heroSection_image_right}
+                />
             </div>
         </div>
     </div>
