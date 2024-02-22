@@ -60,7 +60,7 @@ const HeroSection = () => {
 
 
   return (
-    <div className={Style.heroSection}>
+    <div className={Style.heroSection_home_page}>
       <div className={Style.heroSection_box}>
       <div className={Style.heroSection_box_left}>
               <h1>Discover, Collect and sell NFT</h1>

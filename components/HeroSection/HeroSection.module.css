@@ -2,6 +2,13 @@
     width:88% ;
     margin: 3rem auto; 
 }
+.heroSection_home_page{
+    width:88% ;
+    margin: 3rem auto; 
+    background-image: url("../../public/rainbowhotair.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
 .heroSection_box{
     display: grid;
     grid-template-columns:repeat(2,1fr) ;
