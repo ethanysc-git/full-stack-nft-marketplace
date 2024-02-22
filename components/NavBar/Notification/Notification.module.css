@@ -3,7 +3,7 @@
     padding: 1rem 1rem;
     width: 25rem;
     border-radius:1rem ;
-    left: -12rem;
+    left: -5rem;
     top: 3.5rem;
     z-index: 22222222;
     background-color:var(--main-bg-color) ;
@@ -14,9 +14,9 @@
 
 }
 .notification > p{
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 
 }
 .notification_box{
