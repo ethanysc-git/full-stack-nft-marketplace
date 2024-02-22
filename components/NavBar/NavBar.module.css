@@ -45,10 +45,14 @@
     align-items: center;
 }
 .navbar_container_right_help{
+    font-size: 2rem;
+    font-weight: bold;
     position: relative;
     cursor: pointer;
 }
 .navbar_container_right_discover{
+    font-size: 2rem;
+    font-weight: bold;
     position: relative;
     cursor: pointer;
 }
@@ -83,6 +87,12 @@
 .navbar_container_right_menuBtn{
     display: none;
 }
+
+.navbar_container_right_button{
+    font-size: 2rem;
+    font-weight: bold;
+   }
+
 .menuIcon{
     font-size: 2.5rem;
     cursor: pointer;
@@ -121,9 +131,6 @@
     display: none;
    }
    .navbar_container_right_help{
-    display: none;
-   }
-   .navbar_container_right_button{
     display: none;
    }
    .sideBar{

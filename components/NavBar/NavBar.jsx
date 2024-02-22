@@ -116,7 +116,7 @@ const NavBar = () => {
           </div>
           {/* Connect Wallet botton section */}
           <div className={Style.navbar_container_right_button}>
-            <Button btnName="Connect Wallet" handleClick={()=>{}}/>
+            <Button className={Style.navbar_container_right_button} btnName="Connect Wallet" handleClick={()=>{}}/>
           </div>
 
           {/* user profile */}

@@ -164,7 +164,6 @@ const closeSideBar=()=>{
                 </div>
             </div>
             <div className={Style.sideBar_button}>
-              <Button btnName="Create" handleClick={()=>{}}/>
               <Button btnName="Connect Wallet" handleClick={()=>{}}/>  
             </div>
         </div>

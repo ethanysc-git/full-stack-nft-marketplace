@@ -1,12 +1,10 @@
 import React from 'react'
 import Link from "next/link"
-//intenal import
 import Style from "./Discover.module.css"
 
 
 
 const Discover = () => {
-//---------DISCOVER NAVIGATION
 const discover=[
  {
   name : "Collection",
@@ -15,26 +13,6 @@ const discover=[
  {
   name : "Search",
   link: "search"
- },
- {
-  name : "Author Profile",
-  link: "author-profile"
- },
- {
-  name : "Acount Setting",
-  link: "account-setting"
- },
- {
-  name : "NFT Details",
-  link: "NFT-details"
- },
- {
-  name : "Connect Wallet",
-  link: "connect-wallet"
- },
- {
-  name : "Blog",
-  link: "blog"
  }
 ]
 

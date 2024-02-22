@@ -2,6 +2,7 @@ import React from 'react'
 import Style from './Service.module.css'
 import Image from 'next/image'
 import images from '../../img'
+
  
 const Service = () => {
   return (
@@ -9,7 +10,7 @@ const Service = () => {
      <div className={Style.service_box}>
         <div className={Style.service_box_item}>
             <Image
-             src={images.service1} 
+             src={images.uploadfolder} 
              alt='Filter and Discover'
              width={100}
              height={100}
@@ -40,8 +41,8 @@ const Service = () => {
         
         <div className={Style.service_box_item}>
             <Image
-             src={images.service3} 
-             alt='Start Trading'
+             src={images.service4} 
+             alt='Start Minting'
              width={100}
              height={100}
              /> 
