@@ -1,9 +1,9 @@
 .notification{
     position: absolute;
-    padding: 2rem 1rem;
+    padding: 1rem 1rem;
     width: 25rem;
     border-radius:1rem ;
-    left: -20rem;
+    left: -12rem;
     top: 3.5rem;
     z-index: 22222222;
     background-color:var(--main-bg-color) ;
