@@ -1,16 +1,4 @@
-import collection from "./collection.png";
-import creatorbackground1 from "./creatorbackground-1.jpeg";
-import creatorbackground2 from "./creatorbackground-2.jpeg";
-import creatorbackground3 from "./creatorbackground-3.jpeg";
-import creatorbackground4 from "./creatorbackground-4.jpg";
-import creatorbackground5 from "./creatorbackground-5.jpg";
-import creatorbackground6 from "./creatorbackground-6.jpg";
-import creatorbackground7 from "./creatorbackground-7.jpg";
-import creatorbackground8 from "./creatorbackground-8.jpg";
-import creatorbackground9 from "./creatorbackground-9.jpg";
-import creatorbackground10 from "./creatorbackground-10.jpg";
-import creatorbackground11 from "./creatorbackground-11.jpg";
-
+import creatorbackground from "./creatorbackground.jpg";
 import dragonsvg from "./dragonsvg.svg";
 import profile from "./profile.png";
 import service1 from "./service-1.png";
@@ -31,19 +19,8 @@ import zgcmq from "./zgcmq.svg";
 import hero from "./hero.png";
 
 export default {
-  collection,
   hero,
-  creatorbackground1,
-  creatorbackground2,
-  creatorbackground3,
-  creatorbackground4,
-  creatorbackground5,
-  creatorbackground6,
-  creatorbackground7,
-  creatorbackground8,
-  creatorbackground9,
-  creatorbackground10,
-  creatorbackground11,
+  creatorbackground,
   dragonsvg,
   profile,
   service1,
