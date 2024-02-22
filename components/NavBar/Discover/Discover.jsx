@@ -6,22 +6,29 @@ import Style from "./Discover.module.css"
 
 const Discover = () => {
 const discover=[
+  {
+    name : "Home",
+    link: "/"
+   },
  {
-  name : "Collection",
-  link: "collection"
+  name : "Create NFT Collection",
+  link: "/create-nft-collection"
  },
  {
-  name : "Search",
-  link: "search"
+  name : "NFT Marketplace",
+  link: "/nft-marketplace"
  }
 ]
 
   return (
-    <div>{discover.map((el,i)=>(
+    <div className={Style.box}>
+    {discover.map((el , i)=>(
       <div key={i+1} className={Style.discover}>
-        <Link href={{pathname:`${el.link}`}} > {el.name}</Link>
+        <Link href={{pathname:`${el.link}`}} ><a><p>{el.name}</p></a>
+        </Link>
       </div> 
-    ))}</div>
+    ))}
+   </div>
   )
 }
 

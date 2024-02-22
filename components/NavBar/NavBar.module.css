@@ -74,10 +74,7 @@
 .notify{
   font-size: 2rem;  
 }
-.navbar_container_right_button{
-    position: relative;
-    cursor: pointer;
-}
+
 .navbar_container_right_profile{
     border-radius: 50%;
 }
@@ -89,6 +86,7 @@
 }
 
 .navbar_container_right_button{
+
     font-size: 2rem;
     font-weight: bold;
    }

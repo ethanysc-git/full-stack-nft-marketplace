@@ -12,10 +12,19 @@ const HeroSection = () => {
             <div className={Style.heroSection_box_left}>
                 <h1>Discover, Collect and sell NFT</h1>
                 <p>
-                    Discover the most outstanding NFTs in all topics 
-                    your NFTs and sell them.
-                </p>
-                <Button btnName="Start your Search"/>
+                    Upload your photo below and mint your own NFT.
+                </p>   
+                <Button btnName="Upload"/>     
+                <div>
+                    <Image
+                    priority
+                    src={images.hero}
+                    alt='Hero Section'
+                    width = {250}
+                    height = {250}
+                    />
+                    <Button btnName="Mint"/>
+                </div>    
             </div>
             <div className={Style.heroSection_box_right}>
                 <Image
@@ -24,6 +33,10 @@ const HeroSection = () => {
                  alt='Hero Section'
                 className={Style.heroSection_image_right}
                 />
+            </div>
+            <div>
+                       
+
             </div>
         </div>
     </div>

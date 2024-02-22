@@ -34,6 +34,11 @@
     height: auto;
 }
 
+.heroSection_upload_image {
+    width: 60px;
+    height: 60px;
+}
+
 @media screen and (max-width:35em){
     .heroSection{
         width: 90%;
