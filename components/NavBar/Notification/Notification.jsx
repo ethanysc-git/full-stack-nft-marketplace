@@ -14,9 +14,9 @@ const Notification = () => {
            className={Style.notification_box_img}/>
         </div>
         <div className={Style.notification_box_info}>
-          <h4>Shoaib Akhter</h4>
-          <p>Measure actions your user...</p>
-          <p>3 minutes ago </p>
+          <h4>Ethan Chen</h4>
+          <p>Notification...</p>
+          <p></p>
         </div>
         <span className={Style.notification_box_new}></span>
       </div>

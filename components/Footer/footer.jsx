@@ -24,8 +24,7 @@ const footer = () => {
       <div className={Style.footer_box}>
         <div className={Style.footer_box_social}>
           <Image src={images.hero} alt='footer logo' height={100} width={100} />
-          <p>The world largest and first marketplace for non-fungible tockens
-            (NFTs) buy and sell exclusive digital items.
+          <p>
           </p>
           <div className={Style.footer_social}>
             <a href="#"><TiSocialFacebook /></a>
@@ -40,7 +39,7 @@ const footer = () => {
           <Discover />
         </div>
         <div className={Style.footer_box_help}>
-          <h3>Help Center</h3>
+          <h3>About</h3>
           <HelpCenter />
         </div>
         <div className={Style.subscribe}>
@@ -51,8 +50,7 @@ const footer = () => {
           </div>
           <div className={Style.subscribe_box_info}>
             <p>
-              Discover , collection and sell extraordinary NFTs
-              OpenSea is the first and largest NFT marketplace.
+              
             </p>
           </div>
         </div>

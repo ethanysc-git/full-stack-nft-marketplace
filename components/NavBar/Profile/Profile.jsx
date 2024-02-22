@@ -16,8 +16,8 @@ const Profile = () => {
         className={Style.profile_account_img}
         />
         <div className={Style.profile_account_info}>
-          <p>Shoaib bhai</p>
-          <p>x087248732234</p>
+          <p>Ethan</p>
+          <p>Chen</p>
         </div>
       </div>
       <div className={Style.profile_menu}>
