@@ -23,7 +23,9 @@ const footer = () => {
     <div className={Style.footer}>
       <div className={Style.footer_box}>
         <div className={Style.footer_box_social}>
-          <Image src={images.hero} alt='footer logo' height={100} width={100} />
+          <a href="/" target="_self" rel="noreferrer noopenner">
+            <Image src={images.hero} alt='footer logo' height={100} width={100} />
+          </a>       
           <p>
           </p>
           <div className={Style.footer_social}>

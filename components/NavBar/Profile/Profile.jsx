@@ -29,12 +29,6 @@ const Profile = () => {
             </p>
           </div>
           <div className={Style.profile_menu_one_item}>
-            <FaRegImage/>
-            <p>
-              <Link href={{pathname:'/my-items'}}>My Items</Link>
-            </p>
-          </div>
-          <div className={Style.profile_menu_one_item}>
             <FaUserEdit/>
             <p>
               <Link href={{pathname:'/edit-profile'}}>Edit Profile</Link>

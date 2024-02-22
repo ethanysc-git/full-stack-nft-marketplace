@@ -1,11 +1,14 @@
 import React from "react";
 import { HeroSection, Service } from "../components/componentindex";
-import Style from "../styles/index.module.css";
-
+import HomeStyle from "../styles/index.module.css";
+import Style from "../components/HeroSection/HeroSection.module.css";
+//
 function ContactUs() {
   return (
-    <div className={Style.homePage}>
-      <h1>ContactUs</h1>
+    <div className={HomeStyle.homePage}>
+      <div className={Style.heroSection}>
+        <h1>Contact Us</h1>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { HeroSection, Service } from "../components/componentindex";
-import Style from "../styles/index.module.css";
+import HomeStyle from "../styles/index.module.css";
+import Style from "../components/HeroSection/HeroSection.module.css";
 //
 import GET_ACTIVE_ITEMS from "../pages/api/subgraphQueries";
 import { useQuery } from "@apollo/client";
@@ -21,9 +22,9 @@ function NFTMarketplace() {
   }, []);
 
   return (
-    <div className={Style.homePage}>
-      <h1>NFT Marketplace</h1>
-      <div>
+    <div className={HomeStyle.homePage}>
+      <div className={Style.heroSection}>
+        <h1>NFT Marketplace</h1>
         <Wrap>
           {loading || !listedNfts ? (
             <div>Loading...</div>
