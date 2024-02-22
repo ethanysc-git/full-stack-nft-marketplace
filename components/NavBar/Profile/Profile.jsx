@@ -1,10 +1,7 @@
 import React from 'react'
 import Image from "next/image";
 import {FaUserAlt,FaRegImage,FaUserEdit} from "react-icons/fa"
-import {MdHelpCenter} from "react-icons/md";
-import {TbDownloadOff, TbDownload} from "react-icons/tb";
 import Link from "next/link"
-//internal import
 import Style from "./Profile.module.css";
 import images from "../../../img";
  
@@ -20,7 +17,7 @@ const Profile = () => {
         />
         <div className={Style.profile_account_info}>
           <p>Shoaib bhai</p>
-          <small>x087248732234</small>
+          <p>x087248732234</p>
         </div>
       </div>
       <div className={Style.profile_menu}>
@@ -44,22 +41,6 @@ const Profile = () => {
             </p>
           </div>
         </div>
-
-<div className={Style.profile_menu_two}>
-  <div className={Style.profile_menu_one_item}>
-    <MdHelpCenter/>
-    <p>
-      <Link href={{pathname:"/help"}} >Help</Link>
-    </p>
-  </div>
-  <div className={Style.profile_menu_one_item}>
-    <TbDownload/>
-    <p>
-      <Link href={{pathname:"/disconnect"}}>Disconnect</Link>
-    </p>
-  </div>
-</div>
-
       </div>
     </div>
   )
