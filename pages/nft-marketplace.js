@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { HeroSection, Service } from "../components/componentindex";
-import HomeStyle from "../styles/index.module.css";
+//import HomeStyle from "../styles/index.module.css";
 import Style from "../components/HeroSection/HeroSection.module.css";
 //
 import GET_ACTIVE_ITEMS from "../pages/api/subgraphQueries";
@@ -22,7 +22,7 @@ function NFTMarketplace() {
   }, []);
 
   return (
-    <div className={HomeStyle.homePage}>
+    <div>
       <div className={Style.heroSection}>
         <h1>NFT Marketplace</h1>
         <Wrap>

@@ -8,7 +8,7 @@ import { useState, useRef } from "react";
 import { useAccount } from "wagmi";
 import MintNFTButton from '../Button/MintNFTButton'
 //
-
+// import backgroundImage from "../../public/lightbluespray.png";
 //
 
 const HeroSection = () => {
@@ -61,48 +61,65 @@ const HeroSection = () => {
 
   return (
     <div className={Style.heroSection}>
-        <div className={Style.heroSection_box}>
-            <div className={Style.heroSection_box_left}>
-                <h1>Discover, Collect and sell NFT</h1>
-                <p>
-                    Upload your photo below and mint your own NFT.
-                </p>   
-                {/* <Button btnName="Upload"/>   */}
-                <input
-                  type="file"
-                  id="file"
-                  ref={inputFile}
-                  onChange={handleChange}
-                  style={{ display: "none" }}
+      <div className={Style.heroSection_box}>
+      <div className={Style.heroSection_box_left}>
+              <h1>Discover, Collect and sell NFT</h1>
+              <p>
+                  Upload your photo below and mint your own NFT.
+              </p>   
+              {/* <Button btnName="Upload"/>   */}
+              <input
+                type="file"
+                id="file"
+                ref={inputFile}
+                onChange={handleChange}
+                style={{ display: "none" }}
+              />
+                <button
+                className={Style.heroSection_upload_button}
+                  disabled={uploading}
+                  onClick={() => inputFile.current.click()}                  >
+                  {uploading ? "Uploading..." : "Upload"}
+                </button>
+                {cid && <NFTBox cid={cid} />}
+                {cid && !uploading && (
+                <MintNFTButton
+                  cid={cid}
+                  contractAddress="0x2Bb634109eee5dc71602066f874DA5ABC27be9D8"
                 />
-                  <button
-                  className={Style.heroSection_upload_button}
-                    disabled={uploading}
-                    onClick={() => inputFile.current.click()}                  >
-                    {uploading ? "Uploading..." : "Upload"}
-                  </button>
-                  {cid && <NFTBox cid={cid} />}
-                  {cid && !uploading && (
-                  <MintNFTButton
-                    cid={cid}
-                    contractAddress="0x2Bb634109eee5dc71602066f874DA5ABC27be9D8"
-                  />
-                )}
-            </div>
-            <div className={Style.heroSection_box_right}>
-                <Image
-                priority
-                 src={images.hero}
-                 alt='Hero Section'
-                className={Style.heroSection_image_right}
-                />
-            </div>
-            <div>
-                       
+              )}
+      </div>
+      <div className={Style.heroSection_box_right}>
+              <Image
+              priority
+              src={images.hero}
+              alt='Hero Section'
+              className={Style.heroSection_image_right}
+              />
+      </div>
+      {/* <div
+      style={{
+        // use the src property of the image object
+        backgroundImage: `url(${backgroundImage.src})`,
+        // other styles
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        width: "100vw",
+        height: "100vh",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
 
-            </div>
-        </div>
+    </div> */}
+      </div>
     </div>
+
+
+
+
   )
 }
 

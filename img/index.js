@@ -17,9 +17,11 @@ import vimeo from "./vimeo.svg";
 import vector from "./VectorHIW.svg";
 import zgcmq from "./zgcmq.svg";
 import hero from "./hero.png";
+import lightbluespray from "./light blue spray.png";
 
 export default {
   hero,
+  lightbluespray,
   creatorbackground,
   dragonsvg,
   profile,

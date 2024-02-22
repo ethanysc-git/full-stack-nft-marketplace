@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import HomeStyle from "../styles/index.module.css";
+//import HomeStyle from "../styles/index.module.css";
 import Style from "../components/HeroSection/HeroSection.module.css";
 //
 import {
@@ -53,7 +53,7 @@ function CreateNFTCollection() {
   };
 
   return (
-    <div className={HomeStyle.homePage}>
+    <div>
       <div className={Style.heroSection}>
         <h1>CreateNFTCollection</h1>
         <Formik
