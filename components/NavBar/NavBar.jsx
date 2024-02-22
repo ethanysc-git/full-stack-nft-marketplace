@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image"
 import Link from "next/link"
 import { MdNotifications } from 'react-icons/md'
@@ -8,6 +9,7 @@ import Style from "./NavBar.module.css";
 import { Discover, HelpCenter, Profile, Notification } from "./index";
 import { Button } from "../componentindex";
 import images from "../../img"
+
 
 const NavBar = () => {
   const [discover, setDiscover] = useState(false);
@@ -116,7 +118,7 @@ const NavBar = () => {
           {/* Connect Wallet botton section */}
           <div className={Style.navbar_container_right_notify}>
 
-              <Button btnName="Connect" handleClick={()=>{}}/>
+          <ConnectButton />
           </div>
           
 
