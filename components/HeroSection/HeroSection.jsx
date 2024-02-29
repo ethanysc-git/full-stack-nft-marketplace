@@ -4,14 +4,21 @@ import Style from './HeroSection.module.css'
 import { NFTBox } from '../componentindex'
 import images from "../../img"
 import { useState, useRef } from "react";
-import { useAccount } from "wagmi";
 import MintNFTButton from '../Button/MintNFTButton'
+import SocailMintNFTButton from '../Button/SocailMintNFTButton'
+import { useAccount, useWaitForTransaction } from "wagmi";
+import {
+  useConnect,
+  useEthereum,
+  useAuthCore,
+} from "@particle-network/auth-core-modal";
 
 const HeroSection = () => {
+    const { address, isConnected } = useAccount();
+    const { connect, disconnect, connectionStatus } = useConnect();
     const [file, setFile] = useState("");
     const [cid, setCid] = useState("");
     const [uploading, setUploading] = useState(false);
-    
     const inputFile = useRef(null);
     
     const uploadFile = async (fileToUpload) => {
@@ -38,20 +45,20 @@ const HeroSection = () => {
       uploadFile(e.target.files[0]);
     };
     
-    const loadRecent = async () => {
-      try {
-        if (address == "0x1B1432102D127AaedDf9cD97dd744B7384625a72") {
-          const res = await fetch("/api/files");
-          const json = await res.json();
-          setCid(json.ipfs_pin_hash);
-        }
-      } catch (e) {
-        console.log(e);
-        alert("trouble loading files");
-      }2
-    };
+    // const loadRecent = async () => {
+    //   try {
+    //     if (address == "0x1B1432102D127AaedDf9cD97dd744B7384625a72") {
+    //       const res = await fetch("/api/files");
+    //       const json = await res.json();
+    //       setCid(json.ipfs_pin_hash);
+    //     }
+    //   } catch (e) {
+    //     console.log(e);
+    //     alert("trouble loading files");
+    //   }
+    // };
     
-    const { address, isConnected } = useAccount();
+    
 
   return (
     <div className={Style.heroSection_home_page}>
@@ -76,12 +83,21 @@ const HeroSection = () => {
                   {uploading ? "Uploading..." : "Upload"}
                 </button>
                 {cid && <NFTBox cid={cid} />}
-                {cid && !uploading && (
-                <MintNFTButton
-                  cid={cid}
-                  contractAddress="0x2Bb634109eee5dc71602066f874DA5ABC27be9D8"
-                />
-              )}
+                    {cid && !uploading && connectionStatus === "connected" && (
+                      <SocailMintNFTButton
+                      cid={cid}
+                      contractAddress="0x2Bb634109eee5dc71602066f874DA5ABC27be9D8"
+                    />
+                    )}
+
+                {cid && !uploading && isConnected && (
+
+                    <MintNFTButton
+                    cid={cid}
+                    contractAddress="0x2Bb634109eee5dc71602066f874DA5ABC27be9D8"
+                  />
+                )}
+              
       </div>
       <div className={Style.heroSection_box_right}>
               <Image

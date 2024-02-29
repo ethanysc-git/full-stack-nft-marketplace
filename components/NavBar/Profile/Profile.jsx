@@ -6,7 +6,7 @@ import Style from "./Profile.module.css";
 import images from "../../../img";
  
 
-const Profile = () => {
+const Profile = (props) => {
   return (
     <div className={Style.profile}>
       <div className={Style.profile_account}>
@@ -16,23 +16,19 @@ const Profile = () => {
         className={Style.profile_account_img}
         />
         <div className={Style.profile_account_info}>
-          <p>Ethan</p>
-          <p>Chen</p>
+          <p>{props.userName}</p>
         </div>
       </div>
       <div className={Style.profile_menu}>
         <div className={Style.profile_menu_one}>
           <div className={Style.profile_menu_one_item}>
             <FaUserAlt/>
-            <p>
+            {!(props.crptoGeek) &&(            <p>
               <Link href={{pathname:'/myprofile'}} legacyBehavior>My Profile</Link>
-            </p>
-          </div>
-          <div className={Style.profile_menu_one_item}>
-            <FaUserEdit/>
-            <p>
-              <Link href={{pathname:'/edit-profile'}} legacyBehavior>Edit Profile</Link>
-            </p>
+            </p>)}
+            {(props.crptoGeek) &&(            <p>
+              <Link href={{pathname:'/mycrptogeekprofile'}} legacyBehavior>My Profile</Link>
+            </p>)}
           </div>
         </div>
       </div>

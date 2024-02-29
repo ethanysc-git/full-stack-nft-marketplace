@@ -8,19 +8,22 @@ const About = () => {
       link:"about"
     },
     {
-      name:"Contact us ",
+      name:"Contact us",
       link:"contact-us"
     }
   ]
   return (
     <div className={Style.box}>
-     {about.map((el , i)=>(
-      <div key={i+1} className={Style.about}>
-        <Link href={{pathname:`${el.link}`}} legacyBehavior>
-        <a><p>{el.name}</p></a>
+      <div key={0} className={Style.about}>
+        <Link href={{pathname:'/about'}} legacyBehavior>
+        <a><p>About</p></a>
         </Link>
       </div>
-     ))}
+      <div key={1} className={Style.about}>
+        <Link href={{pathname:'/contact-us'}} legacyBehavior>
+        <a><p>Contact us</p></a>
+        </Link>
+      </div>
     </div>
   )
 }

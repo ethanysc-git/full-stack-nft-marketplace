@@ -25,7 +25,18 @@ export default function BuyNFTButton(props) {
   const { write } = useContractWrite(config);
 
   return (
-    <button onClick={() => write({})} className={Style.button}>
+    <button
+      onClick={() => async () => {
+        try {
+          write({});
+        } catch (e) {
+          console.log(e)();
+          console.log("trouble loading buyItem")();
+          alert("trouble loading buyItem")();
+        }
+      }}
+      className={Style.button}
+    >
       Buy now
     </button>
   );
