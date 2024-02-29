@@ -13,7 +13,7 @@ import { AuthCoreContextProvider } from "@particle-network/auth-core-modal";
 import { Ethereum, EthereumSepolia } from "@particle-network/chains";
 
 ////////////////
-require("events").EventEmitter.defaultMaxListeners = 5;
+require("events").EventEmitter.defaultMaxListeners = 50;
 
 const { chains, publicClient } = configureChains(
   [sepolia],

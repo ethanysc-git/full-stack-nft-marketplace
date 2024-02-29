@@ -1,5 +1,5 @@
 import Style from "../components/HeroSection/HeroSection.module.css";
-import React, { useState, useEffect, useContext, useMemo } from "react";
+import React, { useState, useEffect, useContext, useMemo, useRef } from "react";
 import { ethers } from "ethers";
 import {
   useConnect,
@@ -27,6 +27,17 @@ function MyProfile() {
     signTypedData,
     switchChain,
   } = useEthereum();
+  const [selectedProfile, setSelectedProfile] = useState([]);
+  const [userProfiles, setUserProfiles] = useState([]);
+
+  let data = {
+    data: {
+      itemActives: [],
+    },
+  };
+
+  const originProfiles = useRef();
+  originProfiles.current = data;
 
   const smartAccount = new SmartAccount(provider, {
     projectId: process.env.NEXT_PUBLIC_REACT_APP_PROJECT_ID,
@@ -64,15 +75,42 @@ function MyProfile() {
   };
 
   useEffect(() => {
+    const fetchData = async () => {
+      let caAddress = await smartAccount.getAddress();
+      caAddress = caAddress.toLowerCase();
+      data = {
+        data: {
+          itemActives: [],
+        },
+      };
+      const formData = new FormData();
+      const res = await fetch("/api/moralis/useEvmWalletNFTs", {
+        method: "POST",
+        body: formData,
+      });
+      data = await res.json();
+      data = data.result;
+      data = data.filter((d) => d.to_address == caAddress);
+      // data = data.filter(
+      //   (d) => d.token_address == "0x2bb634109eee5dc71602066f874da5abc27be9d8"
+      // );
+      setUserProfiles(data);
+      setSelectedProfile(data[0]);
+    };
     if (connect) {
       fetchBalance();
+      fetchData();
     }
   }, [connect]);
   return (
     <div>
       <div className={Style.heroSection}>
         <h1>My Profile</h1>
+        {eoaAddress && <div>{`${eoaAddress}`}</div>}
         {caAddress && <div>{`${caAddress}`}</div>}
+        {userProfiles.map((profile, idx) => {
+          return <div>{`${profile.token_id} - ${profile.to_address}`}</div>;
+        })}
       </div>
     </div>
   );

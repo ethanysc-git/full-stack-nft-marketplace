@@ -84,7 +84,7 @@ export default function SocailMintNFTButton(props) {
         onClick={() => executeUserOpAndGasNativeByPaymaster({})}
         className={Style.button}
       >
-        Socail Mint
+        Mint
       </button>
     </div>
   );
