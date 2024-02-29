@@ -89,14 +89,13 @@ const HeroSection = () => {
                       contractAddress="0x2Bb634109eee5dc71602066f874DA5ABC27be9D8"
                     />
                     )}
+                    {cid && !uploading && isConnected && (
 
-                {cid && !uploading && isConnected && (
-
-                    <MintNFTButton
-                    cid={cid}
-                    contractAddress="0x2Bb634109eee5dc71602066f874DA5ABC27be9D8"
-                  />
-                )}
+                        <MintNFTButton
+                        cid={cid}
+                        contractAddress="0x2Bb634109eee5dc71602066f874DA5ABC27be9D8"
+                      />
+                    )}
               
       </div>
       <div className={Style.heroSection_box_right}>

@@ -105,7 +105,7 @@ const MyApp = ({ Component, pageProps }) => (
               primaryBtnColor: "#c4a468",
               primaryBtnBackgroundColor: "#000000",
               secondaryBtnColor: "#000",
-              secondaryBtnBackgroundColor: "#9d2626",
+              secondaryBtnBackgroundColor: "#f2f2f2",
               textColor: "#000000",
               secondaryTextColor: "#0a0a5b",
               iconBorderColor: "#1b3c5b",
