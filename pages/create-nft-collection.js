@@ -1,7 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-//import HomeStyle from "../styles/index.module.css";
 import Style from "../components/HeroSection/HeroSection.module.css";
-//
 import {
   FormControl,
   FormLabel,
@@ -13,7 +11,7 @@ import {
 import { Field, Form, Formik } from "formik";
 import NFTBox from "../components/Image/NFTBox";
 import CreateNFTButton from "../components/Button/CreateNFTButton";
-//
+
 function CreateNFTCollection() {
   const [file, setFile] = useState("");
   const [cid, setCid] = useState("");

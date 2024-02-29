@@ -1,8 +1,7 @@
 import "../styles/globals.css";
+import "@rainbow-me/rainbowkit/styles.css";
 import Head from "next/head";
 import { NavBar, Footer } from "../components/componentindex";
-//
-import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, sepolia, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";

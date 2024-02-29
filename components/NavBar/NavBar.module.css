@@ -4,6 +4,9 @@
     padding-block:1.5rem ;
     position: relative;
     z-index: 111111;
+    /* background-image: url("../../public/bg.png");
+    background-repeat: no-repeat;
+    background-position: center; */
 }
 .navbar_container{
     width: 80%;
@@ -13,6 +16,9 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    /* background-image: url("../../public/bg.png");
+    background-repeat: no-repeat;
+    background-position: center; */
 } 
 .navbar_container_left{
     display:grid ;

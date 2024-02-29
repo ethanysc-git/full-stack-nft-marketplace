@@ -1,15 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
 import Style from './HeroSection.module.css'
-import { Button, NFTBox } from '../componentindex'
+import { NFTBox } from '../componentindex'
 import images from "../../img"
-//
 import { useState, useRef } from "react";
 import { useAccount } from "wagmi";
 import MintNFTButton from '../Button/MintNFTButton'
-//
-// import backgroundImage from "../../public/lightbluespray.png";
-//
 
 const HeroSection = () => {
     const [file, setFile] = useState("");
@@ -56,8 +52,6 @@ const HeroSection = () => {
     };
     
     const { address, isConnected } = useAccount();
-
-
 
   return (
     <div className={Style.heroSection_home_page}>

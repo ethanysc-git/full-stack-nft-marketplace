@@ -2,6 +2,9 @@
     width: 100%;
     padding-block: 1.5rem;
     position: relative;
+    /* background-image: url("../../public/bg.png");
+    background-repeat: no-repeat;
+    background-position: center; */
 }
 .footer_box{
     width: 80%;

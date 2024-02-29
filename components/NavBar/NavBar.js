@@ -6,7 +6,7 @@ import { MdNotifications } from "react-icons/md";
 import { MdOutlineLogin } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
 import Style from "./NavBar.module.css";
-import { Discover, HelpCenter, Profile, Notification } from "./index";
+import { Discover, About, Profile, Notification } from "./index";
 import { Button } from "../componentindex";
 import images from "../../img";
 
@@ -95,7 +95,7 @@ const NavBar = () => {
             <p onClick={(e) => openMenu(e)}>About</p>
             {help && (
               <div className={Style.navbar_container_right_help_box}>
-                <HelpCenter />
+                <About />
               </div>
             )}
           </div>

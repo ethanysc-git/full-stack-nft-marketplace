@@ -24,7 +24,7 @@ const discover=[
     <div className={Style.box}>
     {discover.map((el , i)=>(
       <div key={i+1} className={Style.discover}>
-        <Link href={{pathname:`${el.link}`}} ><a><p>{el.name}</p></a>
+        <Link href={{pathname:`${el.link}`}} legacyBehavior><a><p>{el.name}</p></a>
         </Link>
       </div> 
     ))}

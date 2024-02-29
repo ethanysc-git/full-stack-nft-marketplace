@@ -1,6 +1,6 @@
 import Discover from "./Discover/Discover";
-import HelpCenter from "./HelpCenter/HelpCenter";
+import About from "./About/About";
 import Profile from "./Profile/Profile";
 import Notification from "./Notification/Notification";
 
-export { Discover, HelpCenter, Profile, Notification };
+export { Discover, About, Profile, Notification };
