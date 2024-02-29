@@ -21,11 +21,11 @@ export default async function handler(req, res) {
       // mediaItems: true,
       // address: "0x2Bb634109eee5dc71602066f874DA5ABC27be9D8",
 
-      const response = await Moralis.EvmApi.nft.getNFTContractTransfers({
+      const response = await Moralis.EvmApi.nft.getWalletNFTs({
         chain: "0xaa36a7",
         format: "decimal",
-        order: "DESC",
-        address: "0x2Bb634109eee5dc71602066f874DA5ABC27be9D8",
+        mediaItems: true,
+        address: "0x82986EdbcdC091D0F6c5c0A363D604e68a051E7f",
       });
 
       // response.raw.result.map((profile, idx) => {});

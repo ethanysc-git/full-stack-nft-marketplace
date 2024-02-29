@@ -6,12 +6,8 @@ function SocailNFTBox({ cid }) {
   const [imageURI, setImageURI] = useState("");
 
   async function updateUI() {
-    console.log(`The TokenURI is ipfs://${cid}`);
     if (cid) {
-      const requestURL = "https://ipfs.io/ipfs/" + cid;
-      const tokenURIResponse = await (await fetch(requestURL)).json();
-      const imageURI = tokenURIResponse.image;
-      const imageURIURL = imageURI.replace("ipfs://", "https://ipfs.io/ipfs/");
+      const imageURIURL = cid.replace("ipfs://", "https://ipfs.io/ipfs/");
       setImageURI(imageURIURL);
     }
   }
