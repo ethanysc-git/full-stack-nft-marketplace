@@ -6,7 +6,14 @@ import { MdNotifications } from "react-icons/md";
 import { MdOutlineLogin } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
 import Style from "./NavBar.module.css";
-import { Discover, About, Profile, Notification } from "./index";
+import {
+  TouristDiscover,
+  SocailDiscover,
+  Discover,
+  About,
+  Profile,
+  Notification,
+} from "./index";
 import { Button } from "../componentindex";
 import images from "../../img";
 ////////////////////////////

@@ -4,7 +4,7 @@ import Style from "./Discover.module.css"
 
 
 
-const Discover = () => {
+const SocailDiscover = () => {
 
   return (
     <div className={Style.box}>
@@ -14,12 +14,12 @@ const Discover = () => {
         </Link>
       </div>
       <div key={1} className={Style.discover}>
-        <Link href={{pathname:'/create-nft-collection'}} legacyBehavior>
+        <Link href={{pathname:'/tourist-create-nft-collection'}} legacyBehavior>
         <a><p>Create NFT Collection</p></a>
         </Link>
       </div>
       <div key={1} className={Style.discover}>
-        <Link href={{pathname:'/nft-marketplace'}} legacyBehavior>
+        <Link href={{pathname:'/tourist-nft-marketplace'}} legacyBehavior>
         <a><p>NFT Marketplace</p></a>
         </Link>
       </div>
@@ -27,4 +27,4 @@ const Discover = () => {
   )
 }
 
-export default Discover
+export default SocailDiscover
