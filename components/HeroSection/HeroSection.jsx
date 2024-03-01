@@ -106,23 +106,6 @@ const HeroSection = () => {
               className={Style.heroSection_image_right}
               />
       </div>
-      {/* <div
-      style={{
-        // use the src property of the image object
-        backgroundImage: `url(${backgroundImage.src})`,
-        // other styles
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        width: "100vw",
-        height: "100vh",
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
-    >
-
-    </div> */}
       </div>
     </div>
 

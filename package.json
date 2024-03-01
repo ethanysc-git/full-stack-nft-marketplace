@@ -41,6 +41,7 @@
 				"@testing-library/react": "^13.4.0",
 				"@testing-library/user-event": "^13.5.0",
 				"ethers": "^5.7.2",
+				"express": "^4.18.3",
 				"form-data": "^4.0.0",
 				"formidable": "^2.1.2",
 				"formik": "^2.4.5",
@@ -86,10 +87,10 @@
 				"wagmi": "^1.4.8"
 		},
 		"browser": {
-			"fs": false,
-			"os": false,
-			"path": false
-		  },
+				"fs": false,
+				"os": false,
+				"path": false
+		},
 		"browserslist": {
 				"production": [
 						">0.2%",

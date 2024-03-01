@@ -28,7 +28,7 @@ import { ChainId } from "@biconomy/core-types";
 import { useAccount, useWaitForTransaction } from "wagmi";
 
 const NavBar = () => {
-  const { isConnected } = useAccount();
+  const { address, isConnected } = useAccount();
   const [discover, setDiscover] = useState(false);
   const [help, setHelp] = useState(false);
   const [notification, setNotification] = useState(false);
@@ -41,7 +41,6 @@ const NavBar = () => {
   const [caBalance, setCaBalance] = useState();
   const { connect, disconnect, connectionStatus } = useConnect();
   const {
-    address,
     chainId,
     provider,
     sendTransaction,
@@ -92,7 +91,6 @@ const NavBar = () => {
   const handleConnect = async () => {
     try {
       await connect();
-      await switchChain(ChainId.SEPOLIA);
     } catch (error) {
       console.log(error);
     }
@@ -102,6 +100,7 @@ const NavBar = () => {
     try {
       await disconnect();
       set_UserInfo(null);
+      localStorage.removeItem("caAddress");
     } catch (error) {
       console.log(error);
     }
@@ -155,8 +154,22 @@ const NavBar = () => {
     if (userInfo) {
       set_UserInfo(userInfo);
       fetchBalance();
+      localStorage.setItem("caAddress", caAddress);
+    } else {
+      localStorage.removeItem("caAddress");
+    }
+    if (isConnected) {
+      set_UserInfo(userInfo);
+      fetchBalance();
+      localStorage.setItem("mataAddress", address);
+    }
+    {
+      localStorage.removeItem("mataAddress");
     }
   }, [userInfo, isConnected]);
+
+  // const caAddress = localStorage.getItem("caAddress");
+  // const address = localStorage.getItem("mataAddress");
 
   ////////////////////////
 

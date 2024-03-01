@@ -100,7 +100,7 @@ function MyProfile() {
 
       controlData = [];
 
-      let formData = new FormData();
+      // let formData = new FormData();
       // const controlDataRes = await fetch(
       //   "/api/moralis/useNFTContractTransfers",
       //   {
@@ -113,10 +113,16 @@ function MyProfile() {
       // data = data.filter((d) => d.to_address == caAddress);
       // data.filter((d) => controlData.push(d.token_id));
       //
-      formData = new FormData();
-      formData.append("caAddress", caAddress);
+      // formData = new FormData();
+      var jsonData = {};
+      jsonData["caAddress"] = caAddress;
+      let formData = JSON.stringify(jsonData);
+      //formData.append("caAddress", caAddress);
       const res = await fetch("/api/moralis/useEvmWalletNFTs", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: formData,
       });
       finalData = await res.json();
