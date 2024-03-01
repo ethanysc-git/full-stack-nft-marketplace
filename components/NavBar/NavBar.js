@@ -297,13 +297,25 @@ const NavBar = () => {
           )}
 
           {/* NOTIFICATION */}
-          <div className={Style.navbar_container_right_notify}>
-            <MdNotifications
-              className={Style.notify}
-              onClick={() => openNotification()}
-            />
-            {notification && <Notification _userInfo={_userInfo} />}
-          </div>
+          {/* NOTIFICATION */}
+          {connectionStatus !== "connected" && isConnected && (
+            <div className={Style.navbar_container_right_notify}>
+              <MdNotifications
+                className={Style.notify}
+                onClick={() => openNotification()}
+              />
+              {notification && <Notification _userInfo={_userInfo} />}
+            </div>
+          )}
+          {connectionStatus == "connected" && !isConnected && (
+            <div className={Style.navbar_container_right_notify}>
+              <MdNotifications
+                className={Style.notify}
+                onClick={() => openNotification()}
+              />
+              {notification && <Notification _userInfo={_userInfo} />}
+            </div>
+          )}
         </div>
       </div>
     </div>
