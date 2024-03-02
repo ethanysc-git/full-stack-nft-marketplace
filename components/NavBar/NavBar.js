@@ -166,16 +166,15 @@ const NavBar = () => {
 
   ////////////////////////
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo && !isConnected) {
       set_UserInfo(userInfo);
       fetchBalance();
       localStorage.setItem("caAddress", caAddress);
     } else {
       localStorage.removeItem("caAddress");
     }
-    if (isConnected) {
-      set_UserInfo(userInfo);
-      fetchBalance();
+    if (isConnected && !userInfo) {
+      set_UserInfo(null);
       localStorage.setItem("mataAddress", address);
     }
     {
