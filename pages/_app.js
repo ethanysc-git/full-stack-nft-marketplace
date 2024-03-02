@@ -148,6 +148,7 @@ const MyApp = ({ Component, pageProps }) => (
           subtitle: "Login to App to continue",
           modalWidth: 394,
           modalHeight: 650,
+          zIndex: 1111111,
           primaryBtnBorderRadius: "20px",
           modalBorderRadius: "20px",
           cardBorderRadius: "20px",
