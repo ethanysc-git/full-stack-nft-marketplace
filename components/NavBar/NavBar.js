@@ -30,9 +30,9 @@ import {
 } from "@particle-network/aa";
 import { ParticleNetwork, WalletEntryPosition } from "@particle-network/auth";
 import { ParticleProvider } from "@particle-network/provider";
-import { Ethereum } from "@particle-network/chains";
+import { Ethereum, EthereumSepolia, Polygon } from "@particle-network/chains";
 import { ChainId } from "@biconomy/core-types";
-import { useAccount, useWaitForTransaction } from "wagmi";
+import { sepolia, useAccount, useWaitForTransaction } from "wagmi";
 
 const NavBar = () => {
   const { address, isConnected } = useAccount();
@@ -59,6 +59,14 @@ const NavBar = () => {
   const [loading, setLoading] = useState(false);
 
   const { userInfo } = useAuthCore();
+
+  // const particle = new ParticleNetwork({
+  //   projectId: process.env.NEXT_PUBLIC_REACT_APP_PROJECT_ID,
+  //   clientKey: process.env.NEXT_PUBLIC_REACT_APP_CLIENT_KEY,
+  //   appId: process.env.NEXT_PUBLIC_REACT_APP_APP_ID,
+  //   chainName: Polygon.name,
+  //   chainId: Polygon.id,
+  // });
 
   const smartAccount = new SmartAccount(provider, {
     projectId: process.env.NEXT_PUBLIC_REACT_APP_PROJECT_ID,
@@ -277,6 +285,16 @@ const NavBar = () => {
               </div>
             </>
           )}
+          {/* <div className={Style.navbar_container_right_notify}>
+            <button
+              className={Style.navbar_container_right_social_connect_button}
+              onClick={() => {
+                handleSwitch();
+              }}
+            >
+              handleSwitch
+            </button>
+          </div> */}
 
           {connectionStatus === "connected" && (
             <>

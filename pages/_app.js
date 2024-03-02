@@ -10,7 +10,7 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
 ////////////////
 import { AuthCoreContextProvider } from "@particle-network/auth-core-modal";
-import { Ethereum, EthereumSepolia } from "@particle-network/chains";
+import { Ethereum, EthereumSepolia, Polygon } from "@particle-network/chains";
 
 ////////////////
 require("events").EventEmitter.defaultMaxListeners = 50;
@@ -61,6 +61,10 @@ const MyApp = ({ Component, pageProps }) => (
               {
                 id: EthereumSepolia.id,
                 name: EthereumSepolia.name,
+              },
+              {
+                id: Polygon.id,
+                name: Polygon.name,
               },
             ],
             supportAddToken: true,

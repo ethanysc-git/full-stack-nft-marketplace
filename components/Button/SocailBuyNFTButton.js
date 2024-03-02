@@ -1,3 +1,46 @@
+// import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
+// import Style from "./Button.module.css";
+
+// export default function SocailBuyNFTButton(props) {
+//   const { address, isConnected } = useAccount();
+//   const { config } = usePrepareContractWrite({
+//     address: props.contractAddress,
+//     abi: [
+//       {
+//         name: "buyItem",
+//         type: "function",
+//         stateMutability: "payable",
+//         inputs: [
+//           { internalType: "address", name: "nftAddress", type: "address" },
+//           { internalType: "uint256", name: "tokenId", type: "uint256" },
+//         ],
+//         outputs: [],
+//       },
+//     ],
+//     functionName: "buyItem",
+//     args: [props.nftAddress, props.tokenId],
+//     from: address,
+//     value: props.price,
+//   });
+//   const { write } = useContractWrite(config);
+
+//   return (
+//     <button
+//       onClick={() => async () => {
+//         try {
+//           write({});
+//         } catch (e) {
+//           console.log(e)();
+//           console.log("trouble loading buyItem")();
+//           alert("trouble loading buyItem")();
+//         }
+//       }}
+//       className={Style.button}
+//     >
+//       Buy now
+//     </button>
+//   );
+// }
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import { ethers } from "ethers";
@@ -14,7 +57,7 @@ import {
 import { Ethereum, EthereumSepolia } from "@particle-network/chains";
 import { ChainId } from "@biconomy/core-types";
 
-export default function SocailMintNFTButton(props) {
+export default function SocailBuyNFTButton(props) {
   // const [ipfsURL, setIpfsURL] = useState(null);
   const {
     address,
@@ -69,18 +112,25 @@ export default function SocailMintNFTButton(props) {
 
   async function executeUserOpAndGasNativeByPaymaster() {
     try {
-      const nftAddress = "0x2Bb634109eee5dc71602066f874DA5ABC27be9D8";
-      const ERC721_ABI = require("../erc721Abi.json");
+      const dragonMintMarketplaceAddress =
+        "0x1c92920ca2445C3c29A9CcC551152317219C61A6";
+      const DragonMintMarketplace_ABI = require("../dragonMintMarketplace.json");
       const provider = new ethers.providers.JsonRpcProvider(
         process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL
       );
-      const erc721 = new ethers.Contract(nftAddress, ERC721_ABI, provider);
+      const dragonMintMarketplace = new ethers.Contract(
+        dragonMintMarketplaceAddress,
+        DragonMintMarketplace_ABI,
+        provider
+      );
       const txs = [
         {
-          to: nftAddress,
-          data: erc721.interface.encodeFunctionData("mint", [
-            "ipfs://" + props.cid,
+          to: dragonMintMarketplaceAddress,
+          data: dragonMintMarketplace.interface.encodeFunctionData("buyItem", [
+            props.nftAddress,
+            props.tokenId,
           ]),
+          value: props.price,
         },
       ];
       const feeQuotesResult = await smartAccount.getFeeQuotes(txs);
@@ -112,7 +162,7 @@ export default function SocailMintNFTButton(props) {
         }}
         className={Style.button}
       >
-        Mint
+        Socail Buy
       </button>
     </div>
   );

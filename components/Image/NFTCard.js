@@ -4,6 +4,7 @@ import { useAccount } from "wagmi";
 import { parseEther, formatEther } from "viem";
 import CancelNFTButton from "../Button/CancelNFTButton";
 import BuyNFTButton from "../Button/BuyNFTButton";
+import SocailBuyNFTButton from "../Button/SocailBuyNFTButton";
 import {
   Card,
   CardHeader,
@@ -24,13 +25,26 @@ import {
   ExternalLinkIcon,
   Center,
 } from "@chakra-ui/react";
-//
 import images from "../../img";
 import Style from "../NavBar//NavBar.module.css";
 import { BsCart4 } from "react-icons/bs";
+import {
+  useConnect,
+  useEthereum,
+  useAuthCore,
+} from "@particle-network/auth-core-modal";
 
 export default function NFTCard(props) {
-  const { address, isConnected } = useAccount();
+  const { isConnected } = useAccount();
+  const {
+    address,
+    chainId,
+    provider,
+    sendTransaction,
+    signMessage,
+    signTypedData,
+    switchChain,
+  } = useEthereum();
   const [imageURI, setImageURI] = useState("");
   const [marketplaceUI, setMarketplaceUI] = useState(props.marketplaceUI);
   const [profileUI, setProfileUI] = useState(props.profileUI);
@@ -128,9 +142,19 @@ export default function NFTCard(props) {
                 />
               </div>
             )}
-            {marketplaceUI && (
+            {marketplaceUI && !address && isConnected && (
               <div>
                 <BuyNFTButton
+                  contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
+                  nftAddress={props.nftAddress}
+                  tokenId={props.tokenId}
+                  price={props.price}
+                />
+              </div>
+            )}
+            {marketplaceUI && address && !isConnected && (
+              <div>
+                <SocailBuyNFTButton
                   contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
                   nftAddress={props.nftAddress}
                   tokenId={props.tokenId}

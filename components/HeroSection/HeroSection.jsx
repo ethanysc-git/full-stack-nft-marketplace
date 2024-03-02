@@ -68,12 +68,6 @@ const HeroSection = () => {
               <p>
                   Upload your photo below and mint your own NFT.
               </p>   
-              <p className={Style.heroSection_p}>
-                  Only work on Sepolia TestNet
-              </p>  
-              <p className={Style.heroSection_p}>
-                  Socail Connect then click bottom right button then open testnet and switch to Sepolia TestNet
-              </p>  
               {/* <Button btnName="Upload"/>   */}
               <input
                 type="file"
