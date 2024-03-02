@@ -278,7 +278,7 @@ const NavBar = () => {
                   onClick={handleConnect}
                 >
                   {connectionStatus === "disconnected"
-                    ? "Socail Connect"
+                    ? "Social Connect"
                     : connectionStatus.toUpperCase()}
                 </button>
               </div>
