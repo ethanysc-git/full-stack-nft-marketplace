@@ -162,7 +162,7 @@ export default function SocailBuyNFTButton(props) {
         }}
         className={Style.button}
       >
-        Socail Buy
+        Social Buy
       </button>
     </div>
   );
