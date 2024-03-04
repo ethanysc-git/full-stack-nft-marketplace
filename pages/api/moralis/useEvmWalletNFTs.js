@@ -20,9 +20,9 @@ export default async function handler(req, res) {
       // format: "decimal",
       // mediaItems: true,
       // address: "0x2Bb634109eee5dc71602066f874DA5ABC27be9D8",
-      console.log(req.body);
+      //console.log(req.body);
       let data = req.body;
-      console.log(data);
+      //console.log(data);
       const response = await Moralis.EvmApi.nft.getWalletNFTs({
         chain: "0xaa36a7",
         format: "decimal",
@@ -32,7 +32,7 @@ export default async function handler(req, res) {
 
       // response.raw.result.map((profile, idx) => {});
       allNFTs.push(...response.jsonResponse.result);
-      console.log(allNFTs[0]);
+      //console.log(allNFTs[0]);
       return res.json({ result: allNFTs });
     } catch (e) {
       console.error(e);
@@ -53,7 +53,7 @@ export default async function handler(req, res) {
       });
 
       allNFTs.push(...response.jsonResponse.result);
-      console.log(allNFTs[0]);
+      console.log(allNFTs);
       return res.json({ result: allNFTs });
     } catch (e) {
       console.error(e);

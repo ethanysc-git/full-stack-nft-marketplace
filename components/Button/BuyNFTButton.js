@@ -26,15 +26,8 @@ export default function BuyNFTButton(props) {
 
   return (
     <button
-      onClick={() => async () => {
-        try {
-          write({});
-        } catch (e) {
-          console.log(e)();
-          console.log("trouble loading buyItem")();
-          alert("trouble loading buyItem")();
-        }
-      }}
+      disabled={!write}
+      onClick={() => write({})}
       className={Style.button}
     >
       Buy now
