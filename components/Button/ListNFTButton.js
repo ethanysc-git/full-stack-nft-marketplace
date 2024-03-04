@@ -1,32 +1,34 @@
-import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
 import Style from "./Button.module.css";
+import React, { useState, useEffect, useRef } from "react";
+import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
 
-//   /*
-//    * @notice Method for listing NFT
-//    * @param nftAddress Address of NFT contract
-//    * @param tokenId Token ID of NFT
-//    * @param price sale price for each item
-//    */
-//   function listItem(
-//     address nftAddress,
-//     uint256 tokenId,
-//     uint256 price,
-//     string memory tokenUri
-// ) external notListed(nftAddress, tokenId) isOwner(nftAddress, tokenId, msg.sender) {
-//     if (price <= 0) {
-//         revert PriceMustBeAboveZero();
-//     }
-//     IERC721 nft = IERC721(nftAddress);
-//     if (nft.getApproved(tokenId) != address(this)) {
-//         revert NotApprovedForMarketplace();
-//     }
-//     s_listings[nftAddress][tokenId] = Listing(price, msg.sender);
-//     emit ItemListed(msg.sender, nftAddress, tokenId, price, tokenUri);
-// }
+export default function ListNFTButton(props) {
+  const { config: approveConfig } = usePrepareContractWrite({
+    address: "0x2Bb634109eee5dc71602066f874DA5ABC27be9D8",
 
-export default function BuyNFTButton(props) {
-  const { address, isConnected } = useAccount();
-  const { config } = usePrepareContractWrite({
+    abi: [
+      {
+        name: "approve",
+        type: "function",
+        stateMutability: "nonpayable",
+        inputs: [
+          { internalType: "address", name: "to", type: "address" },
+          { internalType: "uint256", name: "tokenId", type: "uint256" },
+        ],
+        outputs: [],
+      },
+    ],
+    functionName: "approve",
+    args: ["0x1c92920ca2445C3c29A9CcC551152317219C61A6", props.tokenId],
+  });
+
+  const {
+    isLoading: approveIsLoading,
+    isSuccess: approveIsSuccess,
+    write: approveWrite,
+  } = useContractWrite(approveConfig);
+
+  const { config: listItemConfig } = usePrepareContractWrite({
     address: props.contractAddress,
     abi: [
       {
@@ -36,33 +38,26 @@ export default function BuyNFTButton(props) {
         inputs: [
           { internalType: "address", name: "nftAddress", type: "address" },
           { internalType: "uint256", name: "tokenId", type: "uint256" },
-          { internalType: "address", name: "nftAddress", type: "address" },
+          { internalType: "uint256", name: "price", type: "uint256" },
           { internalType: "string", name: "tokenUri", type: "string" },
         ],
         outputs: [],
       },
     ],
-    functionName: "buyItem",
-    args: [props.nftAddress, props.tokenId],
-    from: address,
-    value: props.price,
+    functionName: "listItem",
+    args: [props.nftAddress, props.tokenId, props.price, props.tokenUri],
   });
-  const { write } = useContractWrite(config);
 
+  const { write: listItemWrite } = useContractWrite(listItemConfig);
+
+  useEffect(() => {
+    if (approveIsSuccess) {
+      listItemWrite();
+    }
+  }, [approveIsLoading, approveIsSuccess, listItemWrite]);
   return (
-    <button
-      onClick={() => async () => {
-        try {
-          write({});
-        } catch (e) {
-          console.log(e)();
-          console.log("trouble loading buyItem")();
-          alert("trouble loading buyItem")();
-        }
-      }}
-      className={Style.button}
-    >
-      Buy now
+    <button onClick={() => approveWrite({})} className={Style.button}>
+      {approveIsLoading ? "Loading" : "List Item"}
     </button>
   );
 }

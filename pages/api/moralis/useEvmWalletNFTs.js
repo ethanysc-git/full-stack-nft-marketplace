@@ -4,6 +4,7 @@ let allNFTs = [];
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
+    allNFTs = [];
     try {
       if (!Moralis.Core.isStarted) {
         await Moralis.start({
@@ -38,6 +39,7 @@ export default async function handler(req, res) {
       console.error(e);
     }
   } else if (req.method === "GET") {
+    allNFTs = [];
     try {
       if (!Moralis.Core.isStarted) {
         await Moralis.start({
