@@ -29,7 +29,7 @@ function MyProfile() {
     signTypedData,
     switchChain,
   } = useEthereum();
-  const [userProfiles, setUserProfiles] = useState([]);
+  const [userProfiles, setUserProfiles] = useState(null);
 
   let finalData = {
     data: {
