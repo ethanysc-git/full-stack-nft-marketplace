@@ -80,6 +80,7 @@ const { ethers } = require("ethers");
 
 export default function SocailListNFTButton(props) {
   const [txHash, setTxHash] = useState(null);
+  const [approveIsSuccess, setApproveIsSuccess] = useState(false);
   const {
     address,
     chainId,
@@ -219,10 +220,15 @@ export default function SocailListNFTButton(props) {
 
       contract.on("Approval", (owner, approved, tokenId) => {
         console.log(`event Approval(${owner}, ${approved}, ${tokenId}`);
-        executeUserOpAndGasNativeByPaymaster();
+        setApproveIsSuccess(true);
       });
     }
   }, [txHash]);
+  useEffect(() => {
+    if (approveIsSuccess) {
+      executeUserOpAndGasNativeByPaymaster();
+    }
+  }, [approveIsSuccess]);
   return (
     <div>
       <button
