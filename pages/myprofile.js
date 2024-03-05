@@ -12,7 +12,7 @@ import {
   SmartAccount,
 } from "@particle-network/aa";
 import { ChainId } from "@biconomy/core-types";
-import ProfileNFTCard from "../components/Image/ProfileNFTCard";
+import SocialProfileNFTCard from "../components/Image/SocialProfileNFTCard";
 import { Wrap, WrapItem, Center } from "@chakra-ui/react";
 
 function MyProfile() {
@@ -132,7 +132,7 @@ function MyProfile() {
                   <Center>
                     <WrapItem>
                       <Center>
-                        <ProfileNFTCard
+                        <SocialProfileNFTCard
                           cid={cid}
                           tokenId={profile.token_id}
                           nftAddress="0x2bb634109eee5dc71602066f874da5abc27be9d8"

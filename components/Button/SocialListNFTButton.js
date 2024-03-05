@@ -64,7 +64,6 @@
 //
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useContext, useMemo } from "react";
-import { ethers } from "ethers";
 import {
   useConnect,
   useEthereum,
@@ -77,8 +76,10 @@ import {
 } from "@particle-network/aa";
 import { Ethereum, EthereumSepolia } from "@particle-network/chains";
 import { ChainId } from "@biconomy/core-types";
+const { ethers } = require("ethers");
 
 export default function SocailListNFTButton(props) {
+  const [txHash, setTxHash] = useState(null);
   const {
     address,
     chainId,
@@ -88,6 +89,10 @@ export default function SocailListNFTButton(props) {
     signTypedData,
     switchChain,
   } = useEthereum();
+
+  const alchemyProvider = new ethers.providers.JsonRpcProvider(
+    process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL
+  );
 
   async function handleSwitch() {
     try {
@@ -149,6 +154,7 @@ export default function SocailListNFTButton(props) {
         userOpHash: gaslessUserOpHash,
       });
       console.log("Transaction hash: ", txHash);
+      setTxHash(txHash);
     } catch (error) {
       console.log(error);
     }
@@ -196,15 +202,33 @@ export default function SocailListNFTButton(props) {
       console.log(error);
     }
   }
+  useEffect(() => {
+    if (txHash) {
+      // const ERC721_ABI = require("../erc721Abi.json");
+      const abi = [
+        "event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId)",
+      ];
 
+      const contractAddress = "0x2Bb634109eee5dc71602066f874DA5ABC27be9D8";
+
+      const contract = new ethers.Contract(
+        contractAddress,
+        abi,
+        alchemyProvider
+      );
+
+      contract.on("Approval", (owner, approved, tokenId) => {
+        console.log(`event Approval(${owner}, ${approved}, ${tokenId}`);
+        executeUserOpAndGasNativeByPaymaster();
+      });
+    }
+  }, [txHash]);
   return (
     <div>
       <button
-        disabled={!executeUserOpAndGasNativeByPaymaster}
         onClick={async () => {
           await handleSwitch();
           await executeUserOpAndGasNativeByPaymasterApprove();
-          await executeUserOpAndGasNativeByPaymaster();
         }}
         className={Style.button}
       >
