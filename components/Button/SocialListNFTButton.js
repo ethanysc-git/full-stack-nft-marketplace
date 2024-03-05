@@ -81,6 +81,7 @@ const { ethers } = require("ethers");
 export default function SocailListNFTButton(props) {
   const [txHash, setTxHash] = useState(null);
   const [approveIsSuccess, setApproveIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const {
     address,
     chainId,
@@ -100,6 +101,7 @@ export default function SocailListNFTButton(props) {
       switchChain(EthereumSepolia.id);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   }
 
@@ -158,6 +160,7 @@ export default function SocailListNFTButton(props) {
       setTxHash(txHash);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   }
 
@@ -201,6 +204,7 @@ export default function SocailListNFTButton(props) {
       console.log("Transaction hash: ", txHash);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   }
   useEffect(() => {
@@ -227,18 +231,20 @@ export default function SocailListNFTButton(props) {
   useEffect(() => {
     if (approveIsSuccess) {
       executeUserOpAndGasNativeByPaymaster();
+      setIsLoading(false);
     }
   }, [approveIsSuccess]);
   return (
     <div>
       <button
         onClick={async () => {
+          setIsLoading(true);
           await handleSwitch();
           await executeUserOpAndGasNativeByPaymasterApprove();
         }}
         className={Style.button}
       >
-        Social List
+        {isLoading ? "Loading" : "Social List"}
       </button>
     </div>
   );
