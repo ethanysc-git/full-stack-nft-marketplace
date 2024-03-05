@@ -12,7 +12,7 @@ import {
   SmartAccount,
 } from "@particle-network/aa";
 import { ChainId } from "@biconomy/core-types";
-import SocailNFTBox from "../components/Image/SocailNFTBox";
+import ProfileNFTCard from "../components/Image/ProfileNFTCard";
 import { Wrap, WrapItem, Center } from "@chakra-ui/react";
 
 function MyProfile() {
@@ -31,21 +31,11 @@ function MyProfile() {
   } = useEthereum();
   const [userProfiles, setUserProfiles] = useState([]);
 
-  let data = {
-    data: {
-      itemActives: [],
-    },
-  };
   let finalData = {
     data: {
       itemActives: [],
     },
   };
-
-  let controlData = [];
-
-  const originProfiles = useRef();
-  originProfiles.current = data;
 
   const smartAccount = new SmartAccount(provider, {
     projectId: process.env.NEXT_PUBLIC_REACT_APP_PROJECT_ID,
@@ -73,84 +63,54 @@ function MyProfile() {
     "any"
   );
 
-  const fetchBalance = async () => {
+  const fetchData = async () => {
+    finalData = {
+      data: {
+        itemActives: [],
+      },
+    };
     const caAddress = await smartAccount.getAddress();
     const eoaAddress = await smartAccount.getOwner();
     const balance = await customProvider.getBalance(caAddress);
     setCaBalance(ethers.utils.formatEther(balance));
     setCaAddress(caAddress);
     setEoaAddress(eoaAddress);
+
+    var jsonData = {};
+    jsonData["caAddress"] = caAddress;
+    let formData = JSON.stringify(jsonData);
+    const res = await fetch("/api/moralis/useEvmWalletNFTs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: formData,
+    });
+    finalData = await res.json();
+    finalData = finalData.result;
+
+    finalData = finalData.filter(
+      (d) => d.token_address == "0x2bb634109eee5dc71602066f874da5abc27be9d8"
+    );
+    let resMap = new Map();
+    finalData = finalData.filter((d) => resMap.set(d.token_id, d.token_uri));
+    finalData = {
+      data: {
+        itemActives: [],
+      },
+    };
+    finalData = Array.from(resMap, ([token_id, token_uri]) => ({
+      token_id,
+      token_uri,
+    }));
+    setUserProfiles(finalData);
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      let caAddress = await smartAccount.getAddress();
-      caAddress = caAddress.toLowerCase();
-      data = {
-        data: {
-          itemActives: [],
-        },
-      };
-
-      finalData = {
-        data: {
-          itemActives: [],
-        },
-      };
-
-      controlData = [];
-
-      // let formData = new FormData();
-      // const controlDataRes = await fetch(
-      //   "/api/moralis/useNFTContractTransfers",
-      //   {
-      //     method: "POST",
-      //     body: formData,
-      //   }
-      // );
-      // data = await controlDataRes.json();
-      // data = data.result;
-      // data = data.filter((d) => d.to_address == caAddress);
-      // data.filter((d) => controlData.push(d.token_id));
-      //
-      // formData = new FormData();
-      var jsonData = {};
-      jsonData["caAddress"] = caAddress;
-      let formData = JSON.stringify(jsonData);
-      //formData.append("caAddress", caAddress);
-      const res = await fetch("/api/moralis/useEvmWalletNFTs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: formData,
-      });
-      finalData = await res.json();
-      finalData = finalData.result;
-
-      finalData = finalData.filter(
-        (d) => d.token_address == "0x2bb634109eee5dc71602066f874da5abc27be9d8"
-      );
-      let resMap = new Map();
-      finalData = finalData.filter((d) =>
-        resMap.set(d.token_id, d.media.original_media_url)
-      );
-      finalData = {
-        data: {
-          itemActives: [],
-        },
-      };
-      finalData = Array.from(resMap, ([token_id, original_media_url]) => ({
-        token_id,
-        original_media_url,
-      }));
-      setUserProfiles(finalData);
-    };
-    if (connect) {
-      fetchBalance();
+    if (address) {
       fetchData();
     }
-  }, [connect]);
+  }, [address]);
   return (
     <div>
       <div className={Style.heroSection}>
@@ -159,15 +119,25 @@ function MyProfile() {
         {caAddress && <div>{`CA : ${caAddress}`}</div>}
         <Wrap>
           {!userProfiles ? (
-            <div></div>
+            <div>Loading...</div>
           ) : (
             userProfiles.map((profile, index) => {
+              let cid = profile.token_uri;
+              cid = cid.replace(
+                "https://ipfs.moralis.io:2053/ipfs/",
+                "ipfs://"
+              );
               return (
                 <div key={index}>
                   <Center>
                     <WrapItem>
                       <Center>
-                        <SocailNFTBox cid={profile.original_media_url} />
+                        <ProfileNFTCard
+                          cid={cid}
+                          tokenId={profile.token_id}
+                          nftAddress="0x2bb634109eee5dc71602066f874da5abc27be9d8"
+                          crptoGeek={true}
+                        />
                       </Center>
                     </WrapItem>
                   </Center>
