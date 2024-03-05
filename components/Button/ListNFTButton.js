@@ -1,8 +1,15 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
 import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
+const { ethers } = require("ethers");
 
 export default function ListNFTButton(props) {
+  const [txHash, setTxHash] = useState(false);
+
+  const alchemyProvider = new ethers.providers.JsonRpcProvider(
+    process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL
+  );
+
   const { config: approveConfig } = usePrepareContractWrite({
     address: "0x2Bb634109eee5dc71602066f874DA5ABC27be9D8",
 
@@ -25,7 +32,7 @@ export default function ListNFTButton(props) {
   const {
     isLoading: approveIsLoading,
     isSuccess: approveIsSuccess,
-    write: approveWrite,
+    writeAsync: approveWrite,
   } = useContractWrite(approveConfig);
 
   const { config: listItemConfig } = usePrepareContractWrite({
@@ -52,9 +59,29 @@ export default function ListNFTButton(props) {
 
   useEffect(() => {
     if (approveIsSuccess) {
+      const abi = [
+        "event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId)",
+      ];
+
+      const contractAddress = "0x2Bb634109eee5dc71602066f874DA5ABC27be9D8";
+
+      const contract = new ethers.Contract(
+        contractAddress,
+        abi,
+        alchemyProvider
+      );
+
+      contract.on("Approval", (owner, approved, tokenId) => {
+        console.log(`event Approval(${owner}, ${approved}, ${tokenId}`);
+        setTxHash(true);
+      });
+    }
+  }, [approveIsLoading, approveIsSuccess]);
+  useEffect(() => {
+    if (txHash) {
       listItemWrite();
     }
-  }, [approveIsLoading, approveIsSuccess, listItemWrite]);
+  }, [txHash]);
   return (
     <button onClick={() => approveWrite({})} className={Style.button}>
       {approveIsLoading ? "Loading" : "List Item"}
