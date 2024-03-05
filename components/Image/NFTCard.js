@@ -4,7 +4,7 @@ import { useAccount } from "wagmi";
 import { parseEther, formatEther } from "viem";
 import CancelNFTButton from "../Button/CancelNFTButton";
 import BuyNFTButton from "../Button/BuyNFTButton";
-import SocailBuyNFTButton from "../Button/SocailBuyNFTButton";
+import SocialBuyNFTButton from "../Button/SocialBuyNFTButton";
 import {
   Card,
   CardHeader,
@@ -154,7 +154,7 @@ export default function NFTCard(props) {
             )}
             {marketplaceUI && address && !isConnected && (
               <div>
-                <SocailBuyNFTButton
+                <SocialBuyNFTButton
                   contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
                   nftAddress={props.nftAddress}
                   tokenId={props.tokenId}
@@ -162,23 +162,14 @@ export default function NFTCard(props) {
                 />
               </div>
             )}
-            {marketplaceUI && (
+            {/* {marketplaceUI && (
               <Button
                 className={Style.navbar_container_right_button}
                 onClick={() => alert("addCartModalOpen")}
               >
                 <BsCart4 />
               </Button>
-              // <Image
-              //   priority
-              //   src={images.shoppingcart}
-              //   alt="Shopping Cart"
-              //   width={60}
-              //   height={60}
-              //   onClick={() => openCart()}
-              //   className={Style.navbar_container_right_profile}
-              // />
-            )}
+            )} */}
           </ButtonGroup>
         </CardFooter>
       </Card>

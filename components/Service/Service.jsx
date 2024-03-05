@@ -12,8 +12,8 @@ const Service = () => {
             <Image
              src={images.uploadfolder} 
              alt='Filter and Discover'
-             width={100}
-             height={100}
+             width={120}
+             height={120}
              />
              <p className={Style.service_box_item_step}>
                 <span> Step 1</span>
@@ -25,10 +25,10 @@ const Service = () => {
         </div>
         <div className={Style.service_box_item}>
             <Image
-             src={images.service2} 
+             src={images.connectingwallet} 
              alt='Connect Wallet'
-             width={100}
-             height={100}
+             width={120}
+             height={120}
              />
              <p className={Style.service_box_item_step}>
                 <span> Step 2</span>
@@ -41,10 +41,10 @@ const Service = () => {
         
         <div className={Style.service_box_item}>
             <Image
-             src={images.service4} 
+             src={images.nftcollection} 
              alt='Start Minting'
-             width={100}
-             height={100}
+             width={120}
+             height={120}
              /> 
              <p className={Style.service_box_item_step}>
                 <span> Step 3</span>

@@ -18,10 +18,14 @@ import vector from "./VectorHIW.svg";
 import zgcmq from "./zgcmq.svg";
 import hero from "./hero.png";
 import lightbluespray from "./light blue spray.png";
+import connectingwallet from "./connectingwallet.png";
+import nftcollection from "./nftcollection.png";
 
 export default {
   hero,
   lightbluespray,
+  connectingwallet,
+  nftcollection,
   creatorbackground,
   dragonsvg,
   profile,

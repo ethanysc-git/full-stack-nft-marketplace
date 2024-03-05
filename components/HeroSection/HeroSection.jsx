@@ -5,7 +5,7 @@ import { NFTBox } from '../componentindex'
 import images from "../../img"
 import { useState, useRef } from "react";
 import MintNFTButton from '../Button/MintNFTButton'
-import SocailMintNFTButton from '../Button/SocailMintNFTButton'
+import SocialMintNFTButton from '../Button/SocialMintNFTButton'
 import { useAccount, useWaitForTransaction } from "wagmi";
 import {
   useConnect,
@@ -84,7 +84,7 @@ const HeroSection = () => {
                 </button>
                 {cid && <NFTBox cid={cid} />}
                     {cid && !uploading && connectionStatus === "connected" && (
-                      <SocailMintNFTButton
+                      <SocialMintNFTButton
                       cid={cid}
                       contractAddress="0x2Bb634109eee5dc71602066f874DA5ABC27be9D8"
                     />
