@@ -7,12 +7,9 @@ import { configureChains, createConfig, sepolia, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
-
-////////////////
 import { AuthCoreContextProvider } from "@particle-network/auth-core-modal";
 import { Ethereum, EthereumSepolia, Polygon } from "@particle-network/chains";
 
-////////////////
 require("events").EventEmitter.defaultMaxListeners = 50;
 
 const { chains, publicClient } = configureChains(
