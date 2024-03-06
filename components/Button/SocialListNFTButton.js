@@ -76,6 +76,8 @@ import {
 } from "@particle-network/aa";
 import { Ethereum, EthereumSepolia } from "@particle-network/chains";
 import { ChainId } from "@biconomy/core-types";
+import images from "../../img";
+import Image from "next/image";
 const { ethers } = require("ethers");
 
 export default function SocialListNFTButton(props) {
@@ -236,7 +238,16 @@ export default function SocialListNFTButton(props) {
   }, [approveIsSuccess]);
   return (
     <div>
+      {isLoading && (
+        <Image
+          src={images.snailloading}
+          alt="Loading logo"
+          width={80}
+          height={80}
+        />
+      )}
       <button
+        disabled={isLoading}
         onClick={async () => {
           setIsLoading(true);
           await handleSwitch();
@@ -244,7 +255,7 @@ export default function SocialListNFTButton(props) {
         }}
         className={Style.button}
       >
-        {isLoading ? "Loading" : "Social List"}
+        {isLoading ? "Loading" : "List Item"}
       </button>
     </div>
   );

@@ -44,8 +44,11 @@ import {
 } from "@particle-network/aa";
 import { Ethereum, EthereumSepolia } from "@particle-network/chains";
 import { ChainId } from "@biconomy/core-types";
+import images from "../../img";
+import Image from "next/image";
 
 export default function SocialCancelNFTButton(props) {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     address,
     chainId,
@@ -61,6 +64,7 @@ export default function SocialCancelNFTButton(props) {
       switchChain(EthereumSepolia.id);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   }
 
@@ -123,20 +127,31 @@ export default function SocialCancelNFTButton(props) {
       console.log("Transaction hash: ", txHash);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   }
 
   return (
     <div>
+      {isLoading && (
+        <Image
+          src={images.snailloading}
+          alt="Loading logo"
+          width={80}
+          height={80}
+        />
+      )}
       <button
-        disabled={!executeUserOpAndGasNativeByPaymaster}
+        disabled={isLoading}
         onClick={async () => {
+          setIsLoading(true);
           await handleSwitch();
           await executeUserOpAndGasNativeByPaymaster();
+          setIsLoading(false);
         }}
         className={Style.button}
       >
-        Social Cancel
+        {isLoading ? "Loading" : "Cancel"}
       </button>
     </div>
   );

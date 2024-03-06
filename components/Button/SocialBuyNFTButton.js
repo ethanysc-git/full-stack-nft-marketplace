@@ -56,9 +56,11 @@ import {
 } from "@particle-network/aa";
 import { Ethereum, EthereumSepolia } from "@particle-network/chains";
 import { ChainId } from "@biconomy/core-types";
+import images from "../../img";
+import Image from "next/image";
 
 export default function SocialBuyNFTButton(props) {
-  // const [ipfsURL, setIpfsURL] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const {
     address,
     chainId,
@@ -71,21 +73,10 @@ export default function SocialBuyNFTButton(props) {
 
   async function handleSwitch() {
     try {
-      // particle.setChainInfo({
-      //   name: Polygon.name,
-      //   id: Polygon.id,
-      // });
-      // await particle.switchChain(
-      //   {
-      //     name: Polygon.name,
-      //     id: Polygon.id,
-      //   },
-      //   false
-      // );
-      // switchChain(Polygon.id);
       switchChain(EthereumSepolia.id);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   }
 
@@ -149,20 +140,31 @@ export default function SocialBuyNFTButton(props) {
       console.log("Transaction hash: ", txHash);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   }
 
   return (
     <div>
+      {isLoading && (
+        <Image
+          src={images.snailloading}
+          alt="Loading logo"
+          width={80}
+          height={80}
+        />
+      )}
       <button
-        disabled={!executeUserOpAndGasNativeByPaymaster}
+        disabled={isLoading}
         onClick={async () => {
+          setIsLoading(true);
           await handleSwitch();
           await executeUserOpAndGasNativeByPaymaster();
+          setIsLoading(false);
         }}
         className={Style.button}
       >
-        Social Buy
+        {isLoading ? "Loading" : "Buy Now"}
       </button>
     </div>
   );

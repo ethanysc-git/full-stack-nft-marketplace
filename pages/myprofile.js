@@ -19,7 +19,6 @@ function MyProfile() {
   const [caAddress, setCaAddress] = useState(null);
   const [eoaAddress, setEoaAddress] = useState(null);
   const [caBalance, setCaBalance] = useState();
-  const { connect, disconnect, connectionStatus } = useConnect();
   const {
     address,
     chainId,
@@ -29,7 +28,7 @@ function MyProfile() {
     signTypedData,
     switchChain,
   } = useEthereum();
-  const [userProfiles, setUserProfiles] = useState(null);
+  const [userProfiles, setUserProfiles] = useState([]);
 
   let finalData = {
     data: {
@@ -108,7 +107,9 @@ function MyProfile() {
 
   useEffect(() => {
     if (address) {
-      fetchData();
+      fetchData().catch((err) => {
+        console.log("error:", err.message);
+      });
     }
   }, [address]);
   return (
@@ -118,7 +119,7 @@ function MyProfile() {
         {eoaAddress && <div>{`EOA : ${eoaAddress}`}</div>}
         {caAddress && <div>{`CA : ${caAddress}`}</div>}
         <Wrap>
-          {!userProfiles ? (
+          {userProfiles.length == 0 ? (
             <div>Loading...</div>
           ) : (
             userProfiles.map((profile, index) => {

@@ -1,47 +1,3 @@
-// import * as React from "react";
-// import { usePrepareContractWrite, useContractWrite } from "wagmi";
-// import Style from "./Button.module.css";
-
-// export default function CreateNFTForm(props) {
-//   const { config } = usePrepareContractWrite({
-//     address: props.contractAddress,
-//     abi: [
-//       {
-//         name: "createUnitNft",
-//         type: "function",
-//         stateMutability: "nonpayable",
-//         inputs: [
-//           { internalType: "string", name: "_tokenName", type: "string" },
-//           { internalType: "string", name: "_tokenSymbol", type: "string" },
-//           {
-//             internalType: "uint256",
-//             name: "_tokenTotalSupply",
-//             type: "uint256",
-//           },
-//         ],
-//         outputs: [],
-//       },
-//     ],
-//     functionName: "createUnitNft",
-//     args: [
-//       props.collectionNameInput,
-//       props.collectionSymbolInput,
-//       props.collectionTotalSupplyInput,
-//     ],
-//   });
-//   const { write } = useContractWrite(config);
-//   return (
-//     <div>
-//       <button
-//         disabled={!write}
-//         onClick={() => write({})}
-//         className={Style.button}
-//       >
-//         Create
-//       </button>
-//     </div>
-//   );
-// }
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import {
@@ -56,6 +12,8 @@ import {
 } from "@particle-network/aa";
 import { Ethereum, EthereumSepolia } from "@particle-network/chains";
 import { ChainId } from "@biconomy/core-types";
+import images from "../../img";
+import Image from "next/image";
 const { ethers } = require("ethers");
 
 export default function SocialCreateNFTButton(props) {
@@ -142,7 +100,16 @@ export default function SocialCreateNFTButton(props) {
 
   return (
     <div>
+      {isLoading && (
+        <Image
+          src={images.snailloading}
+          alt="Loading logo"
+          width={80}
+          height={80}
+        />
+      )}
       <button
+        disabled={isLoading}
         onClick={async () => {
           setIsLoading(true);
           await handleSwitch();
@@ -151,7 +118,7 @@ export default function SocialCreateNFTButton(props) {
         }}
         className={Style.button}
       >
-        {isLoading ? "Loading" : "Social Create"}
+        {isLoading ? "Loading" : "Create"}
       </button>
     </div>
   );
