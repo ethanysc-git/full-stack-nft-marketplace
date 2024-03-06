@@ -1,15 +1,15 @@
 // import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
 // import Style from "./Button.module.css";
 
-// export default function SocailBuyNFTButton(props) {
+// export default function CancelNFTButton(props) {
 //   const { address, isConnected } = useAccount();
 //   const { config } = usePrepareContractWrite({
 //     address: props.contractAddress,
 //     abi: [
 //       {
-//         name: "buyItem",
+//         name: "cancelListing",
 //         type: "function",
-//         stateMutability: "payable",
+//         stateMutability: "nonpayable",
 //         inputs: [
 //           { internalType: "address", name: "nftAddress", type: "address" },
 //           { internalType: "uint256", name: "tokenId", type: "uint256" },
@@ -17,30 +17,18 @@
 //         outputs: [],
 //       },
 //     ],
-//     functionName: "buyItem",
+//     functionName: "cancelListing",
 //     args: [props.nftAddress, props.tokenId],
-//     from: address,
-//     value: props.price,
 //   });
 //   const { write } = useContractWrite(config);
 
 //   return (
-//     <button
-//       onClick={() => async () => {
-//         try {
-//           write({});
-//         } catch (e) {
-//           console.log(e)();
-//           console.log("trouble loading buyItem")();
-//           alert("trouble loading buyItem")();
-//         }
-//       }}
-//       className={Style.button}
-//     >
-//       Buy now
+//     <button onClick={() => write({})} className={Style.button}>
+//       Cancel Listing
 //     </button>
 //   );
 // }
+//
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import { ethers } from "ethers";
@@ -57,8 +45,7 @@ import {
 import { Ethereum, EthereumSepolia } from "@particle-network/chains";
 import { ChainId } from "@biconomy/core-types";
 
-export default function SocialBuyNFTButton(props) {
-  // const [ipfsURL, setIpfsURL] = useState(null);
+export default function SocialCancelNFTButton(props) {
   const {
     address,
     chainId,
@@ -71,18 +58,6 @@ export default function SocialBuyNFTButton(props) {
 
   async function handleSwitch() {
     try {
-      // particle.setChainInfo({
-      //   name: Polygon.name,
-      //   id: Polygon.id,
-      // });
-      // await particle.switchChain(
-      //   {
-      //     name: Polygon.name,
-      //     id: Polygon.id,
-      //   },
-      //   false
-      // );
-      // switchChain(Polygon.id);
       switchChain(EthereumSepolia.id);
     } catch (error) {
       console.log(error);
@@ -126,11 +101,10 @@ export default function SocialBuyNFTButton(props) {
       const txs = [
         {
           to: dragonMintMarketplaceAddress,
-          data: dragonMintMarketplace.interface.encodeFunctionData("buyItem", [
-            props.nftAddress,
-            props.tokenId,
-          ]),
-          value: props.price,
+          data: dragonMintMarketplace.interface.encodeFunctionData(
+            "cancelListing",
+            [props.nftAddress, props.tokenId]
+          ),
         },
       ];
       const feeQuotesResult = await smartAccount.getFeeQuotes(txs);
@@ -162,7 +136,7 @@ export default function SocialBuyNFTButton(props) {
         }}
         className={Style.button}
       >
-        Social Buy
+        Social Cancel
       </button>
     </div>
   );

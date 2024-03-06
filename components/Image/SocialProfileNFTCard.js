@@ -29,6 +29,7 @@ import {
   useAuthCore,
 } from "@particle-network/auth-core-modal";
 import SocialListNFTButton from "../Button/SocialListNFTButton";
+import SocialCancelNFTButton from "../Button/SocialCancelNFTButton";
 
 export default function SocialProfileNFTCard(props) {
   const { connect, disconnect, connectionStatus } = useConnect();
@@ -95,7 +96,7 @@ export default function SocialProfileNFTCard(props) {
         </CardBody>
         <Divider />
         <CardFooter>
-          <ButtonGroup spacing="1">
+          <ButtonGroup spacing="2">
             {connectionStatus === "connected" && (
               <SocialListNFTButton
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
@@ -103,6 +104,13 @@ export default function SocialProfileNFTCard(props) {
                 tokenId={props.tokenId}
                 tokenUri={props.cid}
                 price={10000000000}
+              />
+            )}
+            {connectionStatus === "connected" && (
+              <SocialCancelNFTButton
+                contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
+                nftAddress={props.nftAddress}
+                tokenId={props.tokenId}
               />
             )}
           </ButtonGroup>

@@ -14,7 +14,7 @@ import {
 import { Ethereum, EthereumSepolia } from "@particle-network/chains";
 import { ChainId } from "@biconomy/core-types";
 
-export default function SocailMintNFTButton(props) {
+export default function SocialMintNFTButton(props) {
   // const [ipfsURL, setIpfsURL] = useState(null);
   const {
     address,

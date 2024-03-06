@@ -78,7 +78,7 @@ import { Ethereum, EthereumSepolia } from "@particle-network/chains";
 import { ChainId } from "@biconomy/core-types";
 const { ethers } = require("ethers");
 
-export default function SocailListNFTButton(props) {
+export default function SocialListNFTButton(props) {
   const [txHash, setTxHash] = useState(null);
   const [approveIsSuccess, setApproveIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
