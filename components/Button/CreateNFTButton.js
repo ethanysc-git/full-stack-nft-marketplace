@@ -1,8 +1,10 @@
-import * as React from "react";
-import { usePrepareContractWrite, useContractWrite } from "wagmi";
 import Style from "./Button.module.css";
+import React, { useState, useEffect, useRef } from "react";
+import { usePrepareContractWrite, useContractWrite } from "wagmi";
+const { ethers } = require("ethers");
 
 export default function CreateNFTForm(props) {
+  const [isLoading, setIsLoading] = useState(false);
   const { config } = usePrepareContractWrite({
     address: props.contractAddress,
     abi: [
@@ -29,15 +31,30 @@ export default function CreateNFTForm(props) {
       props.collectionTotalSupplyInput,
     ],
   });
-  const { write } = useContractWrite(config);
+
+  const { writeAsync: createUnitNftWrite } = useContractWrite(config);
+
+  async function handleCreateUnitNftWrite() {
+    try {
+      const res = await createUnitNftWrite();
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  }
+
   return (
     <div>
       <button
-        disabled={!write}
-        onClick={() => write({})}
+        disabled={isLoading}
+        onClick={async () => {
+          setIsLoading(true);
+          await handleCreateUnitNftWrite();
+          setIsLoading(false);
+        }}
         className={Style.button}
       >
-        Create
+        {isLoading ? "Loading" : "Create"}
       </button>
     </div>
   );

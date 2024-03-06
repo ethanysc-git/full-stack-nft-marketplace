@@ -1,3 +1,4 @@
+import Style from "./NavBar.module.css";
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
@@ -6,7 +7,6 @@ import { MdNotifications } from "react-icons/md";
 import { MdOutlineLogin } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
 import { FaUserFriends } from "react-icons/fa";
-import Style from "./NavBar.module.css";
 import {
   TouristDiscover,
   SocailDiscover,
@@ -17,7 +17,6 @@ import {
 } from "./index";
 import { Button } from "../componentindex";
 import images from "../../img";
-////////////////////////////
 import { ethers } from "ethers";
 import {
   useConnect,
@@ -41,8 +40,6 @@ const NavBar = () => {
   const [help, setHelp] = useState(false);
   const [notification, setNotification] = useState(false);
   const [profile, setProfile] = useState(false);
-
-  ////////////////////
   const [_userInfo, set_UserInfo] = useState(null);
   const [caAddress, setCaAddress] = useState(null);
   const [eoaAddress, setEoaAddress] = useState(null);
@@ -60,14 +57,6 @@ const NavBar = () => {
   const [loading, setLoading] = useState(false);
 
   const { userInfo } = useAuthCore();
-
-  // const particle = new ParticleNetwork({
-  //   projectId: process.env.NEXT_PUBLIC_REACT_APP_PROJECT_ID,
-  //   clientKey: process.env.NEXT_PUBLIC_REACT_APP_CLIENT_KEY,
-  //   appId: process.env.NEXT_PUBLIC_REACT_APP_APP_ID,
-  //   chainName: Polygon.name,
-  //   chainId: Polygon.id,
-  // });
 
   const smartAccount = new SmartAccount(provider, {
     projectId: process.env.NEXT_PUBLIC_REACT_APP_PROJECT_ID,
@@ -122,8 +111,6 @@ const NavBar = () => {
     }
   };
 
-  ////////////////////
-
   const openMenu = (e) => {
     const btnText = e.target.innerText;
     if (btnText == "Discover") {
@@ -165,7 +152,6 @@ const NavBar = () => {
     }
   };
 
-  ////////////////////////
   useEffect(() => {
     if (userInfo && !isConnected) {
       set_UserInfo(userInfo);
@@ -183,24 +169,19 @@ const NavBar = () => {
     }
   }, [userInfo, isConnected]);
 
-  // const caAddress = localStorage.getItem("caAddress");
-  // const address = localStorage.getItem("mataAddress");
-
-  ////////////////////////
-
   return (
     <div className={Style.navbar}>
       <div className={Style.navbar_container}>
         <div className={Style.navbar_container_left}>
-          <div className={Style.logo}>
-            <a href="/" target="_self" rel="noreferrer noopenner">
+          <div className={Style.logo_icon}>
+            <Link href="/" legacyBehavior>
               <Image
                 src={images.hero}
                 alt="NFT MARKET PLACE LOGO"
                 width={120}
                 height={120}
               />
-            </a>
+            </Link>
           </div>
           {/* <div className={Style.navbar_container_left_box_input}>
             <div className={Style.navbar_container_left_box_input_box}>
@@ -286,16 +267,6 @@ const NavBar = () => {
               </div>
             </>
           )}
-          {/* <div className={Style.navbar_container_right_notify}>
-            <button
-              className={Style.navbar_container_right_social_connect_button}
-              onClick={() => {
-                handleSwitch();
-              }}
-            >
-              handleSwitch
-            </button>
-          </div> */}
 
           {connectionStatus === "connected" && (
             <>
@@ -322,7 +293,6 @@ const NavBar = () => {
             </div>
           )}
 
-          {/* NOTIFICATION */}
           {/* NOTIFICATION */}
           {connectionStatus !== "connected" && isConnected && (
             <div className={Style.navbar_container_right_notify}>

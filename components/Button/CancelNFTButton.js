@@ -1,8 +1,10 @@
-import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
 import Style from "./Button.module.css";
+import React, { useState, useEffect, useRef } from "react";
+import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
+const { ethers } = require("ethers");
 
 export default function CancelNFTButton(props) {
-  const { address, isConnected } = useAccount();
+  const [isLoading, setIsLoading] = useState(false);
   const { config } = usePrepareContractWrite({
     address: props.contractAddress,
     abi: [
@@ -20,11 +22,28 @@ export default function CancelNFTButton(props) {
     functionName: "cancelListing",
     args: [props.nftAddress, props.tokenId],
   });
-  const { write } = useContractWrite(config);
+  const { writeAsync: cancelListingWrite } = useContractWrite(config);
+
+  async function handleCancelListing() {
+    try {
+      const res = await cancelListingWrite();
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  }
 
   return (
-    <button onClick={() => write({})} className={Style.button}>
-      Cancel Listing
+    <button
+      disabled={isLoading}
+      onClick={async () => {
+        setIsLoading(true);
+        await handleCancelListing();
+        setIsLoading(false);
+      }}
+      className={Style.button}
+    >
+      {isLoading ? "Loading" : "Cancel Listing"}
     </button>
   );
 }

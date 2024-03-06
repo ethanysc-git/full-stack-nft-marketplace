@@ -1,29 +1,10 @@
-// /*
-//  * @notice Method for updating listing
-//  * @param nftAddress Address of NFT contract
-//  * @param tokenId Token ID of NFT
-//  * @param newPrice Price in Wei of the item
-//  */
-// function updateListing(
-//     address nftAddress,
-//     uint256 tokenId,
-//     uint256 newPrice,
-//     string memory tokenUri
-// ) external isListed(nftAddress, tokenId) nonReentrant isOwner(nftAddress, tokenId, msg.sender) {
-//     if (newPrice <= 0) {
-//         revert PriceMustBeAboveZero();
-//     }
-//     s_listings[nftAddress][tokenId].price = newPrice;
-//     emit ItemListed(msg.sender, nftAddress, tokenId, newPrice, tokenUri);
-// }
-
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
-import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
+import { usePrepareContractWrite, useContractWrite } from "wagmi";
+const { ethers } = require("ethers");
 
 export default function UpdateListingButton(props) {
   const [isLoading, setIsLoading] = useState(false);
-
   const { config: updateListingConfig } = usePrepareContractWrite({
     address: props.contractAddress,
     abi: [
@@ -58,9 +39,10 @@ export default function UpdateListingButton(props) {
 
   return (
     <button
+      disabled={isLoading}
       onClick={async () => {
         setIsLoading(true);
-        await handleUpdateListing();
+        const res = await handleUpdateListing();
         setIsLoading(false);
       }}
       className={Style.button}

@@ -1,8 +1,11 @@
-import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
 import Style from "./Button.module.css";
+import React, { useState, useEffect, useRef } from "react";
+import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
+const { ethers } = require("ethers");
 
 export default function BuyNFTButton(props) {
   const { address, isConnected } = useAccount();
+  const [isLoading, setIsLoading] = useState(false);
   const { config } = usePrepareContractWrite({
     address: props.contractAddress,
     abi: [
@@ -22,15 +25,27 @@ export default function BuyNFTButton(props) {
     from: address,
     value: props.price,
   });
-  const { write } = useContractWrite(config);
+  const { writeAsync: buyItemWrite } = useContractWrite(config);
 
+  async function handleBuyItem() {
+    try {
+      const res = await buyItemWrite();
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  }
   return (
     <button
-      disabled={!write}
-      onClick={() => write({})}
+      disabled={isLoading}
+      onClick={async () => {
+        setIsLoading(true);
+        await handleBuyItem();
+        setIsLoading(false);
+      }}
       className={Style.button}
     >
-      Buy now
+      {isLoading ? "Loading" : "Buy now"}
     </button>
   );
 }

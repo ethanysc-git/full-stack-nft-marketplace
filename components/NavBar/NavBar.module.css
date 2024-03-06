@@ -39,6 +39,11 @@
     outline: none;
     background-color: transparent;
 }
+
+.logo_icon{
+    cursor: pointer;
+}
+
 .search_icon{
     cursor: pointer;
     font-size: 1.4rem;
