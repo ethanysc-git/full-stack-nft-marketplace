@@ -20,12 +20,14 @@ import hero from "./hero.png";
 import lightbluespray from "./light blue spray.png";
 import connectingwallet from "./connectingwallet.png";
 import nftcollection from "./nftcollection.png";
+import connection from "./connection.png";
 
 export default {
   hero,
   lightbluespray,
   connectingwallet,
   nftcollection,
+  connection,
   creatorbackground,
   dragonsvg,
   profile,

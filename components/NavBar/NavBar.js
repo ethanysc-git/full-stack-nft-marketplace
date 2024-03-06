@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MdNotifications } from "react-icons/md";
 import { MdOutlineLogin } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
+import { FaUserFriends } from "react-icons/fa";
 import Style from "./NavBar.module.css";
 import {
   TouristDiscover,
@@ -278,8 +279,9 @@ const NavBar = () => {
                   onClick={handleConnect}
                 >
                   {connectionStatus === "disconnected"
-                    ? "Social Connect"
+                    ? "Social Connect "
                     : connectionStatus.toUpperCase()}
+                  <FaUserFriends />
                 </button>
               </div>
             </>

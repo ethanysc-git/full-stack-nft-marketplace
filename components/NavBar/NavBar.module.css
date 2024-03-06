@@ -80,7 +80,7 @@
 
 .navbar_container_right_social_connect_button{
     background-color: var(--icons-connect-color);
-    padding: 1rem ;
+    padding: 0.9rem ;
     border: 1px solid var(--icons-connect-color);
     font-size: 1.1rem;
     color: var(--shadow-light-color);
@@ -88,6 +88,7 @@
     transition: all .2s ease-in;
     box-shadow: var(--box-shadow);
     border-radius: 2rem;
+    white-space: nowrap;
 }
 
 .notify{
