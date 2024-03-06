@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef } from "react";
 import Style from "../components/HeroSection/HeroSection.module.css";
+import React, { useState, useEffect, useContext, useMemo, useRef } from "react";
 import {
   FormControl,
   FormLabel,
@@ -11,8 +11,28 @@ import {
 import { Field, Form, Formik } from "formik";
 import NFTBox from "../components/Image/NFTBox";
 import CreateNFTButton from "../components/Button/CreateNFTButton";
+import SocialCreateNFTButton from "../components/Button/SocialCreateNFTButton";
+//
+import { useAccount } from "wagmi";
+import {
+  useConnect,
+  useEthereum,
+  useAuthCore,
+} from "@particle-network/auth-core-modal";
 
 function CreateNFTCollection() {
+  const { isConnected } = useAccount();
+  const {
+    address,
+    chainId,
+    provider,
+    sendTransaction,
+    signMessage,
+    signTypedData,
+    switchChain,
+  } = useEthereum();
+  const { connect, disconnect, connectionStatus } = useConnect();
+
   const [file, setFile] = useState("");
   const [cid, setCid] = useState("");
   const [uploading, setUploading] = useState(false);
@@ -198,18 +218,40 @@ function CreateNFTCollection() {
                     )}
                   </Field>
                 )}
-              {collectionNameInput &&
-                collectionSymbolInput &&
-                collectionDescriptionInput &&
-                collectionTotalSupplyInput && (
-                  <CreateNFTButton
-                    contractAddress="0x34Eb633C2f2346979eB89385A2b5fbBa8C9740f4"
-                    collectionNameInput={collectionNameInput}
-                    collectionSymbolInput={collectionSymbolInput}
-                    collectionDescriptionInput={collectionDescriptionInput}
-                    collectionTotalSupplyInput={collectionTotalSupplyInput}
-                  />
-                )}
+
+              {connectionStatus === "connected" && (
+                <>
+                  {collectionNameInput &&
+                    collectionSymbolInput &&
+                    collectionDescriptionInput &&
+                    collectionTotalSupplyInput && (
+                      <SocialCreateNFTButton
+                        contractAddress="0x34Eb633C2f2346979eB89385A2b5fbBa8C9740f4"
+                        collectionNameInput={collectionNameInput}
+                        collectionSymbolInput={collectionSymbolInput}
+                        collectionDescriptionInput={collectionDescriptionInput}
+                        collectionTotalSupplyInput={collectionTotalSupplyInput}
+                      />
+                    )}
+                </>
+              )}
+
+              {isConnected && (
+                <>
+                  {collectionNameInput &&
+                    collectionSymbolInput &&
+                    collectionDescriptionInput &&
+                    collectionTotalSupplyInput && (
+                      <CreateNFTButton
+                        contractAddress="0x34Eb633C2f2346979eB89385A2b5fbBa8C9740f4"
+                        collectionNameInput={collectionNameInput}
+                        collectionSymbolInput={collectionSymbolInput}
+                        collectionDescriptionInput={collectionDescriptionInput}
+                        collectionTotalSupplyInput={collectionTotalSupplyInput}
+                      />
+                    )}
+                </>
+              )}
             </Form>
           )}
         </Formik>
