@@ -1,6 +1,8 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
 import { usePrepareContractWrite, useContractWrite } from "wagmi";
+import images from "../../img";
+import Image from "next/image";
 const { ethers } = require("ethers");
 
 export default function UpdateListingButton(props) {
@@ -38,16 +40,28 @@ export default function UpdateListingButton(props) {
   }
 
   return (
-    <button
-      disabled={isLoading}
-      onClick={async () => {
-        setIsLoading(true);
-        const res = await handleUpdateListing();
-        setIsLoading(false);
-      }}
-      className={Style.button}
-    >
-      {isLoading ? "Loading" : "Update Price"}
-    </button>
+    <div>
+      {isLoading && (
+        <Image
+          src={images.snailloading}
+          alt="Loading logo"
+          width={80}
+          height={80}
+        />
+      )}
+      {!isLoading && (
+        <button
+          disabled={isLoading}
+          onClick={async () => {
+            setIsLoading(true);
+            const res = await handleUpdateListing();
+            setIsLoading(false);
+          }}
+          className={Style.button}
+        >
+          {isLoading ? "Loading" : "Update Price"}
+        </button>
+      )}
+    </div>
   );
 }

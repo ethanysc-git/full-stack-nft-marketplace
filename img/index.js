@@ -21,6 +21,7 @@ import lightbluespray from "./light blue spray.png";
 import connectingwallet from "./connectingwallet.png";
 import nftcollection from "./nftcollection.png";
 import connection from "./connection.png";
+import snailloading from "./snailloading.png";
 
 export default {
   hero,
@@ -28,6 +29,7 @@ export default {
   connectingwallet,
   nftcollection,
   connection,
+  snailloading,
   creatorbackground,
   dragonsvg,
   profile,

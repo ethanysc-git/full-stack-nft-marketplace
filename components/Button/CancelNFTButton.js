@@ -1,6 +1,8 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
 import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
+import images from "../../img";
+import Image from "next/image";
 const { ethers } = require("ethers");
 
 export default function CancelNFTButton(props) {
@@ -34,16 +36,28 @@ export default function CancelNFTButton(props) {
   }
 
   return (
-    <button
-      disabled={isLoading}
-      onClick={async () => {
-        setIsLoading(true);
-        await handleCancelListing();
-        setIsLoading(false);
-      }}
-      className={Style.button}
-    >
-      {isLoading ? "Loading" : "Cancel Listing"}
-    </button>
+    <div>
+      {isLoading && (
+        <Image
+          src={images.snailloading}
+          alt="Loading logo"
+          width={80}
+          height={80}
+        />
+      )}
+      {!isLoading && (
+        <button
+          disabled={isLoading}
+          onClick={async () => {
+            setIsLoading(true);
+            await handleCancelListing();
+            setIsLoading(false);
+          }}
+          className={Style.button}
+        >
+          {isLoading ? "Loading" : "Cancel Listing"}
+        </button>
+      )}
+    </div>
   );
 }

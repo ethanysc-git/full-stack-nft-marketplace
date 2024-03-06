@@ -34,6 +34,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   uri: process.env.NEXT_PUBLIC_SUBGRAPH_URL,
 });
+const nftAddress = "0x2Bb634109eee5dc71602066f874DA5ABC27be9D8";
 const MyApp = ({ Component, pageProps }) => (
   <div>
     <AuthCoreContextProvider
@@ -49,6 +50,7 @@ const MyApp = ({ Component, pageProps }) => (
           visible: true,
           preload: true,
           themeType: "dark",
+          topMenuType: "close",
           customStyle: {
             supportChains: [
               {
@@ -66,12 +68,8 @@ const MyApp = ({ Component, pageProps }) => (
             ],
             supportAddToken: true,
 
-            displayNFTContractAddresses: [
-              "0x2Bb634109eee5dc71602066f874DA5ABC27be9D8",
-            ],
-            priorityNFTContractAddresses: [
-              "0x2Bb634109eee5dc71602066f874DA5ABC27be9D8",
-            ],
+            displayNFTContractAddresses: [nftAddress],
+            priorityNFTContractAddresses: [nftAddress],
             evmSupportWalletConnect: true,
             supportUIModeSwitch: true,
             supportLanguageSwitch: true,

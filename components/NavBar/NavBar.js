@@ -7,32 +7,14 @@ import { MdNotifications } from "react-icons/md";
 import { MdOutlineLogin } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
 import { FaUserFriends } from "react-icons/fa";
-import {
-  TouristDiscover,
-  SocailDiscover,
-  Discover,
-  About,
-  Profile,
-  Notification,
-} from "./index";
-import { Button } from "../componentindex";
+import { Discover, About, Profile, Notification } from "./index";
 import images from "../../img";
-import { ethers } from "ethers";
 import {
   useConnect,
   useEthereum,
   useAuthCore,
 } from "@particle-network/auth-core-modal";
-import {
-  AAWrapProvider,
-  SendTransactionMode,
-  SmartAccount,
-} from "@particle-network/aa";
-import { ParticleNetwork, WalletEntryPosition } from "@particle-network/auth";
-import { ParticleProvider } from "@particle-network/provider";
-import { Ethereum, EthereumSepolia, Polygon } from "@particle-network/chains";
-import { ChainId } from "@biconomy/core-types";
-import { sepolia, useAccount, useWaitForTransaction } from "wagmi";
+import { useAccount } from "wagmi";
 
 const NavBar = () => {
   const { address, isConnected } = useAccount();
@@ -41,57 +23,8 @@ const NavBar = () => {
   const [notification, setNotification] = useState(false);
   const [profile, setProfile] = useState(false);
   const [_userInfo, set_UserInfo] = useState(null);
-  const [caAddress, setCaAddress] = useState(null);
-  const [eoaAddress, setEoaAddress] = useState(null);
-  const [caBalance, setCaBalance] = useState();
   const { connect, disconnect, connectionStatus } = useConnect();
-  const {
-    chainId,
-    provider,
-    sendTransaction,
-    signMessage,
-    signTypedData,
-    switchChain,
-  } = useEthereum();
-  const [providerState, setProviderState] = useState(null);
-  const [loading, setLoading] = useState(false);
-
   const { userInfo } = useAuthCore();
-
-  const smartAccount = new SmartAccount(provider, {
-    projectId: process.env.NEXT_PUBLIC_REACT_APP_PROJECT_ID,
-    clientKey: process.env.NEXT_PUBLIC_REACT_APP_CLIENT_KEY,
-    appId: process.env.NEXT_PUBLIC_REACT_APP_APP_ID,
-    aaOptions: {
-      accountContracts: {
-        SIMPLE: [{ chainIds: [chainId, ChainId.SEPOLIA], version: "1.0.0" }],
-      },
-      paymasterApiKeys: [
-        {
-          chainId: chainId,
-          apiKey: process.env.NEXT_PUBLIC_REACT_APP_BICONOMY_KEY,
-        },
-        {
-          chainId: ChainId.SEPOLIA,
-          apiKey: process.env.NEXT_PUBLIC_REACT_APP_BICONOMY_KEY,
-        },
-      ],
-    },
-  });
-
-  const customProvider = new ethers.providers.Web3Provider(
-    new AAWrapProvider(smartAccount, SendTransactionMode.Gasless),
-    "any"
-  );
-
-  const fetchBalance = async () => {
-    const caAddress = await smartAccount.getAddress();
-    const eoaAddress = await smartAccount.getOwner();
-    const balance = await customProvider.getBalance(caAddress);
-    setCaBalance(ethers.utils.formatEther(balance));
-    setCaAddress(caAddress);
-    setEoaAddress(eoaAddress);
-  };
 
   const handleConnect = async () => {
     try {
@@ -105,7 +38,6 @@ const NavBar = () => {
     try {
       await disconnect();
       set_UserInfo(null);
-      localStorage.removeItem("caAddress");
     } catch (error) {
       console.log(error);
     }
@@ -155,17 +87,9 @@ const NavBar = () => {
   useEffect(() => {
     if (userInfo && !isConnected) {
       set_UserInfo(userInfo);
-      fetchBalance();
-      localStorage.setItem("caAddress", caAddress);
-    } else {
-      localStorage.removeItem("caAddress");
     }
     if (isConnected && !userInfo) {
       set_UserInfo(null);
-      localStorage.setItem("mataAddress", address);
-    }
-    {
-      localStorage.removeItem("mataAddress");
     }
   }, [userInfo, isConnected]);
 
@@ -234,22 +158,18 @@ const NavBar = () => {
           )}
 
           {isConnected && (
-            <>
-              {isConnected && (
-                <div className={Style.navbar_container_right_notify}>
-                  <Image
-                    priority
-                    src={images.hero}
-                    alt="Profile"
-                    width={80}
-                    height={80}
-                    onClick={() => openProfile()}
-                    className={Style.navbar_container_right_profile}
-                  />
-                  {profile && <Profile userName="CrptoGeek" crptoGeek={true} />}
-                </div>
-              )}
-            </>
+            <div className={Style.navbar_container_right_notify}>
+              <Image
+                priority
+                src={images.hero}
+                alt="Profile"
+                width={80}
+                height={80}
+                onClick={() => openProfile()}
+                className={Style.navbar_container_right_profile}
+              />
+              {profile && <Profile userName="CrptoGeek" crptoGeek={true} />}
+            </div>
           )}
 
           {connectionStatus !== "connected" && !isConnected && (

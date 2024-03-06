@@ -1,6 +1,8 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
 import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
+import images from "../../img";
+import Image from "next/image";
 const { ethers } = require("ethers");
 
 export default function ListNFTButton(props) {
@@ -86,16 +88,15 @@ export default function ListNFTButton(props) {
     }
   }, [approveEventIsListening]);
   useEffect(() => {
-    async function handleListItem() {
-      try {
-        const res = await listItemWrite();
-      } catch (error) {
-        console.log(error);
-        setIsLoading(false);
-      }
-    }
     if (approveIsSuccess) {
-      handleListItem();
+      const handleListItem = async () => {
+        const res = await listItemWrite();
+      };
+      handleListItem().catch((err) => {
+        setIsLoading(false);
+        console.log("error:", err.message);
+      });
+
       const abi = [
         "event ItemListed(address indexed seller, address indexed nftAddress, uint256 indexed tokenId, uint256 price, string tokenUri)",
       ];
@@ -119,15 +120,27 @@ export default function ListNFTButton(props) {
     }
   }, [approveIsSuccess]);
   return (
-    <button
-      onClick={async () => {
-        setIsLoading(true);
-        await handleApprove();
-        setApproveEventIsListening(true);
-      }}
-      className={Style.button}
-    >
-      {isLoading ? "Loading" : "List Item"}
-    </button>
+    <div>
+      {isLoading && (
+        <Image
+          src={images.snailloading}
+          alt="Loading logo"
+          width={80}
+          height={80}
+        />
+      )}
+      {!isLoading && (
+        <button
+          onClick={async () => {
+            setIsLoading(true);
+            await handleApprove();
+            setApproveEventIsListening(true);
+          }}
+          className={Style.button}
+        >
+          {isLoading ? "Loading" : "List Item"}
+        </button>
+      )}
+    </div>
   );
 }

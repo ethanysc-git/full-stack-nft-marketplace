@@ -1,6 +1,8 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
 import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
+import images from "../../img";
+import Image from "next/image";
 const { ethers } = require("ethers");
 
 export default function BuyNFTButton(props) {
@@ -36,16 +38,28 @@ export default function BuyNFTButton(props) {
     }
   }
   return (
-    <button
-      disabled={isLoading}
-      onClick={async () => {
-        setIsLoading(true);
-        await handleBuyItem();
-        setIsLoading(false);
-      }}
-      className={Style.button}
-    >
-      {isLoading ? "Loading" : "Buy now"}
-    </button>
+    <div>
+      {isLoading && (
+        <Image
+          src={images.snailloading}
+          alt="Loading logo"
+          width={80}
+          height={80}
+        />
+      )}
+      {!isLoading && (
+        <button
+          disabled={isLoading}
+          onClick={async () => {
+            setIsLoading(true);
+            await handleBuyItem();
+            setIsLoading(false);
+          }}
+          className={Style.button}
+        >
+          {isLoading ? "Loading" : "Buy now"}
+        </button>
+      )}
+    </div>
   );
 }

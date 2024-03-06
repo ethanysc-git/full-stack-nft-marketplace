@@ -1,6 +1,8 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
 import { usePrepareContractWrite, useContractWrite } from "wagmi";
+import images from "../../img";
+import Image from "next/image";
 const { ethers } = require("ethers");
 
 export default function CreateNFTForm(props) {
@@ -45,6 +47,14 @@ export default function CreateNFTForm(props) {
 
   return (
     <div>
+      {isLoading && (
+        <Image
+          src={images.snailloading}
+          alt="Loading logo"
+          width={80}
+          height={80}
+        />
+      )}
       <button
         disabled={isLoading}
         onClick={async () => {
