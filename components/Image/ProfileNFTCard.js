@@ -4,6 +4,7 @@ import { useAccount } from "wagmi";
 import { parseEther, formatEther } from "viem";
 import ListNFTButton from "../Button/ListNFTButton";
 import CancelNFTButton from "../Button/CancelNFTButton";
+import UpdateListingButton from "../Button/UpdateListingButton";
 import Image from "next/image";
 
 import {
@@ -92,11 +93,20 @@ export default function ProfileNFTCard(props) {
                 price={10000000000}
               />
             )}
-            {isConnected && (
+            {/* {isConnected && (
               <CancelNFTButton
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
                 nftAddress={props.nftAddress}
                 tokenId={props.tokenId}
+              />
+            )} */}
+            {isConnected && (
+              <UpdateListingButton
+                contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
+                nftAddress={props.nftAddress}
+                tokenId={props.tokenId}
+                tokenUri={props.cid}
+                price={20000000000}
               />
             )}
           </ButtonGroup>
