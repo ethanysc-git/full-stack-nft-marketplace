@@ -22,6 +22,8 @@ import connectingwallet from "./connectingwallet.png";
 import nftcollection from "./nftcollection.png";
 import connection from "./connection.png";
 import snailloading from "./snailloading.png";
+import createtheintersection from "./createtheintersection.png";
+import watercolorwolfclipart from "./watercolorwolfclipart.png";
 
 export default {
   hero,
@@ -30,6 +32,8 @@ export default {
   nftcollection,
   connection,
   snailloading,
+  createtheintersection,
+  watercolorwolfclipart,
   creatorbackground,
   dragonsvg,
   profile,
