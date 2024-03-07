@@ -116,15 +116,6 @@ const NavBar = () => {
         </div>
         {/* end of left section */}
         <div className={Style.navbar_container_right}>
-          {/* About */}
-          <div className={Style.navbar_container_right_help}>
-            <p onClick={(e) => openMenu(e)}>About</p>
-            {help && (
-              <div className={Style.navbar_container_right_help_box}>
-                <About />
-              </div>
-            )}
-          </div>
           {/*Discover Menu */}
           <div className={Style.navbar_container_right_discover}>
             <p onClick={(e) => openMenu(e)}>Discover</p>
@@ -134,6 +125,17 @@ const NavBar = () => {
               </div>
             )}
           </div>
+
+          {/* About */}
+          <div className={Style.navbar_container_right_help}>
+            <p onClick={(e) => openMenu(e)}>About</p>
+            {help && (
+              <div className={Style.navbar_container_right_help_box}>
+                <About />
+              </div>
+            )}
+          </div>
+
           {/* Profile */}
           {connectionStatus === "connected" && (
             <>
