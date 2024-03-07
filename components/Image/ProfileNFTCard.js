@@ -6,7 +6,7 @@ import ListNFTButton from "../Button/ListNFTButton";
 import CancelNFTButton from "../Button/CancelNFTButton";
 import UpdateListingButton from "../Button/UpdateListingButton";
 import Image from "next/image";
-
+import images from "../../img";
 import {
   Card,
   CardHeader,
@@ -28,6 +28,7 @@ import {
 } from "@chakra-ui/react";
 
 export default function ProfileNFTCard(props) {
+  const [isLoading, setIsLoading] = useState(false);
   const { isConnected } = useAccount();
   const [imageURI, setImageURI] = useState("");
   async function updateUI() {
@@ -83,7 +84,18 @@ export default function ProfileNFTCard(props) {
         </CardBody>
         <Divider />
         <CardFooter>
-          <ButtonGroup spacing="2">
+          <ButtonGroup spacing="3">
+            {isLoading && (
+              <>
+                <Image
+                  src={images.snailloading}
+                  alt="Loading logo"
+                  width={80}
+                  height={80}
+                />
+                <p>{isLoading ? "Loading" : ""}</p>
+              </>
+            )}
             {isConnected && (
               <ListNFTButton
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
@@ -91,6 +103,8 @@ export default function ProfileNFTCard(props) {
                 tokenId={props.tokenId}
                 tokenUri={props.cid}
                 price={10000000000}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
               />
             )}
             {/* {isConnected && (
@@ -98,6 +112,8 @@ export default function ProfileNFTCard(props) {
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
                 nftAddress={props.nftAddress}
                 tokenId={props.tokenId}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
               />
             )} */}
             {isConnected && (
@@ -107,6 +123,8 @@ export default function ProfileNFTCard(props) {
                 tokenId={props.tokenId}
                 tokenUri={props.cid}
                 price={20000000000}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
               />
             )}
           </ButtonGroup>

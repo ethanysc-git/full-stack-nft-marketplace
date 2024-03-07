@@ -1,14 +1,20 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
 import { usePrepareContractWrite, useContractWrite } from "wagmi";
-import images from "../../img";
-import Image from "next/image";
 const { ethers } = require("ethers");
 
-export default function UpdateListingButton(props) {
-  const [isLoading, setIsLoading] = useState(false);
+export default function UpdateListingButton({
+  contractAddress,
+  nftAddress,
+  tokenId,
+  tokenUri,
+  price,
+  isLoading,
+  setIsLoading,
+}) {
+  // const [isLoading, setIsLoading] = useState(false);
   const { config: updateListingConfig } = usePrepareContractWrite({
-    address: props.contractAddress,
+    address: contractAddress,
     abi: [
       {
         name: "updateListing",
@@ -24,7 +30,7 @@ export default function UpdateListingButton(props) {
       },
     ],
     functionName: "updateListing",
-    args: [props.nftAddress, props.tokenId, props.price, props.tokenUri],
+    args: [nftAddress, tokenId, price, tokenUri],
   });
 
   const { writeAsync: updateListingWrite } =
@@ -41,14 +47,6 @@ export default function UpdateListingButton(props) {
 
   return (
     <div>
-      {isLoading && (
-        <Image
-          src={images.snailloading}
-          alt="Loading logo"
-          width={80}
-          height={80}
-        />
-      )}
       {!isLoading && (
         <button
           disabled={isLoading}

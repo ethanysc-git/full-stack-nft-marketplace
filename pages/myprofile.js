@@ -28,7 +28,7 @@ function MyProfile() {
     signTypedData,
     switchChain,
   } = useEthereum();
-  const [userProfiles, setUserProfiles] = useState([]);
+  const [userProfiles, setUserProfiles] = useState(null);
 
   let finalData = {
     data: {
@@ -82,6 +82,7 @@ function MyProfile() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
       },
       body: formData,
     });
@@ -119,15 +120,18 @@ function MyProfile() {
         {eoaAddress && <div>{`EOA : ${eoaAddress}`}</div>}
         {caAddress && <div>{`CA : ${caAddress}`}</div>}
         <Wrap>
-          {userProfiles.length == 0 ? (
+          {!userProfiles ? (
             <div>Loading...</div>
           ) : (
             userProfiles.map((profile, index) => {
-              let cid = profile.token_uri;
-              cid = cid.replace(
-                "https://ipfs.moralis.io:2053/ipfs/",
-                "ipfs://"
-              );
+              let cid = null;
+              if (profile.token_uri) {
+                cid = profile.token_uri;
+                cid = cid.replace(
+                  "https://ipfs.moralis.io:2053/ipfs/",
+                  "ipfs://"
+                );
+              }
               return (
                 <div key={index}>
                   <Center>

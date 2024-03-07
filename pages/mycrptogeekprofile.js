@@ -5,8 +5,9 @@ import ProfileNFTCard from "../components/Image/ProfileNFTCard";
 import { Wrap, WrapItem, Center } from "@chakra-ui/react";
 
 function MyCrptoGeekProfile() {
+  const [_address, set_Address] = useState(null);
   const { address, isConnected } = useAccount();
-  const [userProfiles, setUserProfiles] = useState([]);
+  const [userProfiles, setUserProfiles] = useState(null);
 
   let data = {
     data: {
@@ -44,6 +45,7 @@ function MyCrptoGeekProfile() {
         finalData = finalData.filter(
           (d) => d.token_address == "0x2bb634109eee5dc71602066f874da5abc27be9d8"
         );
+
         let resMap = new Map();
         finalData = finalData.filter((d) =>
           resMap.set(d.token_id, d.token_uri)
@@ -57,11 +59,11 @@ function MyCrptoGeekProfile() {
           token_id,
           token_uri,
         }));
+        console.log(finalData);
         setUserProfiles(finalData);
       };
-      fetchData().catch((err) => {
-        console.log("error:", err.message);
-      });
+      fetchData();
+      set_Address(address);
     }
   }, [address]);
   return (
@@ -69,15 +71,18 @@ function MyCrptoGeekProfile() {
       <div className={Style.heroSection}>
         <h1>My Profile</h1>
         <Wrap>
-          {userProfiles.length == 0 ? (
+          {!userProfiles ? (
             <div>Loading...</div>
           ) : (
             userProfiles.map((profile, index) => {
-              let cid = profile.token_uri;
-              cid = cid.replace(
-                "https://ipfs.moralis.io:2053/ipfs/",
-                "ipfs://"
-              );
+              let cid = null;
+              if (profile.token_uri) {
+                cid = profile.token_uri;
+                cid = cid.replace(
+                  "https://ipfs.moralis.io:2053/ipfs/",
+                  "ipfs://"
+                );
+              }
               return (
                 <div key={index}>
                   <Center>

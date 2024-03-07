@@ -25,7 +25,10 @@ function NFTMarketplace() {
           ) : (
             listedNftData.itemActives.map((nft, index) => {
               const { price, nftAddress, tokenId, seller, tokenUri } = nft;
-              const cid = tokenUri.replace("ipfs://", "");
+              let cid = null;
+              if (tokenUri) {
+                cid = tokenUri.replace("ipfs://", "");
+              }
               return (
                 <div key={index}>
                   <Center>

@@ -39,26 +39,24 @@ export default async function handler(req, res) {
       console.error(e);
     }
   } else if (req.method === "GET") {
-    allNFTs = [];
-    try {
-      if (!Moralis.Core.isStarted) {
-        await Moralis.start({
-          apiKey: process.env.NEXT_PUBLIC_MORALIS_API_KEY,
-        });
-      }
-
-      const response = await Moralis.EvmApi.nft.getWalletNFTs({
-        chain: "0xaa36a7",
-        format: "decimal",
-        mediaItems: true,
-        address: currentAddress,
-      });
-
-      allNFTs.push(...response.jsonResponse.result);
-      console.log(allNFTs);
-      return res.json({ result: allNFTs });
-    } catch (e) {
-      console.error(e);
-    }
+    // allNFTs = [];
+    // try {
+    //   if (!Moralis.Core.isStarted) {
+    //     await Moralis.start({
+    //       apiKey: process.env.NEXT_PUBLIC_MORALIS_API_KEY,
+    //     });
+    //   }
+    //   const response = await Moralis.EvmApi.nft.getWalletNFTs({
+    //     chain: "0xaa36a7",
+    //     format: "decimal",
+    //     mediaItems: true,
+    //     address: currentAddress,
+    //   });
+    //   allNFTs.push(...response.jsonResponse.result);
+    //   console.log(allNFTs);
+    //   return res.json({ result: allNFTs });
+    // } catch (e) {
+    //   console.error(e);
+    // }
   }
 }

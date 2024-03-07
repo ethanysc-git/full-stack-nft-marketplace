@@ -48,24 +48,29 @@ export default function CreateNFTForm(props) {
   return (
     <div>
       {isLoading && (
-        <Image
-          src={images.snailloading}
-          alt="Loading logo"
-          width={80}
-          height={80}
-        />
+        <>
+          <Image
+            src={images.snailloading}
+            alt="Loading logo"
+            width={80}
+            height={80}
+          />
+          <p>{isLoading ? "Loading" : ""}</p>
+        </>
       )}
-      <button
-        disabled={isLoading}
-        onClick={async () => {
-          setIsLoading(true);
-          await handleCreateUnitNftWrite();
-          setIsLoading(false);
-        }}
-        className={Style.button}
-      >
-        {isLoading ? "Loading" : "Create"}
-      </button>
+      {!isLoading && (
+        <button
+          disabled={isLoading}
+          onClick={async () => {
+            setIsLoading(true);
+            await handleCreateUnitNftWrite();
+            setIsLoading(false);
+          }}
+          className={Style.button}
+        >
+          {isLoading ? "Loading" : "Create"}
+        </button>
+      )}
     </div>
   );
 }

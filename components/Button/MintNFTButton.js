@@ -35,12 +35,15 @@ export default function MintNFTButton(props) {
   return (
     <div>
       {isLoading && (
-        <Image
-          src={images.snailloading}
-          alt="Loading logo"
-          width={80}
-          height={80}
-        />
+        <>
+          <Image
+            src={images.snailloading}
+            alt="Loading logo"
+            width={80}
+            height={80}
+          />
+          <p>{isLoading ? "Loading" : ""}</p>
+        </>
       )}
       {!isLoading && (
         <button

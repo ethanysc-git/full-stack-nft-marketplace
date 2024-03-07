@@ -5,8 +5,16 @@ import images from "../../img";
 import Image from "next/image";
 const { ethers } = require("ethers");
 
-export default function ListNFTButton(props) {
-  const [isLoading, setIsLoading] = useState(false);
+export default function ListNFTButton({
+  contractAddress,
+  nftAddress,
+  tokenId,
+  tokenUri,
+  price,
+  isLoading,
+  setIsLoading,
+}) {
+  // const [isLoading, setIsLoading] = useState(false);
   const [approveIsSuccess, setApproveIsSuccess] = useState(false);
   const [approveEventIsListening, setApproveEventIsListening] = useState(false);
 
@@ -26,7 +34,7 @@ export default function ListNFTButton(props) {
       },
     ],
     functionName: "approve",
-    args: ["0x1c92920ca2445C3c29A9CcC551152317219C61A6", props.tokenId],
+    args: ["0x1c92920ca2445C3c29A9CcC551152317219C61A6", tokenId],
   });
 
   const { isSuccess, writeAsync: approveWrite } =
@@ -42,7 +50,7 @@ export default function ListNFTButton(props) {
   }
 
   const { config: listItemConfig } = usePrepareContractWrite({
-    address: props.contractAddress,
+    address: contractAddress,
     abi: [
       {
         name: "listItem",
@@ -58,7 +66,7 @@ export default function ListNFTButton(props) {
       },
     ],
     functionName: "listItem",
-    args: [props.nftAddress, props.tokenId, props.price, props.tokenUri],
+    args: [nftAddress, tokenId, price, tokenUri],
   });
 
   const { writeAsync: listItemWrite } = useContractWrite(listItemConfig);
@@ -121,14 +129,6 @@ export default function ListNFTButton(props) {
   }, [approveIsSuccess]);
   return (
     <div>
-      {isLoading && (
-        <Image
-          src={images.snailloading}
-          alt="Loading logo"
-          width={80}
-          height={80}
-        />
-      )}
       {!isLoading && (
         <button
           onClick={async () => {

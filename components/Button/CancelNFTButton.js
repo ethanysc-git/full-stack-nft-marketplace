@@ -5,10 +5,16 @@ import images from "../../img";
 import Image from "next/image";
 const { ethers } = require("ethers");
 
-export default function CancelNFTButton(props) {
-  const [isLoading, setIsLoading] = useState(false);
+export default function CancelNFTButton({
+  contractAddress,
+  nftAddress,
+  tokenId,
+  isLoading,
+  setIsLoading,
+}) {
+  // const [isLoading, setIsLoading] = useState(false);
   const { config } = usePrepareContractWrite({
-    address: props.contractAddress,
+    address: contractAddress,
     abi: [
       {
         name: "cancelListing",
@@ -22,7 +28,7 @@ export default function CancelNFTButton(props) {
       },
     ],
     functionName: "cancelListing",
-    args: [props.nftAddress, props.tokenId],
+    args: [nftAddress, tokenId],
   });
   const { writeAsync: cancelListingWrite } = useContractWrite(config);
 
@@ -37,14 +43,6 @@ export default function CancelNFTButton(props) {
 
   return (
     <div>
-      {isLoading && (
-        <Image
-          src={images.snailloading}
-          alt="Loading logo"
-          width={80}
-          height={80}
-        />
-      )}
       {!isLoading && (
         <button
           disabled={isLoading}
