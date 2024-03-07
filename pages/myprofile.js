@@ -14,11 +14,15 @@ import {
 import { ChainId } from "@biconomy/core-types";
 import SocialProfileNFTCard from "../components/Image/SocialProfileNFTCard";
 import { Wrap, WrapItem, Center } from "@chakra-ui/react";
+import GET_ACTIVE_ITEMS from "../pages/api/subgraphQueries";
+import { useQuery } from "@apollo/client";
 
 function MyProfile() {
   const [caAddress, setCaAddress] = useState(null);
   const [eoaAddress, setEoaAddress] = useState(null);
   const [caBalance, setCaBalance] = useState();
+  const [marketMap, setMarketMap] = useState(null);
+  const { loading, error, data: listedNfts } = useQuery(GET_ACTIVE_ITEMS);
   const {
     address,
     chainId,
@@ -30,11 +34,19 @@ function MyProfile() {
   } = useEthereum();
   const [userProfiles, setUserProfiles] = useState(null);
 
+  let data = {
+    data: {
+      itemActives: [],
+    },
+  };
+
   let finalData = {
     data: {
       itemActives: [],
     },
   };
+
+  let marketplaceMap = new Map();
 
   const smartAccount = new SmartAccount(provider, {
     projectId: process.env.NEXT_PUBLIC_REACT_APP_PROJECT_ID,
@@ -112,11 +124,24 @@ function MyProfile() {
       });
     }
   }, [address]);
+
+  useEffect(() => {
+    if (listedNfts) {
+      //setListedNftData(listedNfts);
+      data = listedNfts.itemActives;
+      marketplaceMap = new Map();
+      data.map((nft, index) => {
+        const { tokenId } = nft;
+        marketplaceMap.set(tokenId, true);
+      });
+      setMarketMap(marketplaceMap);
+    }
+  }, [listedNfts]);
+
   return (
     <div>
       <div className={Style.heroSection}>
         <h1>My Profile</h1>
-        {eoaAddress && <div>{`EOA : ${eoaAddress}`}</div>}
         {caAddress && <div>{`CA : ${caAddress}`}</div>}
         <Wrap>
           {!userProfiles ? (
@@ -124,12 +149,19 @@ function MyProfile() {
           ) : (
             userProfiles.map((profile, index) => {
               let cid = null;
+              let listItem = false;
               if (profile.token_uri) {
                 cid = profile.token_uri;
                 cid = cid.replace(
                   "https://ipfs.moralis.io:2053/ipfs/",
                   "ipfs://"
                 );
+              }
+              let id = profile.token_id + "";
+              // console.log(id);
+              // console.log(marketMap.get(id));
+              if (marketMap.get(id)) {
+                listItem = true;
               }
               return (
                 <div key={index}>
@@ -141,6 +173,7 @@ function MyProfile() {
                           tokenId={profile.token_id}
                           nftAddress="0x2bb634109eee5dc71602066f874da5abc27be9d8"
                           crptoGeek={true}
+                          listItem={listItem}
                         />
                       </Center>
                     </WrapItem>

@@ -106,8 +106,8 @@ function MyCrptoGeekProfile() {
                 );
               }
               let id = profile.token_id + "";
-              console.log(id);
-              console.log(marketMap.get(id));
+              // console.log(id);
+              // console.log(marketMap.get(id));
               if (marketMap.get(id)) {
                 listItem = true;
               }

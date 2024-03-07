@@ -33,6 +33,7 @@ import SocialCancelNFTButton from "../Button/SocialCancelNFTButton";
 import SocialUpdateListingButton from "../Button/SocialUpdateListingButton";
 
 export default function SocialProfileNFTCard(props) {
+  const [isList, setIsList] = useState(false);
   const { connect, disconnect, connectionStatus } = useConnect();
   const {
     address,
@@ -55,6 +56,10 @@ export default function SocialProfileNFTCard(props) {
       const imageURIURL = imageURI.replace("ipfs://", "https://ipfs.io/ipfs/");
       setImageURI(imageURIURL);
     }
+    if (props.listItem) {
+      console.log(`props.listItem : ${props.listItem}`);
+      setIsList(true);
+    }
   }
 
   useEffect(() => {
@@ -62,7 +67,7 @@ export default function SocialProfileNFTCard(props) {
   });
 
   return (
-    <div>
+    <div className={Style.profile}>
       <Card maxW="sm">
         <CardBody>
           <Center>
@@ -98,7 +103,7 @@ export default function SocialProfileNFTCard(props) {
         <Divider />
         <CardFooter>
           <ButtonGroup spacing="2">
-            {connectionStatus === "connected" && (
+            {connectionStatus === "connected" && !isList && (
               <SocialListNFTButton
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
                 nftAddress={props.nftAddress}
@@ -107,14 +112,14 @@ export default function SocialProfileNFTCard(props) {
                 price={10000000000}
               />
             )}
-            {/* {connectionStatus === "connected" && (
+            {connectionStatus === "connected" && isList && (
               <SocialCancelNFTButton
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
                 nftAddress={props.nftAddress}
                 tokenId={props.tokenId}
               />
-            )} */}
-            {connectionStatus === "connected" && (
+            )}
+            {connectionStatus === "connected" && isList && (
               <SocialUpdateListingButton
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
                 nftAddress={props.nftAddress}
