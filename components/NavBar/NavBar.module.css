@@ -138,6 +138,13 @@
     display: none;
 }
 
+.profile{
+    border-width: 1px;
+    border-style: dashed;
+    border-color: #c199e4;
+    padding: 8px;
+}
+
 @media screen  and (min-device-width: 320px) and (max-device-width:768px){
    .navbar_container{
     grid-template-columns: 1fr 1fr; 

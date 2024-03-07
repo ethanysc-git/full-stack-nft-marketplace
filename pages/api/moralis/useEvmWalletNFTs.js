@@ -33,7 +33,7 @@ export default async function handler(req, res) {
 
       // response.raw.result.map((profile, idx) => {});
       allNFTs.push(...response.jsonResponse.result);
-      //console.log(allNFTs[0]);
+      console.log(allNFTs[0]);
       return res.json({ result: allNFTs });
     } catch (e) {
       console.error(e);

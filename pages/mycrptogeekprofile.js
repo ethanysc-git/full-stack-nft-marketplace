@@ -2,12 +2,17 @@ import Style from "../components/HeroSection/HeroSection.module.css";
 import React, { useState, useEffect, useContext, useMemo, useRef } from "react";
 import { useAccount, useWaitForTransaction } from "wagmi";
 import ProfileNFTCard from "../components/Image/ProfileNFTCard";
-import { Wrap, WrapItem, Center } from "@chakra-ui/react";
+import { Wrap, WrapItem, Center, Box } from "@chakra-ui/react";
+import GET_ACTIVE_ITEMS from "../pages/api/subgraphQueries";
+import { useQuery } from "@apollo/client";
 
 function MyCrptoGeekProfile() {
   const [_address, set_Address] = useState(null);
   const { address, isConnected } = useAccount();
   const [userProfiles, setUserProfiles] = useState(null);
+  const [listedNftData, setListedNftData] = useState(null);
+  const [marketMap, setMarketMap] = useState(null);
+  const { loading, error, data: listedNfts } = useQuery(GET_ACTIVE_ITEMS);
 
   let data = {
     data: {
@@ -19,6 +24,8 @@ function MyCrptoGeekProfile() {
       itemActives: [],
     },
   };
+
+  let marketplaceMap = new Map();
 
   useEffect(() => {
     if (address) {
@@ -59,13 +66,27 @@ function MyCrptoGeekProfile() {
           token_id,
           token_uri,
         }));
-        console.log(finalData);
+        //console.log(finalData);
         setUserProfiles(finalData);
       };
       fetchData();
       set_Address(address);
     }
   }, [address]);
+
+  useEffect(() => {
+    if (listedNfts) {
+      //setListedNftData(listedNfts);
+      data = listedNfts.itemActives;
+      marketplaceMap = new Map();
+      data.map((nft, index) => {
+        const { tokenId } = nft;
+        marketplaceMap.set(tokenId, true);
+      });
+      setMarketMap(marketplaceMap);
+    }
+  }, [listedNfts]);
+
   return (
     <div>
       <div className={Style.heroSection}>
@@ -76,6 +97,7 @@ function MyCrptoGeekProfile() {
           ) : (
             userProfiles.map((profile, index) => {
               let cid = null;
+              let listItem = false;
               if (profile.token_uri) {
                 cid = profile.token_uri;
                 cid = cid.replace(
@@ -83,8 +105,14 @@ function MyCrptoGeekProfile() {
                   "ipfs://"
                 );
               }
+              let id = profile.token_id + "";
+              console.log(id);
+              console.log(marketMap.get(id));
+              if (marketMap.get(id)) {
+                listItem = true;
+              }
               return (
-                <div key={index}>
+                <Box key={index}>
                   <Center>
                     <WrapItem>
                       <Center>
@@ -93,11 +121,12 @@ function MyCrptoGeekProfile() {
                           tokenId={profile.token_id}
                           nftAddress="0x2bb634109eee5dc71602066f874da5abc27be9d8"
                           crptoGeek={true}
+                          listItem={listItem}
                         />
                       </Center>
                     </WrapItem>
                   </Center>
-                </div>
+                </Box>
               );
             })
           )}

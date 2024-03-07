@@ -28,6 +28,7 @@ import {
 } from "@chakra-ui/react";
 
 export default function ProfileNFTCard(props) {
+  const [isList, setIsList] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { isConnected } = useAccount();
   const [imageURI, setImageURI] = useState("");
@@ -35,12 +36,16 @@ export default function ProfileNFTCard(props) {
     if (props.cid) {
       let cid = props.cid;
       cid = cid.replace("ipfs://", "");
-      console.log(`The props.cid is ${props.cid}`);
+      //console.log(`The props.cid is ${props.cid}`);
       const requestURL = "https://ipfs.io/ipfs/" + cid;
       const tokenURIResponse = await (await fetch(requestURL)).json();
       const imageURI = tokenURIResponse.image;
       const imageURIURL = imageURI.replace("ipfs://", "https://ipfs.io/ipfs/");
       setImageURI(imageURIURL);
+    }
+    if (props.listItem) {
+      console.log(`props.listItem : ${props.listItem}`);
+      setIsList(true);
     }
   }
 
@@ -49,8 +54,8 @@ export default function ProfileNFTCard(props) {
   });
 
   return (
-    <div>
-      <Card maxW="sm">
+    <div className={Style.profile}>
+      <Card maxW="sm" p={2} customVariant="border">
         <CardBody>
           <Center>
             {imageURI ? (
@@ -96,7 +101,7 @@ export default function ProfileNFTCard(props) {
                 <p>{isLoading ? "Loading" : ""}</p>
               </>
             )}
-            {isConnected && (
+            {isConnected && !isList && (
               <ListNFTButton
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
                 nftAddress={props.nftAddress}
@@ -107,7 +112,7 @@ export default function ProfileNFTCard(props) {
                 setIsLoading={setIsLoading}
               />
             )}
-            {/* {isConnected && (
+            {isConnected && isList && (
               <CancelNFTButton
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
                 nftAddress={props.nftAddress}
@@ -115,8 +120,8 @@ export default function ProfileNFTCard(props) {
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
               />
-            )} */}
-            {isConnected && (
+            )}
+            {isConnected && isList && (
               <UpdateListingButton
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
                 nftAddress={props.nftAddress}
