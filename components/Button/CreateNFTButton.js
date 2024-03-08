@@ -5,7 +5,7 @@ import images from "../../img";
 import Image from "next/image";
 const { ethers } = require("ethers");
 
-export default function CreateNFTForm(props) {
+export default function CreateNFTButton(props) {
   const [isLoading, setIsLoading] = useState(false);
   const { config } = usePrepareContractWrite({
     address: props.contractAddress,

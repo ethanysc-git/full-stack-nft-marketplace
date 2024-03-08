@@ -145,6 +145,13 @@
     padding: 8px;
 }
 
+.marketplace{
+    border-width: 1px;
+    border-style: dashed;
+    border-color: #8f99f8;
+    padding: 8px;
+}
+
 @media screen  and (min-device-width: 320px) and (max-device-width:768px){
    .navbar_container{
     grid-template-columns: 1fr 1fr; 

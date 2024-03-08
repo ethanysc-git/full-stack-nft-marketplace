@@ -1,3 +1,4 @@
+import Style from "../NavBar//NavBar.module.css";
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { useAccount } from "wagmi";
@@ -26,7 +27,6 @@ import {
   Center,
 } from "@chakra-ui/react";
 import images from "../../img";
-import Style from "../NavBar//NavBar.module.css";
 import { BsCart4 } from "react-icons/bs";
 import {
   useConnect,
@@ -78,7 +78,7 @@ export default function NFTCard(props) {
   });
 
   return (
-    <div>
+    <div className={Style.marketplace}>
       <Card maxW="sm">
         <CardBody>
           <Center>

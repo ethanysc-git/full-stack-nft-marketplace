@@ -71,6 +71,30 @@
     Color:red;
 }
 
+.heroSection_tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+  .heroSection_tab_button {
+    Color:rgb(0, 0, 0) !important;
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+  }
+  .heroSection_tab_button:hover {
+    background-color: #2056eb;
+  }
+
+  .heroSection_tab_button:active {
+    background-color: #2056eb;
+  }
+  
+
 @media screen and (max-width:35em){
     .heroSection{
         width: 90%;

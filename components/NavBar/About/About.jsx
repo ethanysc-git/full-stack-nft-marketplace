@@ -5,13 +5,18 @@ const About = () => {
   return (
     <div className={Style.box}>
       <div key={0} className={Style.about}>
-        <Link href="/about"  legacyBehavior>
-        <a><p>About</p></a>
+        <Link href="/about-login"  legacyBehavior>
+        <a><p>About Login</p></a>
         </Link>
       </div>
       <div key={1} className={Style.about}>
-        <Link href="/contact-us" legacyBehavior> 
-        <a><p>Contact us</p></a>
+        <Link href="/about-create"  legacyBehavior>
+        <a><p>About Create</p></a>
+        </Link>
+      </div>
+      <div key={0} className={Style.about}>
+        <Link href="/about-marketplace"  legacyBehavior>
+        <a><p>About Marketplace</p></a>
         </Link>
       </div>
     </div>
