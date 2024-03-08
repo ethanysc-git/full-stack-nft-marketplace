@@ -1,6 +1,7 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
 import { usePrepareContractWrite, useContractWrite } from "wagmi";
+import { parseEther, formatEther } from "viem";
 const { ethers } = require("ethers");
 
 export default function UpdateListingButton({
@@ -8,11 +9,11 @@ export default function UpdateListingButton({
   nftAddress,
   tokenId,
   tokenUri,
-  price,
   isLoading,
   setIsLoading,
 }) {
   // const [isLoading, setIsLoading] = useState(false);
+  const [price, setPrice] = useState("");
   const { config: updateListingConfig } = usePrepareContractWrite({
     address: contractAddress,
     abi: [
@@ -49,7 +50,12 @@ export default function UpdateListingButton({
     <div>
       {!isLoading && (
         <div>
-          <input placeholder="Enter Price(ETH)" />
+          <input
+            placeholder="Enter Price(ETH)"
+            onChange={(e) => {
+              setPrice(parseEther(e.target.value));
+            }}
+          />
           <button
             disabled={isLoading}
             onClick={async () => {

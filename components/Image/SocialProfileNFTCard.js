@@ -110,7 +110,6 @@ export default function SocialProfileNFTCard(props) {
                 nftAddress={props.nftAddress}
                 tokenId={props.tokenId}
                 tokenUri={props.cid}
-                price={10000000000}
               />
             )}
             {connectionStatus === "connected" && isList && (
@@ -119,7 +118,6 @@ export default function SocialProfileNFTCard(props) {
                 nftAddress={props.nftAddress}
                 tokenId={props.tokenId}
                 tokenUri={props.cid}
-                price={20000000000}
               />
             )}
             {connectionStatus === "connected" && isList && (

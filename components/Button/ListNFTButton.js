@@ -311,12 +311,14 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
 import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
+import { parseEther, formatEther } from "viem";
 const { ethers } = require("ethers");
 
 export default function ListNFTButton(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [approveIsSuccess, setApproveIsSuccess] = useState(false);
   const [approveIsDone, setApproveIsDone] = useState(false);
+  const [price, setPrice] = useState("");
 
   const { config: approveConfig } = usePrepareContractWrite({
     address: "0x2Bb634109eee5dc71602066f874DA5ABC27be9D8",
@@ -375,7 +377,7 @@ export default function ListNFTButton(props) {
     address: "0x1c92920ca2445C3c29A9CcC551152317219C61A6",
     abi: DragonMintMarketplace_ABI,
     functionName: "listItem",
-    args: [props.nftAddress, props.tokenId, props.price, props.tokenUri],
+    args: [props.nftAddress, props.tokenId, price, props.tokenUri],
   });
 
   function handleListItem() {
@@ -423,7 +425,12 @@ export default function ListNFTButton(props) {
   // }, [approveIsDone]);
   return (
     <div>
-      <input placeholder="Enter Price(ETH)" />
+      <input
+        placeholder="Enter Price(ETH)"
+        onChange={(e) => {
+          setPrice(parseEther(e.target.value));
+        }}
+      />
       <button
         onClick={async () => {
           setIsLoading(true);

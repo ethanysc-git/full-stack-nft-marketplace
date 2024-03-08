@@ -14,10 +14,12 @@ import { Ethereum, EthereumSepolia } from "@particle-network/chains";
 import { ChainId } from "@biconomy/core-types";
 import images from "../../img";
 import Image from "next/image";
+import { parseEther, formatEther } from "viem";
 const { ethers } = require("ethers");
 
 export default function SocialUpdateListingButton(props) {
   const [isLoading, setIsLoading] = useState(false);
+  const [price, setPrice] = useState("");
   const {
     address,
     chainId,
@@ -76,7 +78,7 @@ export default function SocialUpdateListingButton(props) {
           to: dragonMintMarketplaceAddress,
           data: dragonMintMarketplace.interface.encodeFunctionData(
             "updateListing",
-            [props.nftAddress, props.tokenId, props.price, props.tokenUri]
+            [props.nftAddress, props.tokenId, price, props.tokenUri]
           ),
         },
       ];
@@ -110,7 +112,12 @@ export default function SocialUpdateListingButton(props) {
           height={80}
         />
       )}
-      <input placeholder="Enter Price(ETH)" />
+      <input
+        placeholder="Enter Price(ETH)"
+        onChange={(e) => {
+          setPrice(parseEther(e.target.value));
+        }}
+      />
       <button
         disabled={isLoading}
         onClick={async () => {

@@ -108,7 +108,6 @@ export default function ProfileNFTCard(props) {
                 nftAddress={props.nftAddress}
                 tokenId={props.tokenId}
                 tokenUri={props.cid}
-                price={10000000000}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
               />
@@ -119,7 +118,6 @@ export default function ProfileNFTCard(props) {
                 nftAddress={props.nftAddress}
                 tokenId={props.tokenId}
                 tokenUri={props.cid}
-                price={20000000000}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
               />
