@@ -54,6 +54,7 @@ function CreateNFTCollection() {
     useState("");
   const [contractAddress, serContractAddress] = useState("");
   const inputFile = useRef(null);
+  const [tabIndex, setTabIndex] = useState(0);
 
   const uploadFile = async (fileToUpload) => {
     try {
@@ -79,28 +80,28 @@ function CreateNFTCollection() {
     uploadFile(e.target.files[0]);
   };
 
+  // useEffect(() => {
+  //   if (tabIndex) {
+
+  //   }
+  // }, [tabIndex]);
+
   return (
     <div className={Style.heroSection}>
-      <Tabs className={Style.heroSection_tab}>
+      <Tabs
+        className={Style.heroSection_tab}
+        onChange={(index) => {
+          setTabIndex(index);
+          setCollectionNameInput("");
+          setCollectionSymbolInput("");
+          setCollectionDescriptionInput("");
+          setCollectionTotalSupplyInput("");
+        }}
+      >
         <TabList className={Style.heroSection_tab}>
-          <Tab
-            _selected={{ color: "white", bg: "blue.500" }}
-            className={Style.heroSection_tab_button}
-          >
-            ERC721
-          </Tab>
-          <Tab
-            _selected={{ color: "white", bg: "blue.500" }}
-            className={Style.heroSection_tab_button}
-          >
-            ERC404
-          </Tab>
-          <Tab
-            _selected={{ color: "white", bg: "blue.500" }}
-            className={Style.heroSection_tab_button}
-          >
-            ERC1155
-          </Tab>
+          <Tab className={Style.heroSection_tab_button}>ERC721</Tab>
+          <Tab className={Style.heroSection_tab_button}>ERC404</Tab>
+          <Tab className={Style.heroSection_tab_button}>ERC1155</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
