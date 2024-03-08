@@ -8,6 +8,7 @@
     transition: all .2s ease-in;
     box-shadow: var(--box-shadow);
     border-radius: 2rem;
+    margin: 5% 0;
 }
 
 .button:hover{
