@@ -110,6 +110,7 @@ export default function SocialUpdateListingButton(props) {
           height={80}
         />
       )}
+      <input placeholder="Enter Price(ETH)" />
       <button
         disabled={isLoading}
         onClick={async () => {
@@ -120,7 +121,7 @@ export default function SocialUpdateListingButton(props) {
         }}
         className={Style.button}
       >
-        {isLoading ? "Loading" : "Update Price"}
+        {isLoading ? "Loading" : "Update $"}
       </button>
     </div>
   );

@@ -5,7 +5,7 @@ import images from "../../img";
 import Image from "next/image";
 const { ethers } = require("ethers");
 
-export default function CancelNFTButton({
+export default function TransferNFTButton({
   contractAddress,
   nftAddress,
   tokenId,
@@ -47,13 +47,13 @@ export default function CancelNFTButton({
         <button
           disabled={isLoading}
           onClick={async () => {
-            setIsLoading(true);
-            await handleCancelListing();
-            setIsLoading(false);
+            // setIsLoading(true);
+            // await handleCancelListing();
+            // setIsLoading(false);
           }}
           className={Style.button}
         >
-          {isLoading ? "Loading" : "Cancel List..."}
+          {isLoading ? "Loading" : "Transfer to ..."}
         </button>
       )}
     </div>

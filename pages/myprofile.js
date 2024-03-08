@@ -142,7 +142,9 @@ function MyProfile() {
     <div>
       <div className={Style.heroSection}>
         <h1>My Profile</h1>
-        {caAddress && <div>{`CA : ${caAddress}`}</div>}
+        {caAddress && (
+          <div>{`Your Social Account Deposit Address : ${caAddress}`}</div>
+        )}
         <Wrap>
           {!userProfiles ? (
             <div>Loading...</div>

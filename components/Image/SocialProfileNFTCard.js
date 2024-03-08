@@ -30,6 +30,7 @@ import {
 } from "@particle-network/auth-core-modal";
 import SocialListNFTButton from "../Button/SocialListNFTButton";
 import SocialCancelNFTButton from "../Button/SocialCancelNFTButton";
+import SocialTransferNFTButton from "../Button/SocialTransferNFTButton";
 import SocialUpdateListingButton from "../Button/SocialUpdateListingButton";
 
 export default function SocialProfileNFTCard(props) {
@@ -113,19 +114,26 @@ export default function SocialProfileNFTCard(props) {
               />
             )}
             {connectionStatus === "connected" && isList && (
-              <SocialCancelNFTButton
-                contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
-                nftAddress={props.nftAddress}
-                tokenId={props.tokenId}
-              />
-            )}
-            {connectionStatus === "connected" && isList && (
               <SocialUpdateListingButton
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
                 nftAddress={props.nftAddress}
                 tokenId={props.tokenId}
                 tokenUri={props.cid}
                 price={20000000000}
+              />
+            )}
+            {connectionStatus === "connected" && isList && (
+              <SocialCancelNFTButton
+                contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
+                nftAddress={props.nftAddress}
+                tokenId={props.tokenId}
+              />
+            )}
+            {connectionStatus === "connected" && !isList && (
+              <SocialTransferNFTButton
+                contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
+                nftAddress={props.nftAddress}
+                tokenId={props.tokenId}
               />
             )}
           </ButtonGroup>

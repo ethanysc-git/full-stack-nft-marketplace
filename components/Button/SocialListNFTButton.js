@@ -246,6 +246,7 @@ export default function SocialListNFTButton(props) {
           height={80}
         />
       )}
+      <input placeholder="Enter Price(ETH)" />
       <button
         disabled={isLoading}
         onClick={async () => {

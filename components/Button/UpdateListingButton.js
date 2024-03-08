@@ -48,17 +48,20 @@ export default function UpdateListingButton({
   return (
     <div>
       {!isLoading && (
-        <button
-          disabled={isLoading}
-          onClick={async () => {
-            setIsLoading(true);
-            const res = await handleUpdateListing();
-            setIsLoading(false);
-          }}
-          className={Style.button}
-        >
-          {isLoading ? "Loading" : "Update Price"}
-        </button>
+        <div>
+          <input placeholder="Enter Price(ETH)" />
+          <button
+            disabled={isLoading}
+            onClick={async () => {
+              setIsLoading(true);
+              const res = await handleUpdateListing();
+              setIsLoading(false);
+            }}
+            className={Style.button}
+          >
+            {isLoading ? "Loading" : "Update $"}
+          </button>
+        </div>
       )}
     </div>
   );

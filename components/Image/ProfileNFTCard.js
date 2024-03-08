@@ -4,6 +4,7 @@ import { useAccount } from "wagmi";
 import { parseEther, formatEther } from "viem";
 import ListNFTButton from "../Button/ListNFTButton";
 import CancelNFTButton from "../Button/CancelNFTButton";
+import TransferNFTButton from "../Button/TransferNFTButton";
 import UpdateListingButton from "../Button/UpdateListingButton";
 import Image from "next/image";
 import images from "../../img";
@@ -113,6 +114,17 @@ export default function ProfileNFTCard(props) {
               />
             )}
             {isConnected && isList && (
+              <UpdateListingButton
+                contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
+                nftAddress={props.nftAddress}
+                tokenId={props.tokenId}
+                tokenUri={props.cid}
+                price={20000000000}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+              />
+            )}
+            {isConnected && isList && (
               <CancelNFTButton
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
                 nftAddress={props.nftAddress}
@@ -121,13 +133,11 @@ export default function ProfileNFTCard(props) {
                 setIsLoading={setIsLoading}
               />
             )}
-            {isConnected && isList && (
-              <UpdateListingButton
+            {isConnected && !isList && (
+              <TransferNFTButton
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
                 nftAddress={props.nftAddress}
                 tokenId={props.tokenId}
-                tokenUri={props.cid}
-                price={20000000000}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
               />

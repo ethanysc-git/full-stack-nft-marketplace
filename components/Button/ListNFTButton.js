@@ -422,15 +422,18 @@ export default function ListNFTButton(props) {
   //   }
   // }, [approveIsDone]);
   return (
-    <button
-      onClick={async () => {
-        setIsLoading(true);
-        await handleApprove();
-        setApproveIsSuccess(true);
-      }}
-      className={Style.button}
-    >
-      {isLoading ? "Loading" : "List Item"}
-    </button>
+    <div>
+      <input placeholder="Enter Price(ETH)" />
+      <button
+        onClick={async () => {
+          setIsLoading(true);
+          await handleApprove();
+          setApproveIsSuccess(true);
+        }}
+        className={Style.button}
+      >
+        {isLoading ? "Loading" : "List Item"}
+      </button>
+    </div>
   );
 }

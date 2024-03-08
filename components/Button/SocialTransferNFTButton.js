@@ -1,34 +1,3 @@
-// import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
-// import Style from "./Button.module.css";
-
-// export default function CancelNFTButton(props) {
-//   const { address, isConnected } = useAccount();
-//   const { config } = usePrepareContractWrite({
-//     address: props.contractAddress,
-//     abi: [
-//       {
-//         name: "cancelListing",
-//         type: "function",
-//         stateMutability: "nonpayable",
-//         inputs: [
-//           { internalType: "address", name: "nftAddress", type: "address" },
-//           { internalType: "uint256", name: "tokenId", type: "uint256" },
-//         ],
-//         outputs: [],
-//       },
-//     ],
-//     functionName: "cancelListing",
-//     args: [props.nftAddress, props.tokenId],
-//   });
-//   const { write } = useContractWrite(config);
-
-//   return (
-//     <button onClick={() => write({})} className={Style.button}>
-//       Cancel Listing
-//     </button>
-//   );
-// }
-//
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import { ethers } from "ethers";
@@ -47,7 +16,7 @@ import { ChainId } from "@biconomy/core-types";
 import images from "../../img";
 import Image from "next/image";
 
-export default function SocialCancelNFTButton(props) {
+export default function SocialTransferNFTButton(props) {
   const [isLoading, setIsLoading] = useState(false);
   const {
     address,
@@ -144,14 +113,14 @@ export default function SocialCancelNFTButton(props) {
       <button
         disabled={isLoading}
         onClick={async () => {
-          setIsLoading(true);
-          await handleSwitch();
-          await executeUserOpAndGasNativeByPaymaster();
-          setIsLoading(false);
+          // setIsLoading(true);
+          // await handleSwitch();
+          // await executeUserOpAndGasNativeByPaymaster();
+          // setIsLoading(false);
         }}
         className={Style.button}
       >
-        {isLoading ? "Loading" : "Cancel List..."}
+        {isLoading ? "Loading" : "Transfer to ..."}
       </button>
     </div>
   );
