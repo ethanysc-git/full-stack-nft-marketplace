@@ -142,7 +142,7 @@ const MyApp = ({ Component, pageProps }) => (
               tipsBackgroundColor: "#eab98159",
             },
           },
-          logo: "https://raw.githubusercontent.com/ethanysc-git/aa-test/main/public/favicon.ico",
+          logo: "https://raw.githubusercontent.com/ethanysc-git/dragon-mint/main/public/favicon.ico",
           projectName: "Dragon Mint",
           subtitle: "Login to App to continue",
           modalWidth: 394,
