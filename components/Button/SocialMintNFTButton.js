@@ -93,6 +93,28 @@ export default function SocialMintNFTButton(props) {
       setIsLoading(false);
     }
   }
+  useEffect(() => {
+    if (isLoading) {
+      const abi = ["event NftMinted(string cid, address minter)"];
+
+      const alchemyProvider = new ethers.providers.JsonRpcProvider(
+        process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL
+      );
+
+      const contractAddress = "0x2Bb634109eee5dc71602066f874DA5ABC27be9D8";
+
+      const contract = new ethers.Contract(
+        contractAddress,
+        abi,
+        alchemyProvider
+      );
+
+      contract.on("NftMinted", (cid, minter) => {
+        console.log(`event NftMinted(${cid}, ${minter}`);
+        setIsLoading(false);
+      });
+    }
+  }, [isLoading]);
 
   return (
     <div>
@@ -110,7 +132,6 @@ export default function SocialMintNFTButton(props) {
           setIsLoading(true);
           await handleSwitch();
           await executeUserOpAndGasNativeByPaymaster();
-          setIsLoading(false);
         }}
         className={Style.button}
       >
