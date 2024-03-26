@@ -235,9 +235,34 @@ export default function SocialListNFTButton(props) {
   useEffect(() => {
     if (approveIsSuccess) {
       executeUserOpAndGasNativeByPaymaster();
-      setIsLoading(false);
+      const abi = [
+        "event ItemListed(address indexed seller, address indexed nftAddress, uint256 indexed tokenId, uint256 price, string tokenUri)",
+      ];
+
+      const alchemyProvider = new ethers.providers.JsonRpcProvider(
+        process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL
+      );
+
+      const contractAddress = "0x1c92920ca2445C3c29A9CcC551152317219C61A6";
+
+      const contract = new ethers.Contract(
+        contractAddress,
+        abi,
+        alchemyProvider
+      );
+
+      contract.on(
+        "ItemListed",
+        (seller, nftAddress, tokenId, price, tokenUri) => {
+          console.log(
+            `event ItemListed(${seller}, ${nftAddress}, ${tokenId}, ${price}, ${tokenUri}`
+          );
+          setIsLoading(false);
+        }
+      );
     }
   }, [approveIsSuccess]);
+
   return (
     <div>
       {isLoading && (

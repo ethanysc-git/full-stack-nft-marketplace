@@ -131,6 +131,31 @@ export default function SocialCancelNFTButton(props) {
     }
   }
 
+  useEffect(() => {
+    if (isLoading) {
+      const abi = [
+        "event ItemCanceled(address indexed seller, address indexed nftAddress, uint256 indexed tokenId)",
+      ];
+
+      const alchemyProvider = new ethers.providers.JsonRpcProvider(
+        process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL
+      );
+
+      const contractAddress = "0x1c92920ca2445C3c29A9CcC551152317219C61A6";
+
+      const contract = new ethers.Contract(
+        contractAddress,
+        abi,
+        alchemyProvider
+      );
+
+      contract.on("ItemCanceled", (seller, nftAddress, tokenId) => {
+        console.log(`event ItemCanceled(${seller}, ${nftAddress}, ${tokenId}`);
+        setIsLoading(false);
+      });
+    }
+  }, [isLoading]);
+
   return (
     <div>
       {isLoading && (
@@ -143,11 +168,12 @@ export default function SocialCancelNFTButton(props) {
       )}
       <button
         disabled={isLoading}
-        onClick={async () => {
+        onClick={async (event) => {
+          event.stopPropagation();
+          event.preventDefault();
           setIsLoading(true);
           await handleSwitch();
           await executeUserOpAndGasNativeByPaymaster();
-          setIsLoading(false);
         }}
         className={Style.button}
       >

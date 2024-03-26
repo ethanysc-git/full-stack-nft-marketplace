@@ -126,21 +126,11 @@ export default function NFTCard(props) {
         </CardBody>
         <Divider />
         <CardFooter>
-          <ButtonGroup spacing="2">
+          <ButtonGroup spacing="3">
             {listingUI && (
               <Button onClick={() => alert("listingItemModalOpen")}>
                 Listing
               </Button>
-            )}
-            {profileUI && !listingUI && (
-              <div>
-                <CancelNFTButton
-                  contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
-                  nftAddress={props.nftAddress}
-                  tokenId={props.tokenId}
-                  price={props.price}
-                />
-              </div>
             )}
             {marketplaceUI && !address && isConnected && (
               <div>
@@ -162,14 +152,6 @@ export default function NFTCard(props) {
                 />
               </div>
             )}
-            {/* {marketplaceUI && (
-              <Button
-                className={Style.navbar_container_right_button}
-                onClick={() => alert("addCartModalOpen")}
-              >
-                <BsCart4 />
-              </Button>
-            )} */}
           </ButtonGroup>
         </CardFooter>
       </Card>

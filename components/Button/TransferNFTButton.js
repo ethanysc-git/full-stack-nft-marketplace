@@ -5,16 +5,10 @@ import images from "../../img";
 import Image from "next/image";
 const { ethers } = require("ethers");
 
-export default function TransferNFTButton({
-  contractAddress,
-  nftAddress,
-  tokenId,
-  isLoading,
-  setIsLoading,
-}) {
-  // const [isLoading, setIsLoading] = useState(false);
+export default function TransferNFTButton(props) {
+  const [isLoading, setIsLoading] = useState(false);
   const { config } = usePrepareContractWrite({
-    address: contractAddress,
+    address: props.contractAddress,
     abi: [
       {
         name: "cancelListing",
@@ -28,7 +22,7 @@ export default function TransferNFTButton({
       },
     ],
     functionName: "cancelListing",
-    args: [nftAddress, tokenId],
+    args: [props.nftAddress, props.tokenId],
   });
   const { writeAsync: cancelListingWrite } = useContractWrite(config);
 
@@ -44,15 +38,7 @@ export default function TransferNFTButton({
   return (
     <div>
       {!isLoading && (
-        <button
-          disabled={isLoading}
-          onClick={async () => {
-            // setIsLoading(true);
-            // await handleCancelListing();
-            // setIsLoading(false);
-          }}
-          className={Style.button}
-        >
+        <button disabled={isLoading} className={Style.button}>
           {isLoading ? "Loading" : "Transfer to ..."}
         </button>
       )}

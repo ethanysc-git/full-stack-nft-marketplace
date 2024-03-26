@@ -4,18 +4,11 @@ import { usePrepareContractWrite, useContractWrite } from "wagmi";
 import { parseEther, formatEther } from "viem";
 const { ethers } = require("ethers");
 
-export default function UpdateListingButton({
-  contractAddress,
-  nftAddress,
-  tokenId,
-  tokenUri,
-  isLoading,
-  setIsLoading,
-}) {
-  // const [isLoading, setIsLoading] = useState(false);
+export default function UpdateListingButton(props) {
+  const [isLoading, setIsLoading] = useState(false);
   const [price, setPrice] = useState("");
   const { config: updateListingConfig } = usePrepareContractWrite({
-    address: contractAddress,
+    address: props.contractAddress,
     abi: [
       {
         name: "updateListing",
@@ -31,7 +24,7 @@ export default function UpdateListingButton({
       },
     ],
     functionName: "updateListing",
-    args: [nftAddress, tokenId, price, tokenUri],
+    args: [props.nftAddress, props.tokenId, price, props.tokenUri],
   });
 
   const { writeAsync: updateListingWrite } =
@@ -46,11 +39,42 @@ export default function UpdateListingButton({
     }
   }
 
+  useEffect(() => {
+    if (isLoading) {
+      const abi = [
+        "event ItemListed(address indexed seller, address indexed nftAddress, uint256 indexed tokenId, uint256 price, string tokenUri)",
+      ];
+
+      const alchemyProvider = new ethers.providers.JsonRpcProvider(
+        process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL
+      );
+
+      const contractAddress = "0x1c92920ca2445C3c29A9CcC551152317219C61A6";
+
+      const contract = new ethers.Contract(
+        contractAddress,
+        abi,
+        alchemyProvider
+      );
+
+      contract.on(
+        "ItemListed",
+        (seller, nftAddress, tokenId, price, tokenUri) => {
+          console.log(
+            `event ItemListed(${seller}, ${nftAddress}, ${tokenId}, ${price}, ${tokenUri}`
+          );
+          setIsLoading(false);
+        }
+      );
+    }
+  }, [isLoading]);
+
   return (
     <div>
       {!isLoading && (
         <div>
           <input
+            disabled={isLoading}
             placeholder="Enter Price(ETH)"
             onChange={(e) => {
               setPrice(parseEther(e.target.value));
@@ -61,7 +85,6 @@ export default function UpdateListingButton({
             onClick={async () => {
               setIsLoading(true);
               const res = await handleUpdateListing();
-              setIsLoading(false);
             }}
             className={Style.button}
           >

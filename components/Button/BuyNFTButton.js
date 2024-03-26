@@ -37,32 +37,52 @@ export default function BuyNFTButton(props) {
       setIsLoading(false);
     }
   }
+
+  useEffect(() => {
+    if (isLoading) {
+      const abi = [
+        "event ItemBought(address indexed buyer, address indexed nftAddress, uint256 indexed tokenId, uint256 price)",
+      ];
+
+      const alchemyProvider = new ethers.providers.JsonRpcProvider(
+        process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL
+      );
+
+      const contractAddress = "0x1c92920ca2445C3c29A9CcC551152317219C61A6";
+
+      const contract = new ethers.Contract(
+        contractAddress,
+        abi,
+        alchemyProvider
+      );
+
+      contract.on("ItemBought", (seller, nftAddress, tokenId) => {
+        console.log(`event ItemBought(${seller}, ${nftAddress}, ${tokenId}`);
+        setIsLoading(false);
+      });
+    }
+  }, [isLoading]);
+
   return (
     <div>
       {isLoading && (
-        <>
-          <Image
-            src={images.snailloading}
-            alt="Loading logo"
-            width={80}
-            height={80}
-          />
-          <p>{isLoading ? "Loading" : ""}</p>
-        </>
+        <Image
+          src={images.snailloading}
+          alt="Loading logo"
+          width={80}
+          height={80}
+        />
       )}
-      {!isLoading && (
-        <button
-          disabled={isLoading}
-          onClick={async () => {
-            setIsLoading(true);
-            await handleBuyItem();
-            setIsLoading(false);
-          }}
-          className={Style.button}
-        >
-          {isLoading ? "Loading" : "Buy now"}
-        </button>
-      )}
+      <button
+        disabled={isLoading}
+        onClick={async () => {
+          setIsLoading(true);
+          await handleBuyItem();
+        }}
+        className={Style.button}
+      >
+        {isLoading ? "Loading" : "Buy now"}
+      </button>
     </div>
   );
 }

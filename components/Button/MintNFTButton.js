@@ -57,30 +57,25 @@ export default function MintNFTButton(props) {
   return (
     <div>
       {isLoading && (
-        <>
-          <Image
-            src={images.snailloading}
-            alt="Loading logo"
-            width={80}
-            height={80}
-          />
-          <p>{isLoading ? "Loading" : ""}</p>
-        </>
+        <Image
+          src={images.snailloading}
+          alt="Loading logo"
+          width={80}
+          height={80}
+        />
       )}
-      {!isLoading && (
-        <button
-          disabled={isLoading}
-          onClick={async (event) => {
-            event.stopPropagation();
-            event.preventDefault();
-            setIsLoading(true);
-            const res = await handleMint();
-          }}
-          className={Style.button}
-        >
-          {isLoading ? "Loading" : "Mint"}
-        </button>
-      )}
+      <button
+        disabled={isLoading}
+        onClick={async (event) => {
+          event.stopPropagation();
+          event.preventDefault();
+          setIsLoading(true);
+          const res = await handleMint();
+        }}
+        className={Style.button}
+      >
+        {isLoading ? "Loading" : "Mint"}
+      </button>
     </div>
   );
 }

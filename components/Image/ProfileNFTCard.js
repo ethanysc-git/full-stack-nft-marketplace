@@ -108,8 +108,6 @@ export default function ProfileNFTCard(props) {
                 nftAddress={props.nftAddress}
                 tokenId={props.tokenId}
                 tokenUri={props.cid}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
               />
             )}
             {isConnected && isList && (
@@ -118,8 +116,6 @@ export default function ProfileNFTCard(props) {
                 nftAddress={props.nftAddress}
                 tokenId={props.tokenId}
                 tokenUri={props.cid}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
               />
             )}
             {isConnected && isList && (
@@ -127,8 +123,6 @@ export default function ProfileNFTCard(props) {
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
                 nftAddress={props.nftAddress}
                 tokenId={props.tokenId}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
               />
             )}
             {isConnected && !isList && (
@@ -136,8 +130,6 @@ export default function ProfileNFTCard(props) {
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
                 nftAddress={props.nftAddress}
                 tokenId={props.tokenId}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
               />
             )}
           </ButtonGroup>

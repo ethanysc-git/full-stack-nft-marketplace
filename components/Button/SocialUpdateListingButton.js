@@ -19,6 +19,8 @@ const { ethers } = require("ethers");
 
 export default function SocialUpdateListingButton(props) {
   const [isLoading, setIsLoading] = useState(false);
+  const [approveIsSuccess, setApproveIsSuccess] = useState(false);
+  const [approveIsDone, setApproveIsDone] = useState(false);
   const [price, setPrice] = useState("");
   const {
     address,
@@ -102,6 +104,36 @@ export default function SocialUpdateListingButton(props) {
     }
   }
 
+  useEffect(() => {
+    if (isLoading) {
+      const abi = [
+        "event ItemListed(address indexed seller, address indexed nftAddress, uint256 indexed tokenId, uint256 price, string tokenUri)",
+      ];
+
+      const alchemyProvider = new ethers.providers.JsonRpcProvider(
+        process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL
+      );
+
+      const contractAddress = "0x1c92920ca2445C3c29A9CcC551152317219C61A6";
+
+      const contract = new ethers.Contract(
+        contractAddress,
+        abi,
+        alchemyProvider
+      );
+
+      contract.on(
+        "ItemListed",
+        (seller, nftAddress, tokenId, price, tokenUri) => {
+          console.log(
+            `event ItemListed(${seller}, ${nftAddress}, ${tokenId}, ${price}, ${tokenUri}`
+          );
+          setIsLoading(false);
+        }
+      );
+    }
+  }, [isLoading]);
+
   return (
     <div>
       {isLoading && (
@@ -124,7 +156,6 @@ export default function SocialUpdateListingButton(props) {
           setIsLoading(true);
           await handleSwitch();
           await executeUserOpAndGasNativeByPaymaster();
-          setIsLoading(false);
         }}
         className={Style.button}
       >

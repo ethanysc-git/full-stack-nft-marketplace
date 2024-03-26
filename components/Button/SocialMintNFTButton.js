@@ -128,7 +128,9 @@ export default function SocialMintNFTButton(props) {
       )}
       <button
         disabled={isLoading}
-        onClick={async () => {
+        onClick={async (event) => {
+          event.stopPropagation();
+          event.preventDefault();
           setIsLoading(true);
           await handleSwitch();
           await executeUserOpAndGasNativeByPaymaster();

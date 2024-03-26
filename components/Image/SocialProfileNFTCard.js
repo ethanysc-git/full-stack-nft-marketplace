@@ -103,7 +103,7 @@ export default function SocialProfileNFTCard(props) {
         </CardBody>
         <Divider />
         <CardFooter>
-          <ButtonGroup spacing="2">
+          <ButtonGroup spacing="3">
             {connectionStatus === "connected" && !isList && (
               <SocialListNFTButton
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
