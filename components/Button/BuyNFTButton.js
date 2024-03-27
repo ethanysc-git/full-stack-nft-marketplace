@@ -3,11 +3,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
 import images from "../../img";
 import Image from "next/image";
+import { ToastContainer, toast, TypeOptions } from "react-toastify";
 const { ethers } = require("ethers");
 
 export default function BuyNFTButton(props) {
   const { address, isConnected } = useAccount();
   const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const { config } = usePrepareContractWrite({
     address: props.contractAddress,
     abi: [
@@ -34,6 +36,9 @@ export default function BuyNFTButton(props) {
       const res = await buyItemWrite();
     } catch (error) {
       console.log(error);
+      toast(`Buy item error : ${error}`, {
+        type: "error",
+      });
       setIsLoading(false);
     }
   }
@@ -57,8 +62,14 @@ export default function BuyNFTButton(props) {
       );
 
       contract.on("ItemBought", (seller, nftAddress, tokenId) => {
-        console.log(`event ItemBought(${seller}, ${nftAddress}, ${tokenId}`);
-        setIsLoading(false);
+        if (!isListening) {
+          setIsListening(true);
+          console.log(`event ItemBought(${seller}, ${nftAddress}, ${tokenId}`);
+          toast("Buy item successfully", {
+            type: "success",
+          });
+          setIsLoading(false);
+        }
       });
     }
   }, [isLoading]);
@@ -75,7 +86,13 @@ export default function BuyNFTButton(props) {
       )}
       <button
         disabled={isLoading}
-        onClick={async () => {
+        onClick={async (event) => {
+          event.stopPropagation();
+          event.preventDefault();
+          toast(`Buy item is pending`, {
+            type: "default",
+          });
+          setIsListening(false);
           setIsLoading(true);
           await handleBuyItem();
         }}

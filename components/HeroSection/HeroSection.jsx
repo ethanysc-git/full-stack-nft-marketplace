@@ -20,7 +20,7 @@ const HeroSection = () => {
     const [cid, setCid] = useState("");
     const [uploading, setUploading] = useState(false);
     const inputFile = useRef(null);
-    
+
     const uploadFile = async (fileToUpload) => {
       try {
         setUploading(true);

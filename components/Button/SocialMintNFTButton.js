@@ -15,9 +15,11 @@ import { Ethereum, EthereumSepolia } from "@particle-network/chains";
 import { ChainId } from "@biconomy/core-types";
 import images from "../../img";
 import Image from "next/image";
+import { ToastContainer, toast, TypeOptions } from "react-toastify";
 
 export default function SocialMintNFTButton(props) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const {
     address,
     chainId,
@@ -33,6 +35,9 @@ export default function SocialMintNFTButton(props) {
       switchChain(EthereumSepolia.id);
     } catch (error) {
       console.log(error);
+      toast(`Switch Chain error : ${error}`, {
+        type: "error",
+      });
       setIsLoading(false);
     }
   }
@@ -90,9 +95,22 @@ export default function SocialMintNFTButton(props) {
       console.log("Transaction hash: ", txHash);
     } catch (error) {
       console.log(error);
+      toast(`NFT minted error : ${error}`, {
+        type: "error",
+      });
       setIsLoading(false);
     }
   }
+
+  const types = ["success", "info", "warning", "error"];
+
+  const addNotification = () => {
+    // use a random type of notification
+    toast("Lorem ipsum dolor sit amet, consectetur adipiscing elit", {
+      type: types[Math.floor(Math.random() * types.length)],
+    });
+  };
+
   useEffect(() => {
     if (isLoading) {
       const abi = ["event NftMinted(string cid, address minter)"];
@@ -110,8 +128,14 @@ export default function SocialMintNFTButton(props) {
       );
 
       contract.on("NftMinted", (cid, minter) => {
-        console.log(`event NftMinted(${cid}, ${minter}`);
-        setIsLoading(false);
+        if (!isListening) {
+          setIsListening(true);
+          console.log(`event NftMinted(${cid}, ${minter}`);
+          toast("NFT minted successfully", {
+            type: "success",
+          });
+          setIsLoading(false);
+        }
       });
     }
   }, [isLoading]);
@@ -131,6 +155,10 @@ export default function SocialMintNFTButton(props) {
         onClick={async (event) => {
           event.stopPropagation();
           event.preventDefault();
+          toast(`NFT minting is pending`, {
+            type: "default",
+          });
+          setIsListening(false);
           setIsLoading(true);
           await handleSwitch();
           await executeUserOpAndGasNativeByPaymaster();

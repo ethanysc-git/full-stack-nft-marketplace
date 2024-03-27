@@ -3,10 +3,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
 import images from "../../img";
 import Image from "next/image";
+import { ToastContainer, toast, TypeOptions } from "react-toastify";
 const { ethers } = require("ethers");
 
 export default function CancelNFTButton(props) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const { config } = usePrepareContractWrite({
     address: props.contractAddress,
     abi: [
@@ -31,6 +33,9 @@ export default function CancelNFTButton(props) {
       const res = await cancelListingWrite();
     } catch (error) {
       console.log(error);
+      toast(`Cancel listing error : ${error}`, {
+        type: "error",
+      });
       setIsLoading(false);
     }
   }
@@ -54,8 +59,16 @@ export default function CancelNFTButton(props) {
       );
 
       contract.on("ItemCanceled", (seller, nftAddress, tokenId) => {
-        console.log(`event ItemCanceled(${seller}, ${nftAddress}, ${tokenId}`);
-        setIsLoading(false);
+        if (!isListening) {
+          setIsListening(true);
+          console.log(
+            `event ItemCanceled(${seller}, ${nftAddress}, ${tokenId}`
+          );
+          toast("Cancel listing successfully", {
+            type: "success",
+          });
+          setIsLoading(false);
+        }
       });
     }
   }, [isLoading]);
@@ -75,6 +88,10 @@ export default function CancelNFTButton(props) {
         onClick={async (event) => {
           event.stopPropagation();
           event.preventDefault();
+          toast(`Cancel listing is pending`, {
+            type: "default",
+          });
+          setIsListening(false);
           setIsLoading(true);
           await handleCancelListing();
         }}

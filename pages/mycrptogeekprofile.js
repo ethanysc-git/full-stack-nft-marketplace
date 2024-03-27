@@ -12,7 +12,15 @@ function MyCrptoGeekProfile() {
   const [userProfiles, setUserProfiles] = useState(null);
   const [listedNftData, setListedNftData] = useState(null);
   const [marketMap, setMarketMap] = useState(null);
-  const { loading, error, data: listedNfts } = useQuery(GET_ACTIVE_ITEMS);
+  // const { loading, error, data: listedNfts } = useQuery(GET_ACTIVE_ITEMS);
+
+  const {
+    loading,
+    error,
+    data: listedNfts,
+    startPolling,
+    stopPolling,
+  } = useQuery(GET_ACTIVE_ITEMS);
 
   let data = {
     data: {
@@ -26,6 +34,13 @@ function MyCrptoGeekProfile() {
   };
 
   let marketplaceMap = new Map();
+
+  useEffect(() => {
+    startPolling(2000);
+    return () => {
+      stopPolling();
+    };
+  }, [startPolling, stopPolling]);
 
   useEffect(() => {
     if (address) {

@@ -3,10 +3,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { usePrepareContractWrite, useContractWrite } from "wagmi";
 import images from "../../img";
 import Image from "next/image";
+import { ToastContainer, toast, TypeOptions } from "react-toastify";
 const { ethers } = require("ethers");
 
 export default function MintNFTButton(props) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const { config } = usePrepareContractWrite({
     address: props.contractAddress,
     abi: [
@@ -28,9 +30,22 @@ export default function MintNFTButton(props) {
       const res = await mintWrite();
     } catch (error) {
       console.log(error);
+      toast(`NFT minted error : ${error}`, {
+        type: "error",
+      });
       setIsLoading(false);
     }
   }
+
+  const types = ["success", "info", "warning", "error"];
+
+  const addNotification = () => {
+    // use a random type of notification
+    toast("Lorem ipsum dolor sit amet, consectetur adipiscing elit", {
+      type: types[Math.floor(Math.random() * types.length)],
+    });
+  };
+
   useEffect(() => {
     if (isLoading) {
       const abi = ["event NftMinted(string cid, address minter)"];
@@ -48,8 +63,14 @@ export default function MintNFTButton(props) {
       );
 
       contract.on("NftMinted", (cid, minter) => {
-        console.log(`event NftMinted(${cid}, ${minter}`);
-        setIsLoading(false);
+        if (!isListening) {
+          setIsListening(true);
+          console.log(`event NftMinted(${cid}, ${minter}`);
+          toast("NFT minted successfully", {
+            type: "success",
+          });
+          setIsLoading(false);
+        }
       });
     }
   }, [isLoading]);
@@ -69,6 +90,10 @@ export default function MintNFTButton(props) {
         onClick={async (event) => {
           event.stopPropagation();
           event.preventDefault();
+          toast(`NFT minting is pending`, {
+            type: "default",
+          });
+          setIsListening(false);
           setIsLoading(true);
           const res = await handleMint();
         }}

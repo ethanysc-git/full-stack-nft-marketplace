@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
+import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
 import { NavBar, Footer } from "../components/componentindex";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
@@ -9,6 +10,8 @@ import { publicProvider } from "wagmi/providers/public";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { AuthCoreContextProvider } from "@particle-network/auth-core-modal";
 import { Ethereum, EthereumSepolia, Polygon } from "@particle-network/chains";
+import NotificationCenter from "../components/NotificationCenter/NotificationCenter";
+import { ToastContainer, toast, TypeOptions } from "react-toastify";
 
 require("events").EventEmitter.defaultMaxListeners = 50;
 
@@ -35,6 +38,7 @@ const client = new ApolloClient({
   uri: process.env.NEXT_PUBLIC_SUBGRAPH_URL,
 });
 const nftAddress = "0x2Bb634109eee5dc71602066f874DA5ABC27be9D8";
+
 const MyApp = ({ Component, pageProps }) => (
   <div>
     <AuthCoreContextProvider
@@ -168,6 +172,7 @@ const MyApp = ({ Component, pageProps }) => (
           <ApolloProvider client={client}>
             <NavBar />
             <Component {...pageProps} />
+            <ToastContainer />
             <Footer />
           </ApolloProvider>
         </RainbowKitProvider>

@@ -22,7 +22,14 @@ function MyProfile() {
   const [eoaAddress, setEoaAddress] = useState(null);
   const [caBalance, setCaBalance] = useState();
   const [marketMap, setMarketMap] = useState(null);
-  const { loading, error, data: listedNfts } = useQuery(GET_ACTIVE_ITEMS);
+  // const { loading, error, data: listedNfts } = useQuery(GET_ACTIVE_ITEMS);
+  const {
+    loading,
+    error,
+    data: listedNfts,
+    startPolling,
+    stopPolling,
+  } = useQuery(GET_ACTIVE_ITEMS);
   const {
     address,
     chainId,
@@ -116,6 +123,13 @@ function MyProfile() {
     }));
     setUserProfiles(finalData);
   };
+
+  useEffect(() => {
+    startPolling(2000);
+    return () => {
+      stopPolling();
+    };
+  }, [startPolling, stopPolling]);
 
   useEffect(() => {
     if (address) {

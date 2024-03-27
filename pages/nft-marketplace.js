@@ -1,13 +1,26 @@
-import React, { useState, useEffect, useRef } from "react";
 import Style from "../components/HeroSection/HeroSection.module.css";
-import GET_ACTIVE_ITEMS from "../pages/api/subgraphQueries";
-import { useQuery } from "@apollo/client";
-import NFTCard from "../components/Image/NFTCard";
+import React, { useState, useEffect, useRef } from "react";
 import { Wrap, WrapItem, Center } from "@chakra-ui/react";
+import NFTCard from "../components/Image/NFTCard";
+import { useQuery } from "@apollo/client";
+import GET_ACTIVE_ITEMS from "../pages/api/subgraphQueries";
 
 function NFTMarketplace() {
   const [listedNftData, setListedNftData] = useState(null);
-  const { loading, error, data: listedNfts } = useQuery(GET_ACTIVE_ITEMS);
+  const {
+    loading,
+    error,
+    data: listedNfts,
+    startPolling,
+    stopPolling,
+  } = useQuery(GET_ACTIVE_ITEMS);
+
+  useEffect(() => {
+    startPolling(2000);
+    return () => {
+      stopPolling();
+    };
+  }, [startPolling, stopPolling]);
 
   useEffect(() => {
     if (listedNfts) {
@@ -41,8 +54,6 @@ function NFTMarketplace() {
                             seller={seller}
                             price={price}
                             cid={cid}
-                            marketplaceUI={true}
-                            profileUI={false}
                           />
                         )}
                       </Center>

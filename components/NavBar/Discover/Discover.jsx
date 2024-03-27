@@ -20,6 +20,7 @@ const Discover = () => {
       </div>
       <div key={1} className={Style.discover}>
         <Link href="/nft-marketplace" legacyBehavior>
+        {/* <Link href="/tourist-nft-marketplace" legacyBehavior> */}
         <a><p>NFT Marketplace</p></a>
         </Link>
       </div>

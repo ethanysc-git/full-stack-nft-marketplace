@@ -15,10 +15,12 @@ import { ChainId } from "@biconomy/core-types";
 import images from "../../img";
 import Image from "next/image";
 import { parseEther, formatEther } from "viem";
+import { ToastContainer, toast, TypeOptions } from "react-toastify";
 const { ethers } = require("ethers");
 
 export default function SocialUpdateListingButton(props) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const [approveIsSuccess, setApproveIsSuccess] = useState(false);
   const [approveIsDone, setApproveIsDone] = useState(false);
   const [price, setPrice] = useState("");
@@ -37,6 +39,9 @@ export default function SocialUpdateListingButton(props) {
       switchChain(EthereumSepolia.id);
     } catch (error) {
       console.log(error);
+      toast(`Switch Chain error : ${error}`, {
+        type: "error",
+      });
       setIsLoading(false);
     }
   }
@@ -125,10 +130,16 @@ export default function SocialUpdateListingButton(props) {
       contract.on(
         "ItemListed",
         (seller, nftAddress, tokenId, price, tokenUri) => {
-          console.log(
-            `event ItemListed(${seller}, ${nftAddress}, ${tokenId}, ${price}, ${tokenUri}`
-          );
-          setIsLoading(false);
+          if (!isListening) {
+            setIsListening(true);
+            console.log(
+              `event ItemListed(${seller}, ${nftAddress}, ${tokenId}, ${price}, ${tokenUri}`
+            );
+            toast("Update list item successfully", {
+              type: "success",
+            });
+            setIsLoading(false);
+          }
         }
       );
     }
@@ -152,7 +163,13 @@ export default function SocialUpdateListingButton(props) {
       />
       <button
         disabled={isLoading}
-        onClick={async () => {
+        onClick={async (event) => {
+          event.stopPropagation();
+          event.preventDefault();
+          toast(`Update list item is pending`, {
+            type: "default",
+          });
+          setIsListening(false);
           setIsLoading(true);
           await handleSwitch();
           await executeUserOpAndGasNativeByPaymaster();

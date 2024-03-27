@@ -2,10 +2,12 @@ import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
 import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
 import { parseEther, formatEther } from "viem";
+import { ToastContainer, toast, TypeOptions } from "react-toastify";
 const { ethers } = require("ethers");
 
 export default function ListNFTButton(props) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const [approveIsSuccess, setApproveIsSuccess] = useState(false);
   const [approveIsDone, setApproveIsDone] = useState(false);
   const [price, setPrice] = useState("");
@@ -36,6 +38,9 @@ export default function ListNFTButton(props) {
       approveWrite();
     } catch (error) {
       console.log(error);
+      toast(`Approve NFT error : ${error}`, {
+        type: "error",
+      });
       setIsLoading(false);
     }
   }
@@ -53,6 +58,9 @@ export default function ListNFTButton(props) {
       write();
     } catch (error) {
       console.log(error);
+      toast(`List item error : ${error}`, {
+        type: "error",
+      });
       setIsLoading(false);
     }
   }
@@ -76,11 +84,16 @@ export default function ListNFTButton(props) {
       );
 
       contract.on("Approval", (owner, approved, tokenId) => {
-        console.log(`event Approval(${owner}, ${approved}, ${tokenId}`);
-        console.log(`Start handleListItem()`);
-        handleListItem();
-        console.log(`End handleListItem()`);
-        setApproveIsDone(true);
+        if (!isListening) {
+          setIsListening(true);
+          console.log(`event Approval(${owner}, ${approved}, ${tokenId}`);
+          toast("Approval successfully", {
+            type: "success",
+          });
+          handleListItem();
+          setIsListening(false);
+          setApproveIsDone(true);
+        }
       });
     }
   }, [approveIsSuccess]);
@@ -106,10 +119,16 @@ export default function ListNFTButton(props) {
       contract.on(
         "ItemListed",
         (seller, nftAddress, tokenId, price, tokenUri) => {
-          console.log(
-            `event ItemListed(${seller}, ${nftAddress}, ${tokenId}, ${price}, ${tokenUri}`
-          );
-          setIsLoading(false);
+          if (!isListening) {
+            setIsListening(true);
+            console.log(
+              `event ItemListed(${seller}, ${nftAddress}, ${tokenId}, ${price}, ${tokenUri}`
+            );
+            toast("Item listed successfully", {
+              type: "success",
+            });
+            setIsLoading(false);
+          }
         }
       );
     }
@@ -124,7 +143,13 @@ export default function ListNFTButton(props) {
         }}
       />
       <button
-        onClick={async () => {
+        onClick={async (event) => {
+          event.stopPropagation();
+          event.preventDefault();
+          toast(`Item listed is pending`, {
+            type: "default",
+          });
+          setIsListening(false);
           setIsLoading(true);
           await handleApprove();
           setApproveIsSuccess(true);

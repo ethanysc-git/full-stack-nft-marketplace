@@ -2,10 +2,14 @@ import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
 import { usePrepareContractWrite, useContractWrite } from "wagmi";
 import { parseEther, formatEther } from "viem";
+import images from "../../img";
+import Image from "next/image";
+import { ToastContainer, toast, TypeOptions } from "react-toastify";
 const { ethers } = require("ethers");
 
 export default function UpdateListingButton(props) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const [price, setPrice] = useState("");
   const { config: updateListingConfig } = usePrepareContractWrite({
     address: props.contractAddress,
@@ -35,6 +39,9 @@ export default function UpdateListingButton(props) {
       const res = await updateListingWrite();
     } catch (error) {
       console.log(error);
+      toast(`Update list item error : ${error}`, {
+        type: "error",
+      });
       setIsLoading(false);
     }
   }
@@ -60,10 +67,16 @@ export default function UpdateListingButton(props) {
       contract.on(
         "ItemListed",
         (seller, nftAddress, tokenId, price, tokenUri) => {
-          console.log(
-            `event ItemListed(${seller}, ${nftAddress}, ${tokenId}, ${price}, ${tokenUri}`
-          );
-          setIsLoading(false);
+          if (!isListening) {
+            setIsListening(true);
+            console.log(
+              `event ItemListed(${seller}, ${nftAddress}, ${tokenId}, ${price}, ${tokenUri}`
+            );
+            toast("Update list item successfully", {
+              type: "success",
+            });
+            setIsLoading(false);
+          }
         }
       );
     }
@@ -71,8 +84,17 @@ export default function UpdateListingButton(props) {
 
   return (
     <div>
-      {!isLoading && (
-        <div>
+      {isLoading && (
+        <Image
+          src={images.snailloading}
+          alt="Loading logo"
+          width={80}
+          height={80}
+        />
+      )}
+
+      <div>
+        {!isLoading && (
           <input
             disabled={isLoading}
             placeholder="Enter Price(ETH)"
@@ -80,18 +102,24 @@ export default function UpdateListingButton(props) {
               setPrice(parseEther(e.target.value));
             }}
           />
-          <button
-            disabled={isLoading}
-            onClick={async () => {
-              setIsLoading(true);
-              const res = await handleUpdateListing();
-            }}
-            className={Style.button}
-          >
-            {isLoading ? "Loading" : "Update $"}
-          </button>
-        </div>
-      )}
+        )}
+        <button
+          disabled={isLoading}
+          onClick={async (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+            toast(`Update list item is pending`, {
+              type: "default",
+            });
+            setIsListening(false);
+            setIsLoading(true);
+            const res = await handleUpdateListing();
+          }}
+          className={Style.button}
+        >
+          {isLoading ? "Loading" : "Update $"}
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,46 +1,3 @@
-// import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
-// import Style from "./Button.module.css";
-
-// export default function SocailBuyNFTButton(props) {
-//   const { address, isConnected } = useAccount();
-//   const { config } = usePrepareContractWrite({
-//     address: props.contractAddress,
-//     abi: [
-//       {
-//         name: "buyItem",
-//         type: "function",
-//         stateMutability: "payable",
-//         inputs: [
-//           { internalType: "address", name: "nftAddress", type: "address" },
-//           { internalType: "uint256", name: "tokenId", type: "uint256" },
-//         ],
-//         outputs: [],
-//       },
-//     ],
-//     functionName: "buyItem",
-//     args: [props.nftAddress, props.tokenId],
-//     from: address,
-//     value: props.price,
-//   });
-//   const { write } = useContractWrite(config);
-
-//   return (
-//     <button
-//       onClick={() => async () => {
-//         try {
-//           write({});
-//         } catch (e) {
-//           console.log(e)();
-//           console.log("trouble loading buyItem")();
-//           alert("trouble loading buyItem")();
-//         }
-//       }}
-//       className={Style.button}
-//     >
-//       Buy now
-//     </button>
-//   );
-// }
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import { ethers } from "ethers";
@@ -58,9 +15,11 @@ import { Ethereum, EthereumSepolia } from "@particle-network/chains";
 import { ChainId } from "@biconomy/core-types";
 import images from "../../img";
 import Image from "next/image";
+import { ToastContainer, toast, TypeOptions } from "react-toastify";
 
 export default function SocialBuyNFTButton(props) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const {
     address,
     chainId,
@@ -76,6 +35,9 @@ export default function SocialBuyNFTButton(props) {
       switchChain(EthereumSepolia.id);
     } catch (error) {
       console.log(error);
+      toast(`Switch Chain error : ${error}`, {
+        type: "error",
+      });
       setIsLoading(false);
     }
   }
@@ -140,6 +102,9 @@ export default function SocialBuyNFTButton(props) {
       console.log("Transaction hash: ", txHash);
     } catch (error) {
       console.log(error);
+      toast(`Buy item error : ${error}`, {
+        type: "error",
+      });
       setIsLoading(false);
     }
   }
@@ -163,8 +128,14 @@ export default function SocialBuyNFTButton(props) {
       );
 
       contract.on("ItemBought", (seller, nftAddress, tokenId) => {
-        console.log(`event ItemBought(${seller}, ${nftAddress}, ${tokenId}`);
-        setIsLoading(false);
+        if (!isListening) {
+          setIsListening(true);
+          console.log(`event ItemBought(${seller}, ${nftAddress}, ${tokenId}`);
+          toast("Buy item successfully", {
+            type: "success",
+          });
+          setIsLoading(false);
+        }
       });
     }
   }, [isLoading]);
@@ -181,7 +152,13 @@ export default function SocialBuyNFTButton(props) {
       )}
       <button
         disabled={isLoading}
-        onClick={async () => {
+        onClick={async (event) => {
+          event.stopPropagation();
+          event.preventDefault();
+          toast(`Buy item is pending`, {
+            type: "default",
+          });
+          setIsListening(false);
           setIsLoading(true);
           await handleSwitch();
           await executeUserOpAndGasNativeByPaymaster();

@@ -1,67 +1,3 @@
-// import Style from "./Button.module.css";
-// import React, { useState, useEffect, useRef } from "react";
-// import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
-
-// export default function ListNFTButton(props) {
-//   const { config: approveConfig } = usePrepareContractWrite({
-//     address: "0x2Bb634109eee5dc71602066f874DA5ABC27be9D8",
-
-//     abi: [
-//       {
-//         name: "approve",
-//         type: "function",
-//         stateMutability: "nonpayable",
-//         inputs: [
-//           { internalType: "address", name: "to", type: "address" },
-//           { internalType: "uint256", name: "tokenId", type: "uint256" },
-//         ],
-//         outputs: [],
-//       },
-//     ],
-//     functionName: "approve",
-//     args: ["0x1c92920ca2445C3c29A9CcC551152317219C61A6", props.tokenId],
-//   });
-
-//   const {
-//     isLoading: approveIsLoading,
-//     isSuccess: approveIsSuccess,
-//     write: approveWrite,
-//   } = useContractWrite(approveConfig);
-
-//   const { config: listItemConfig } = usePrepareContractWrite({
-//     address: props.contractAddress,
-//     abi: [
-//       {
-//         name: "listItem",
-//         type: "function",
-//         stateMutability: "nonpayable",
-//         inputs: [
-//           { internalType: "address", name: "nftAddress", type: "address" },
-//           { internalType: "uint256", name: "tokenId", type: "uint256" },
-//           { internalType: "uint256", name: "price", type: "uint256" },
-//           { internalType: "string", name: "tokenUri", type: "string" },
-//         ],
-//         outputs: [],
-//       },
-//     ],
-//     functionName: "listItem",
-//     args: [props.nftAddress, props.tokenId, props.price, props.tokenUri],
-//   });
-
-//   const { write: listItemWrite } = useContractWrite(listItemConfig);
-
-//   useEffect(() => {
-//     if (approveIsSuccess) {
-//       listItemWrite();
-//     }
-//   }, [approveIsLoading, approveIsSuccess, listItemWrite]);
-//   return (
-//     <button onClick={() => approveWrite({})} className={Style.button}>
-//       {approveIsLoading ? "Loading" : "List Item"}
-//     </button>
-//   );
-// }
-//
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import {
@@ -79,12 +15,14 @@ import { ChainId } from "@biconomy/core-types";
 import images from "../../img";
 import Image from "next/image";
 import { parseEther, formatEther } from "viem";
+import { ToastContainer, toast, TypeOptions } from "react-toastify";
 const { ethers } = require("ethers");
 
 export default function SocialListNFTButton(props) {
   const [txHash, setTxHash] = useState(null);
   const [approveIsSuccess, setApproveIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const [price, setPrice] = useState("");
   const {
     address,
@@ -99,12 +37,14 @@ export default function SocialListNFTButton(props) {
   const alchemyProvider = new ethers.providers.JsonRpcProvider(
     process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL
   );
-
   async function handleSwitch() {
     try {
       switchChain(EthereumSepolia.id);
     } catch (error) {
       console.log(error);
+      toast(`Switch Chain error : ${error}`, {
+        type: "error",
+      });
       setIsLoading(false);
     }
   }
@@ -164,6 +104,9 @@ export default function SocialListNFTButton(props) {
       setTxHash(txHash);
     } catch (error) {
       console.log(error);
+      toast(`Approve NFT error : ${error}`, {
+        type: "error",
+      });
       setIsLoading(false);
     }
   }
@@ -208,6 +151,9 @@ export default function SocialListNFTButton(props) {
       console.log("Transaction hash: ", txHash);
     } catch (error) {
       console.log(error);
+      toast(`List item error : ${error}`, {
+        type: "error",
+      });
       setIsLoading(false);
     }
   }
@@ -227,13 +173,21 @@ export default function SocialListNFTButton(props) {
       );
 
       contract.on("Approval", (owner, approved, tokenId) => {
-        console.log(`event Approval(${owner}, ${approved}, ${tokenId}`);
-        setApproveIsSuccess(true);
+        if (!isListening) {
+          setIsListening(true);
+          console.log(`event Approval(${owner}, ${approved}, ${tokenId}`);
+
+          toast("Approval successfully", {
+            type: "success",
+          });
+          setApproveIsSuccess(true);
+        }
       });
     }
   }, [txHash]);
   useEffect(() => {
     if (approveIsSuccess) {
+      setIsListening(false);
       executeUserOpAndGasNativeByPaymaster();
       const abi = [
         "event ItemListed(address indexed seller, address indexed nftAddress, uint256 indexed tokenId, uint256 price, string tokenUri)",
@@ -254,10 +208,16 @@ export default function SocialListNFTButton(props) {
       contract.on(
         "ItemListed",
         (seller, nftAddress, tokenId, price, tokenUri) => {
-          console.log(
-            `event ItemListed(${seller}, ${nftAddress}, ${tokenId}, ${price}, ${tokenUri}`
-          );
-          setIsLoading(false);
+          if (!isListening) {
+            setIsListening(true);
+            console.log(
+              `event ItemListed(${seller}, ${nftAddress}, ${tokenId}, ${price}, ${tokenUri}`
+            );
+            toast("Item listed successfully", {
+              type: "success",
+            });
+            setIsLoading(false);
+          }
         }
       );
     }
@@ -280,8 +240,13 @@ export default function SocialListNFTButton(props) {
         }}
       />
       <button
-        disabled={isLoading}
-        onClick={async () => {
+        onClick={async (event) => {
+          event.stopPropagation();
+          event.preventDefault();
+          toast(`Item listed is pending`, {
+            type: "default",
+          });
+          setIsListening(false);
           setIsLoading(true);
           await handleSwitch();
           await executeUserOpAndGasNativeByPaymasterApprove();

@@ -2,12 +2,14 @@ import React from 'react'
 import Image from "next/image"
 import Style from "./Notification.module.css"
 import images from "../../../img"
+
 const Notification = (props) => {
   let userName = "CrptoGeek"
   if(props._userInfo) {
     userName = props._userInfo.name;
   }
   return (
+    
     <div className={Style.notification}>
       <p>Notification</p>
       <div className={Style.notification_box}>

@@ -15,6 +15,7 @@ import {
   useAuthCore,
 } from "@particle-network/auth-core-modal";
 import { useAccount } from "wagmi";
+import NotificationCenter from "../NotificationCenter/NotificationCenter";
 
 const NavBar = () => {
   const { address, isConnected } = useAccount();
@@ -107,12 +108,6 @@ const NavBar = () => {
               />
             </Link>
           </div>
-          {/* <div className={Style.navbar_container_left_box_input}>
-            <div className={Style.navbar_container_left_box_input_box}>
-              <input type="text" placeholder="Search NFT" />
-              <BsSearch onClick={() => {}} className={Style.search_icon} />
-            </div>
-          </div> */}
         </div>
         {/* end of left section */}
         <div className={Style.navbar_container_right}>
@@ -218,20 +213,26 @@ const NavBar = () => {
           {/* NOTIFICATION */}
           {connectionStatus !== "connected" && isConnected && (
             <div className={Style.navbar_container_right_notify}>
-              <MdNotifications
+              {/* <MdNotifications
                 className={Style.notify}
                 onClick={() => openNotification()}
               />
-              {notification && <Notification _userInfo={_userInfo} />}
+              {notification && <Notification _userInfo={_userInfo} />} */}
+              <div className={Style.notification}>
+                <NotificationCenter />
+              </div>
             </div>
           )}
           {connectionStatus == "connected" && !isConnected && (
             <div className={Style.navbar_container_right_notify}>
-              <MdNotifications
+              {/* <MdNotifications
                 className={Style.notify}
                 onClick={() => openNotification()}
               />
-              {notification && <Notification _userInfo={_userInfo} />}
+              {notification && <Notification _userInfo={_userInfo} />} */}
+              <div className={Style.notification}>
+                <NotificationCenter />
+              </div>
             </div>
           )}
         </div>
