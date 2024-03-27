@@ -35,9 +35,9 @@ export default function SocialCancelNFTButton(props) {
       switchChain(EthereumSepolia.id);
     } catch (error) {
       console.log(error);
-      toast(`Switch Chain error : ${error}`, {
-        type: "error",
-      });
+      // toast(`Switch Chain error : ${error}`, {
+      //   type: "error",
+      // });
       setIsLoading(false);
     }
   }
@@ -101,9 +101,9 @@ export default function SocialCancelNFTButton(props) {
       console.log("Transaction hash: ", txHash);
     } catch (error) {
       console.log(error);
-      toast(`Cancel listing error : ${error}`, {
-        type: "error",
-      });
+      // toast(`Cancel listing error : ${error}`, {
+      //   type: "error",
+      // });
       setIsLoading(false);
     }
   }
@@ -125,10 +125,9 @@ export default function SocialCancelNFTButton(props) {
         abi,
         alchemyProvider
       );
-
-      contract.on("ItemCanceled", (seller, nftAddress, tokenId) => {
-        if (!isListening) {
-          setIsListening(true);
+      if (!isListening) {
+        setIsListening(true);
+        contract.on("ItemCanceled", (seller, nftAddress, tokenId) => {
           console.log(
             `event ItemCanceled(${seller}, ${nftAddress}, ${tokenId}`
           );
@@ -136,8 +135,8 @@ export default function SocialCancelNFTButton(props) {
             type: "success",
           });
           setIsLoading(false);
-        }
-      });
+        });
+      }
     }
   }, [isLoading]);
 

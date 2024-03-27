@@ -6,7 +6,7 @@ function NFTBox({ cid }) {
   const [imageURI, setImageURI] = useState("");
 
   async function updateUI() {
-    console.log(`The TokenURI is ipfs://${cid}`);
+    // console.log(`The TokenURI is ipfs://${cid}`);
     if (cid) {
       const requestURL = "https://ipfs.io/ipfs/" + cid;
       const tokenURIResponse = await (await fetch(requestURL)).json();

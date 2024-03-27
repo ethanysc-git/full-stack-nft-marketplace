@@ -43,9 +43,9 @@ export default function CreateNFTButton(props) {
       const res = await createUnitNftWrite();
     } catch (error) {
       console.log(error);
-      toast(`Create NFT error : ${error}`, {
-        type: "error",
-      });
+      // toast(`Create NFT error : ${error}`, {
+      //   type: "error",
+      // });
       setIsLoading(false);
     }
   }
@@ -65,17 +65,16 @@ export default function CreateNFTButton(props) {
         abi,
         alchemyProvider
       );
-
-      contract.on("ContractCreated", (unitAddr) => {
-        if (!isListening) {
-          setIsListening(true);
+      if (!isListening) {
+        setIsListening(true);
+        contract.on("ContractCreated", (unitAddr) => {
           console.log(`event ContractCreated(${unitAddr}`);
           toast("Contract Created successfully", {
             type: "success",
           });
           setIsLoading(false);
-        }
-      });
+        });
+      }
     }
   }, [isLoading]);
 

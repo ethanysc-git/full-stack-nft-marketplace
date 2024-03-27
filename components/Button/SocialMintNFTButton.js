@@ -35,9 +35,9 @@ export default function SocialMintNFTButton(props) {
       switchChain(EthereumSepolia.id);
     } catch (error) {
       console.log(error);
-      toast(`Switch Chain error : ${error}`, {
-        type: "error",
-      });
+      // toast(`Switch Chain error : ${error}`, {
+      //   type: "error",
+      // });
       setIsLoading(false);
     }
   }
@@ -95,9 +95,9 @@ export default function SocialMintNFTButton(props) {
       console.log("Transaction hash: ", txHash);
     } catch (error) {
       console.log(error);
-      toast(`NFT minted error : ${error}`, {
-        type: "error",
-      });
+      // toast(`NFT minted error : ${error}`, {
+      //   type: "error",
+      // });
       setIsLoading(false);
     }
   }
@@ -126,17 +126,16 @@ export default function SocialMintNFTButton(props) {
         abi,
         alchemyProvider
       );
-
-      contract.on("NftMinted", (cid, minter) => {
-        if (!isListening) {
-          setIsListening(true);
+      if (!isListening) {
+        setIsListening(true);
+        contract.on("NftMinted", (cid, minter) => {
           console.log(`event NftMinted(${cid}, ${minter}`);
           toast("NFT minted successfully", {
             type: "success",
           });
           setIsLoading(false);
-        }
-      });
+        });
+      }
     }
   }, [isLoading]);
 

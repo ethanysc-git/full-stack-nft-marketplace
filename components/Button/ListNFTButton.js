@@ -38,9 +38,9 @@ export default function ListNFTButton(props) {
       approveWrite();
     } catch (error) {
       console.log(error);
-      toast(`Approve NFT error : ${error}`, {
-        type: "error",
-      });
+      // toast(`Approve NFT error : ${error}`, {
+      //   type: "error",
+      // });
       setIsLoading(false);
     }
   }
@@ -58,9 +58,9 @@ export default function ListNFTButton(props) {
       write();
     } catch (error) {
       console.log(error);
-      toast(`List item error : ${error}`, {
-        type: "error",
-      });
+      // toast(`List item error : ${error}`, {
+      //   type: "error",
+      // });
       setIsLoading(false);
     }
   }
@@ -82,10 +82,9 @@ export default function ListNFTButton(props) {
         abi,
         alchemyProvider
       );
-
-      contract.on("Approval", (owner, approved, tokenId) => {
-        if (!isListening) {
-          setIsListening(true);
+      if (!isListening) {
+        setIsListening(true);
+        contract.on("Approval", (owner, approved, tokenId) => {
           console.log(`event Approval(${owner}, ${approved}, ${tokenId}`);
           toast("Approval successfully", {
             type: "success",
@@ -93,8 +92,8 @@ export default function ListNFTButton(props) {
           handleListItem();
           setIsListening(false);
           setApproveIsDone(true);
-        }
-      });
+        });
+      }
     }
   }, [approveIsSuccess]);
 
@@ -115,12 +114,11 @@ export default function ListNFTButton(props) {
         abi,
         alchemyProvider
       );
-
-      contract.on(
-        "ItemListed",
-        (seller, nftAddress, tokenId, price, tokenUri) => {
-          if (!isListening) {
-            setIsListening(true);
+      if (!isListening) {
+        setIsListening(true);
+        contract.on(
+          "ItemListed",
+          (seller, nftAddress, tokenId, price, tokenUri) => {
             console.log(
               `event ItemListed(${seller}, ${nftAddress}, ${tokenId}, ${price}, ${tokenUri}`
             );
@@ -129,8 +127,8 @@ export default function ListNFTButton(props) {
             });
             setIsLoading(false);
           }
-        }
-      );
+        );
+      }
     }
   }, [approveIsDone]);
 

@@ -50,7 +50,7 @@ export default function SocialProfileNFTCard(props) {
     if (props.cid) {
       let cid = props.cid;
       cid = cid.replace("ipfs://", "");
-      console.log(`The props.cid is ${props.cid}`);
+      // console.log(`The props.cid is ${props.cid}`);
       const requestURL = "https://ipfs.io/ipfs/" + cid;
       const tokenURIResponse = await (await fetch(requestURL)).json();
       const imageURI = tokenURIResponse.image;

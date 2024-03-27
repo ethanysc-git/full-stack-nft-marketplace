@@ -31,7 +31,6 @@
 //   const [imageURI, setImageURI] = useState("");
 
 //   async function updateUI() {
-//     console.log(`The TokenURI is ipfs://${props.cid}`);
 //     if (props.cid) {
 //       const requestURL = "https://ipfs.io/ipfs/" + props.cid;
 //       const tokenURIResponse = await (await fetch(requestURL)).json();
@@ -110,7 +109,6 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { useAccount } from "wagmi";
 import { parseEther, formatEther } from "viem";
-import CancelNFTButton from "../Button/CancelNFTButton";
 import BuyNFTButton from "../Button/BuyNFTButton";
 import SocialBuyNFTButton from "../Button/SocialBuyNFTButton";
 import {
@@ -134,7 +132,6 @@ import {
   Center,
 } from "@chakra-ui/react";
 import images from "../../img";
-import { BsCart4 } from "react-icons/bs";
 import {
   useConnect,
   useEthereum,
@@ -155,7 +152,6 @@ export default function NFTCard(props) {
   const [imageURI, setImageURI] = useState("");
 
   async function updateUI() {
-    console.log(`The TokenURI is ipfs://${props.cid}`);
     if (props.cid) {
       const requestURL = "https://ipfs.io/ipfs/" + props.cid;
       const tokenURIResponse = await (await fetch(requestURL)).json();
@@ -177,7 +173,6 @@ export default function NFTCard(props) {
             {imageURI ? (
               <Image src={imageURI} boxSize="250px" />
             ) : (
-              //borderRadius="lg"
               <div>Loading...</div>
             )}
           </Center>

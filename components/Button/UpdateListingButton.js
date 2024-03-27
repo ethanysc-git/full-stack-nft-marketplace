@@ -39,9 +39,9 @@ export default function UpdateListingButton(props) {
       const res = await updateListingWrite();
     } catch (error) {
       console.log(error);
-      toast(`Update list item error : ${error}`, {
-        type: "error",
-      });
+      // toast(`Update list item error : ${error}`, {
+      //   type: "error",
+      // });
       setIsLoading(false);
     }
   }
@@ -63,12 +63,11 @@ export default function UpdateListingButton(props) {
         abi,
         alchemyProvider
       );
-
-      contract.on(
-        "ItemListed",
-        (seller, nftAddress, tokenId, price, tokenUri) => {
-          if (!isListening) {
-            setIsListening(true);
+      if (!isListening) {
+        setIsListening(true);
+        contract.on(
+          "ItemListed",
+          (seller, nftAddress, tokenId, price, tokenUri) => {
             console.log(
               `event ItemListed(${seller}, ${nftAddress}, ${tokenId}, ${price}, ${tokenUri}`
             );
@@ -77,8 +76,8 @@ export default function UpdateListingButton(props) {
             });
             setIsLoading(false);
           }
-        }
-      );
+        );
+      }
     }
   }, [isLoading]);
 

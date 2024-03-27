@@ -28,7 +28,7 @@ export default function TouristNFTCard(props) {
   const [imageURI, setImageURI] = useState("");
 
   async function updateUI() {
-    console.log(`The TokenURI is ipfs://${props.cid}`);
+    // console.log(`The TokenURI is ipfs://${props.cid}`);
     if (props.cid) {
       const requestURL = "https://ipfs.io/ipfs/" + props.cid;
       const tokenURIResponse = await (await fetch(requestURL)).json();

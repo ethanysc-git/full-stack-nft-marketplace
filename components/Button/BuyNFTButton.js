@@ -36,9 +36,9 @@ export default function BuyNFTButton(props) {
       const res = await buyItemWrite();
     } catch (error) {
       console.log(error);
-      toast(`Buy item error : ${error}`, {
-        type: "error",
-      });
+      // toast(`Buy item error : ${error}`, {
+      //   type: "error",
+      // });
       setIsLoading(false);
     }
   }
@@ -60,17 +60,16 @@ export default function BuyNFTButton(props) {
         abi,
         alchemyProvider
       );
-
-      contract.on("ItemBought", (seller, nftAddress, tokenId) => {
-        if (!isListening) {
-          setIsListening(true);
+      if (!isListening) {
+        setIsListening(true);
+        contract.on("ItemBought", (seller, nftAddress, tokenId) => {
           console.log(`event ItemBought(${seller}, ${nftAddress}, ${tokenId}`);
           toast("Buy item successfully", {
             type: "success",
           });
           setIsLoading(false);
-        }
-      });
+        });
+      }
     }
   }, [isLoading]);
 

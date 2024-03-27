@@ -33,9 +33,9 @@ export default function SocialCreateNFTButton(props) {
       switchChain(EthereumSepolia.id);
     } catch (error) {
       console.log(error);
-      toast(`Switch Chain error : ${error}`, {
-        type: "error",
-      });
+      // toast(`Switch Chain error : ${error}`, {
+      //   type: "error",
+      // });
       setIsLoading(false);
     }
   }
@@ -99,9 +99,9 @@ export default function SocialCreateNFTButton(props) {
       console.log("Transaction hash: ", txHash);
     } catch (error) {
       console.log(error);
-      toast(`Create NFT error : ${error}`, {
-        type: "error",
-      });
+      // toast(`Create NFT error : ${error}`, {
+      //   type: "error",
+      // });
       setIsLoading(false);
     }
   }
@@ -120,17 +120,16 @@ export default function SocialCreateNFTButton(props) {
         abi,
         alchemyProvider
       );
-
-      contract.on("ContractCreated", (unitAddr) => {
-        if (!isListening) {
-          setIsListening(true);
+      if (!isListening) {
+        setIsListening(true);
+        contract.on("ContractCreated", (unitAddr) => {
           console.log(`event ContractCreated(${unitAddr}`);
           toast("Contract Created successfully", {
             type: "success",
           });
           setIsLoading(false);
-        }
-      });
+        });
+      }
     }
   }, [isLoading]);
 

@@ -39,9 +39,9 @@ export default function SocialUpdateListingButton(props) {
       switchChain(EthereumSepolia.id);
     } catch (error) {
       console.log(error);
-      toast(`Switch Chain error : ${error}`, {
-        type: "error",
-      });
+      // toast(`Switch Chain error : ${error}`, {
+      //   type: "error",
+      // });
       setIsLoading(false);
     }
   }
@@ -126,12 +126,11 @@ export default function SocialUpdateListingButton(props) {
         abi,
         alchemyProvider
       );
-
-      contract.on(
-        "ItemListed",
-        (seller, nftAddress, tokenId, price, tokenUri) => {
-          if (!isListening) {
-            setIsListening(true);
+      if (!isListening) {
+        setIsListening(true);
+        contract.on(
+          "ItemListed",
+          (seller, nftAddress, tokenId, price, tokenUri) => {
             console.log(
               `event ItemListed(${seller}, ${nftAddress}, ${tokenId}, ${price}, ${tokenUri}`
             );
@@ -140,8 +139,8 @@ export default function SocialUpdateListingButton(props) {
             });
             setIsLoading(false);
           }
-        }
-      );
+        );
+      }
     }
   }, [isLoading]);
 

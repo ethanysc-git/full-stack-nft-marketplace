@@ -42,9 +42,9 @@ export default function SocialListNFTButton(props) {
       switchChain(EthereumSepolia.id);
     } catch (error) {
       console.log(error);
-      toast(`Switch Chain error : ${error}`, {
-        type: "error",
-      });
+      // toast(`Switch Chain error : ${error}`, {
+      //   type: "error",
+      // });
       setIsLoading(false);
     }
   }
@@ -104,9 +104,9 @@ export default function SocialListNFTButton(props) {
       setTxHash(txHash);
     } catch (error) {
       console.log(error);
-      toast(`Approve NFT error : ${error}`, {
-        type: "error",
-      });
+      // toast(`Approve NFT error : ${error}`, {
+      //   type: "error",
+      // });
       setIsLoading(false);
     }
   }
@@ -151,9 +151,9 @@ export default function SocialListNFTButton(props) {
       console.log("Transaction hash: ", txHash);
     } catch (error) {
       console.log(error);
-      toast(`List item error : ${error}`, {
-        type: "error",
-      });
+      // toast(`List item error : ${error}`, {
+      //   type: "error",
+      // });
       setIsLoading(false);
     }
   }
@@ -171,23 +171,22 @@ export default function SocialListNFTButton(props) {
         abi,
         alchemyProvider
       );
-
-      contract.on("Approval", (owner, approved, tokenId) => {
-        if (!isListening) {
-          setIsListening(true);
+      if (!isListening) {
+        setIsListening(true);
+        contract.on("Approval", (owner, approved, tokenId) => {
           console.log(`event Approval(${owner}, ${approved}, ${tokenId}`);
 
           toast("Approval successfully", {
             type: "success",
           });
+          setIsListening(false);
           setApproveIsSuccess(true);
-        }
-      });
+        });
+      }
     }
   }, [txHash]);
   useEffect(() => {
     if (approveIsSuccess) {
-      setIsListening(false);
       executeUserOpAndGasNativeByPaymaster();
       const abi = [
         "event ItemListed(address indexed seller, address indexed nftAddress, uint256 indexed tokenId, uint256 price, string tokenUri)",
@@ -204,12 +203,11 @@ export default function SocialListNFTButton(props) {
         abi,
         alchemyProvider
       );
-
-      contract.on(
-        "ItemListed",
-        (seller, nftAddress, tokenId, price, tokenUri) => {
-          if (!isListening) {
-            setIsListening(true);
+      if (!isListening) {
+        setIsListening(true);
+        contract.on(
+          "ItemListed",
+          (seller, nftAddress, tokenId, price, tokenUri) => {
             console.log(
               `event ItemListed(${seller}, ${nftAddress}, ${tokenId}, ${price}, ${tokenUri}`
             );
@@ -218,8 +216,8 @@ export default function SocialListNFTButton(props) {
             });
             setIsLoading(false);
           }
-        }
-      );
+        );
+      }
     }
   }, [approveIsSuccess]);
 
