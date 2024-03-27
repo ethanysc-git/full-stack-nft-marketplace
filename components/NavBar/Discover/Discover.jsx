@@ -14,7 +14,7 @@ const Discover = () => {
         </Link>
       </div>
       <div key={1} className={Style.discover}>
-        <Link href="/create-nft-collection" legacyBehavior>
+        <Link href="/create" legacyBehavior>
         <a><p>Create NFT Collection</p></a>
         </Link>
       </div>
