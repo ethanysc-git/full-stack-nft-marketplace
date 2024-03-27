@@ -157,7 +157,7 @@ export default function NotificationCenter() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
               >
-                Your queue is empty! you are all set{" "}
+                Welcome to Drangon Mint{" "}
                 <span role="img" aria-label="dunno what to put">
                   🎉
                 </span>
