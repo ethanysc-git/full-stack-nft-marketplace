@@ -1,5 +1,6 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
+import { Button } from "@chakra-ui/react";
 import { usePrepareContractWrite, useContractWrite } from "wagmi";
 import images from "../../img";
 import Image from "next/image";
@@ -77,29 +78,35 @@ export default function MintNFTButton(props) {
   return (
     <div>
       {isLoading && (
-        <Image
-          src={images.snailloading}
-          alt="Loading logo"
-          width={80}
-          height={80}
-        />
+        <Button
+          isLoading
+          loadingText="Loading"
+          colorScheme="teal"
+          variant="outline"
+          spinnerPlacement="end"
+          className={Style.button}
+        >
+          Pending
+        </Button>
       )}
-      <button
-        disabled={isLoading}
-        onClick={async (event) => {
-          event.stopPropagation();
-          event.preventDefault();
-          toast(`NFT minting is pending`, {
-            type: "default",
-          });
-          setIsListening(false);
-          setIsLoading(true);
-          const res = await handleMint();
-        }}
-        className={Style.button}
-      >
-        {isLoading ? "Loading" : "Mint"}
-      </button>
+      {!isLoading && (
+        <button
+          disabled={isLoading}
+          onClick={async (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+            toast(`NFT minting is pending`, {
+              type: "default",
+            });
+            setIsListening(false);
+            setIsLoading(true);
+            const res = await handleMint();
+          }}
+          className={Style.button}
+        >
+          {isLoading ? "Loading" : "Mint"}
+        </button>
+      )}
     </div>
   );
 }

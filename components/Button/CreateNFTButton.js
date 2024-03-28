@@ -1,5 +1,6 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
+import { Button } from "@chakra-ui/react";
 import { usePrepareContractWrite, useContractWrite } from "wagmi";
 import images from "../../img";
 import Image from "next/image";
@@ -81,15 +82,16 @@ export default function CreateNFTButton(props) {
   return (
     <div>
       {isLoading && (
-        <>
-          <Image
-            src={images.snailloading}
-            alt="Loading logo"
-            width={80}
-            height={80}
-          />
-          <p>{isLoading ? "Loading" : ""}</p>
-        </>
+        <Button
+          isLoading
+          loadingText="Loading"
+          colorScheme="teal"
+          variant="outline"
+          spinnerPlacement="end"
+          className={Style.button}
+        >
+          Pending
+        </Button>
       )}
       {!isLoading && (
         <button

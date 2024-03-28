@@ -1,5 +1,6 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
+import { Button } from "@chakra-ui/react";
 import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
 import { parseEther, formatEther } from "viem";
 import { ToastContainer, toast, TypeOptions } from "react-toastify";
@@ -35,7 +36,8 @@ export default function ListNFTButton(props) {
     useContractWrite(approveConfig);
   async function handleApprove() {
     try {
-      approveWrite();
+      await approveWrite();
+      setApproveIsSuccess(true);
     } catch (error) {
       console.log(error);
       // toast(`Approve NFT error : ${error}`, {
@@ -133,29 +135,44 @@ export default function ListNFTButton(props) {
   }, [approveIsDone]);
 
   return (
-    <div>
-      <input
-        placeholder="Enter Price(ETH)"
-        onChange={(e) => {
-          setPrice(parseEther(e.target.value));
-        }}
-      />
-      <button
-        onClick={async (event) => {
-          event.stopPropagation();
-          event.preventDefault();
-          toast(`Item listed is pending`, {
-            type: "default",
-          });
-          setIsListening(false);
-          setIsLoading(true);
-          await handleApprove();
-          setApproveIsSuccess(true);
-        }}
-        className={Style.button}
-      >
-        {isLoading ? "Loading" : "List Item"}
-      </button>
+    <div className={Style.container}>
+      {isLoading && (
+        <Button
+          isLoading
+          loadingText="Loading"
+          colorScheme="teal"
+          variant="outline"
+          spinnerPlacement="end"
+          className={Style.button}
+        >
+          Pending
+        </Button>
+      )}
+      {!isLoading && (
+        <input
+          placeholder="Enter Price(ETH)"
+          onChange={(e) => {
+            setPrice(parseEther(e.target.value));
+          }}
+        />
+      )}
+      {!isLoading && (
+        <button
+          onClick={async (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+            toast(`Item listed is pending`, {
+              type: "default",
+            });
+            setIsListening(false);
+            setIsLoading(true);
+            await handleApprove();
+          }}
+          className={Style.button}
+        >
+          {isLoading ? "Loading" : "List Item"}
+        </button>
+      )}
     </div>
   );
 }

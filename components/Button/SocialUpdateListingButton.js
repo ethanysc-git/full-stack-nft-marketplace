@@ -1,5 +1,6 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useContext, useMemo } from "react";
+import { Button } from "@chakra-ui/react";
 import {
   useConnect,
   useEthereum,
@@ -145,38 +146,46 @@ export default function SocialUpdateListingButton(props) {
   }, [isLoading]);
 
   return (
-    <div>
+    <div className={Style.container}>
       {isLoading && (
-        <Image
-          src={images.snailloading}
-          alt="Loading logo"
-          width={80}
-          height={80}
+        <Button
+          isLoading
+          loadingText="Loading"
+          colorScheme="teal"
+          variant="outline"
+          spinnerPlacement="end"
+          className={Style.button}
+        >
+          Pending
+        </Button>
+      )}
+      {!isLoading && (
+        <input
+          placeholder="Enter Price(ETH)"
+          onChange={(e) => {
+            setPrice(parseEther(e.target.value));
+          }}
         />
       )}
-      <input
-        placeholder="Enter Price(ETH)"
-        onChange={(e) => {
-          setPrice(parseEther(e.target.value));
-        }}
-      />
-      <button
-        disabled={isLoading}
-        onClick={async (event) => {
-          event.stopPropagation();
-          event.preventDefault();
-          toast(`Update list item is pending`, {
-            type: "default",
-          });
-          setIsListening(false);
-          setIsLoading(true);
-          await handleSwitch();
-          await executeUserOpAndGasNativeByPaymaster();
-        }}
-        className={Style.button}
-      >
-        {isLoading ? "Loading" : "Update $"}
-      </button>
+      {!isLoading && (
+        <button
+          disabled={isLoading}
+          onClick={async (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+            toast(`Update list item is pending`, {
+              type: "default",
+            });
+            setIsListening(false);
+            setIsLoading(true);
+            await handleSwitch();
+            await executeUserOpAndGasNativeByPaymaster();
+          }}
+          className={Style.button}
+        >
+          {isLoading ? "Loading" : "$:Update"}
+        </button>
+      )}
     </div>
   );
 }

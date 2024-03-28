@@ -1,5 +1,6 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
+import { Button } from "@chakra-ui/react";
 import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
 import images from "../../img";
 import Image from "next/image";
@@ -74,31 +75,37 @@ export default function BuyNFTButton(props) {
   }, [isLoading]);
 
   return (
-    <div>
+    <div className={Style.container}>
       {isLoading && (
-        <Image
-          src={images.snailloading}
-          alt="Loading logo"
-          width={80}
-          height={80}
-        />
+        <Button
+          isLoading
+          loadingText="Loading"
+          colorScheme="teal"
+          variant="outline"
+          spinnerPlacement="end"
+          className={Style.button}
+        >
+          Pending
+        </Button>
       )}
-      <button
-        disabled={isLoading}
-        onClick={async (event) => {
-          event.stopPropagation();
-          event.preventDefault();
-          toast(`Buy item is pending`, {
-            type: "default",
-          });
-          setIsListening(false);
-          setIsLoading(true);
-          await handleBuyItem();
-        }}
-        className={Style.button}
-      >
-        {isLoading ? "Loading" : "Buy now"}
-      </button>
+      {!isLoading && (
+        <button
+          disabled={isLoading}
+          onClick={async (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+            toast(`Buy item is pending`, {
+              type: "default",
+            });
+            setIsListening(false);
+            setIsLoading(true);
+            await handleBuyItem();
+          }}
+          className={Style.button}
+        >
+          {isLoading ? "Loading" : "Buy now"}
+        </button>
+      )}
     </div>
   );
 }

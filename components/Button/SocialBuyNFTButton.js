@@ -1,5 +1,6 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useContext, useMemo } from "react";
+import { Button } from "@chakra-ui/react";
 import { ethers } from "ethers";
 import {
   useConnect,
@@ -140,32 +141,38 @@ export default function SocialBuyNFTButton(props) {
   }, [isLoading]);
 
   return (
-    <div>
+    <div className={Style.container}>
       {isLoading && (
-        <Image
-          src={images.snailloading}
-          alt="Loading logo"
-          width={80}
-          height={80}
-        />
+        <Button
+          isLoading
+          loadingText="Loading"
+          colorScheme="teal"
+          variant="outline"
+          spinnerPlacement="end"
+          className={Style.button}
+        >
+          Pending
+        </Button>
       )}
-      <button
-        disabled={isLoading}
-        onClick={async (event) => {
-          event.stopPropagation();
-          event.preventDefault();
-          toast(`Buy item is pending`, {
-            type: "default",
-          });
-          setIsListening(false);
-          setIsLoading(true);
-          await handleSwitch();
-          await executeUserOpAndGasNativeByPaymaster();
-        }}
-        className={Style.button}
-      >
-        {isLoading ? "Loading" : "Buy Now"}
-      </button>
+      {!isLoading && (
+        <button
+          disabled={isLoading}
+          onClick={async (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+            toast(`Buy item is pending`, {
+              type: "default",
+            });
+            setIsListening(false);
+            setIsLoading(true);
+            await handleSwitch();
+            await executeUserOpAndGasNativeByPaymaster();
+          }}
+          className={Style.button}
+        >
+          {isLoading ? "Loading" : "Buy Now"}
+        </button>
+      )}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
+import { Button } from "@chakra-ui/react";
 import { usePrepareContractWrite, useContractWrite } from "wagmi";
 import { parseEther, formatEther } from "viem";
 import images from "../../img";
@@ -82,26 +83,30 @@ export default function UpdateListingButton(props) {
   }, [isLoading]);
 
   return (
-    <div>
+    <div className={Style.container}>
       {isLoading && (
-        <Image
-          src={images.snailloading}
-          alt="Loading logo"
-          width={80}
-          height={80}
-        />
+        <Button
+          isLoading
+          loadingText="Loading"
+          colorScheme="teal"
+          variant="outline"
+          spinnerPlacement="end"
+          className={Style.button}
+        >
+          Pending
+        </Button>
       )}
 
-      <div>
-        {!isLoading && (
-          <input
-            disabled={isLoading}
-            placeholder="Enter Price(ETH)"
-            onChange={(e) => {
-              setPrice(parseEther(e.target.value));
-            }}
-          />
-        )}
+      {!isLoading && (
+        <input
+          disabled={isLoading}
+          placeholder="Enter Price(ETH)"
+          onChange={(e) => {
+            setPrice(parseEther(e.target.value));
+          }}
+        />
+      )}
+      {!isLoading && (
         <button
           disabled={isLoading}
           onClick={async (event) => {
@@ -116,9 +121,9 @@ export default function UpdateListingButton(props) {
           }}
           className={Style.button}
         >
-          {isLoading ? "Loading" : "Update $"}
+          {isLoading ? "Loading" : "$:Update"}
         </button>
-      </div>
+      )}
     </div>
   );
 }

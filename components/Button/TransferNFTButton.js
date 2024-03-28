@@ -1,5 +1,6 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useRef } from "react";
+import { Button } from "@chakra-ui/react";
 import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
 import images from "../../img";
 import Image from "next/image";
@@ -36,10 +37,22 @@ export default function TransferNFTButton(props) {
   }
 
   return (
-    <div>
+    <div className={Style.container}>
+      {isLoading && (
+        <Button
+          isLoading
+          loadingText="Loading"
+          colorScheme="teal"
+          variant="outline"
+          spinnerPlacement="end"
+          className={Style.button}
+        >
+          Pending
+        </Button>
+      )}
       {!isLoading && (
         <button disabled={isLoading} className={Style.button}>
-          {isLoading ? "Loading" : "Transfer to ..."}
+          {isLoading ? "Loading" : "Transfer To ..."}
         </button>
       )}
     </div>

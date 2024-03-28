@@ -69,7 +69,7 @@ export default function SocialProfileNFTCard(props) {
 
   return (
     <div className={Style.profile}>
-      <Card maxW="sm">
+      <Card maxW="sm" p={2} customVariant="border">
         <CardBody>
           <Center>
             {imageURI ? (

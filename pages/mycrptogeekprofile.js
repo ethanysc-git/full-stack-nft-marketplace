@@ -119,30 +119,28 @@ function MyCrptoGeekProfile() {
                   "https://ipfs.moralis.io:2053/ipfs/",
                   "ipfs://"
                 );
+                let id = profile.token_id + "";
+                if (marketMap.get(id)) {
+                  listItem = true;
+                }
+                return (
+                  <Box key={index}>
+                    <Center>
+                      <WrapItem>
+                        <Center>
+                          <ProfileNFTCard
+                            cid={cid}
+                            tokenId={profile.token_id}
+                            nftAddress="0x2bb634109eee5dc71602066f874da5abc27be9d8"
+                            crptoGeek={true}
+                            listItem={listItem}
+                          />
+                        </Center>
+                      </WrapItem>
+                    </Center>
+                  </Box>
+                );
               }
-              let id = profile.token_id + "";
-              // console.log(id);
-              // console.log(marketMap.get(id));
-              if (marketMap.get(id)) {
-                listItem = true;
-              }
-              return (
-                <Box key={index}>
-                  <Center>
-                    <WrapItem>
-                      <Center>
-                        <ProfileNFTCard
-                          cid={cid}
-                          tokenId={profile.token_id}
-                          nftAddress="0x2bb634109eee5dc71602066f874da5abc27be9d8"
-                          crptoGeek={true}
-                          listItem={listItem}
-                        />
-                      </Center>
-                    </WrapItem>
-                  </Center>
-                </Box>
-              );
             })
           )}
         </Wrap>

@@ -166,69 +166,79 @@ export default function NFTCard(props) {
   });
 
   return (
-    <div className={Style.marketplace}>
-      <Card maxW="sm">
-        <CardBody>
-          <Center>
-            {imageURI ? (
-              <Image src={imageURI} boxSize="250px" />
-            ) : (
-              <div>Loading...</div>
-            )}
-          </Center>
-          <Stack mt="2" spacing="3">
-            <Heading size="md">Token ID : {props.tokenId}</Heading>
+    // <div className={Style.marketplace}>
+    <Card className={Style.marketplace} maxW="sm" p={2} customVariant="border">
+      <CardBody>
+        <Center>
+          {imageURI ? (
             <div>
-              <a
-                target="_blank"
-                rel="noreferrer noopenner"
-                href={`https://sepolia.etherscan.io/address/${props.nftAddress}`}
-              >
-                <Text>NFT Address</Text>
-              </a>
+              <Image
+                priority
+                loader={() => imageURI}
+                src={imageURI}
+                alt="IPFS Image"
+                width={250}
+                height={250}
+                className={Style.navbar_container_right_profile}
+              />
             </div>
+          ) : (
+            <div>Loading...</div>
+          )}
+        </Center>
+        <Stack mt="2" spacing="2">
+          <Heading size="md">Token ID : {props.tokenId}</Heading>
+          <div>
+            <a
+              target="_blank"
+              rel="noreferrer noopenner"
+              href={`https://sepolia.etherscan.io/address/${props.nftAddress}`}
+            >
+              <Text>NFT Address</Text>
+            </a>
+          </div>
+          <div>
+            <a
+              target="_blank"
+              rel="noreferrer noopenner"
+              href={`https://sepolia.etherscan.io/address/${props.seller}`}
+            >
+              <Text>NFT seller</Text>
+            </a>
+          </div>
+          <div>
+            <Text className="font-sans font-semibold">
+              Sall price : {formatEther(props.price)}ETH
+            </Text>
+          </div>
+        </Stack>
+      </CardBody>
+      <Divider />
+      <CardFooter>
+        <ButtonGroup spacing="3">
+          {!address && isConnected && (
             <div>
-              <a
-                target="_blank"
-                rel="noreferrer noopenner"
-                href={`https://sepolia.etherscan.io/address/${props.seller}`}
-              >
-                <Text>NFT seller</Text>
-              </a>
+              <BuyNFTButton
+                contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
+                nftAddress={props.nftAddress}
+                tokenId={props.tokenId}
+                price={props.price}
+              />
             </div>
+          )}
+          {address && !isConnected && (
             <div>
-              <Text className="font-sans font-semibold">
-                Sall price : {formatEther(props.price)}ETH
-              </Text>
+              <SocialBuyNFTButton
+                contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
+                nftAddress={props.nftAddress}
+                tokenId={props.tokenId}
+                price={props.price}
+              />
             </div>
-          </Stack>
-        </CardBody>
-        <Divider />
-        <CardFooter>
-          <ButtonGroup spacing="3">
-            {!address && isConnected && (
-              <div>
-                <BuyNFTButton
-                  contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
-                  nftAddress={props.nftAddress}
-                  tokenId={props.tokenId}
-                  price={props.price}
-                />
-              </div>
-            )}
-            {address && !isConnected && (
-              <div>
-                <SocialBuyNFTButton
-                  contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
-                  nftAddress={props.nftAddress}
-                  tokenId={props.tokenId}
-                  price={props.price}
-                />
-              </div>
-            )}
-          </ButtonGroup>
-        </CardFooter>
-      </Card>
-    </div>
+          )}
+        </ButtonGroup>
+      </CardFooter>
+    </Card>
+    // </div>
   );
 }
