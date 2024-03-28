@@ -35,7 +35,9 @@ const CreateSection = () => {
     useState("");
   const [collectionTotalSupplyInput, setCollectionTotalSupplyInput] =
     useState("");
+    
   const [tabIndex, setTabIndex] = useState(0);
+  const [prompt, setPrompt] = useState("");
 
   return (
     <div className={Style.heroSection_home_page}>
@@ -219,30 +221,27 @@ const CreateSection = () => {
             <h2>ERC7007</h2>
             <Formik
               initialValues={{
-                collectionName: "",
-                collectionSymbol: "",
-                collectionDescription: "",
-                collectionTotalSupply: "",
+                prompt: "",
               }}
               onSubmit={(values, actions) => {}}
             >
               {(props) => (
                 <Form>
                   <Field
-                    name="collectionName"
+                    name="prompt"
                     validate={(value) => {
-                      setCollectionNameInput(value);
+                      setPrompt(value);
                     }}
                   >
                     {({ field, form }) => (
                       <FormControl
                         isRequired
                         isInvalid={
-                          form.errors.collectionName &&
-                          form.touched.collectionName
+                          form.errors.prompt &&
+                          form.touched.prompt
                         }
                       >
-                        <FormLabel>Collection Name</FormLabel>
+                        <FormLabel>Prompt</FormLabel>
                         <Input className={Style.heroSection_tab_input_box} placeholder="" {...field} />
                         <FormErrorMessage>
                           {form.errors.collectionName}
@@ -251,94 +250,12 @@ const CreateSection = () => {
                     )}
                   </Field>
 
-                  <Field
-                    name="collectionSymbol"
-                    validate={(value) => {
-                      setCollectionSymbolInput(value);
-                    }}
-                  >
-                    {({ field, form }) => (
-                      <FormControl
-                        isRequired
-                        isInvalid={
-                          form.errors.collectionSymbol &&
-                          form.touched.collectionSymbol
-                        }
-                      >
-                        <FormLabel>Collection Symbol</FormLabel>
-                        <Input className={Style.heroSection_tab_input_box}  {...field} placeholder="" />
-                        <FormErrorMessage>
-                          {form.errors.collectionSymbol}
-                        </FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
-
-                  <Field
-                    name="collectionDescription"
-                    validate={(value) => {
-                      setCollectionDescriptionInput(value);
-                    }}
-                  >
-                    {({ field, form }) => (
-                      <FormControl
-                        isRequired
-                        isInvalid={
-                          form.errors.collectionDescription &&
-                          form.touched.collectionDescription
-                        }
-                      >
-                        <FormLabel>Collection Description</FormLabel>
-                        <Input className={Style.heroSection_tab_input_box} {...field} placeholder="" />
-                        <FormErrorMessage>
-                          {form.errors.collectionDescription}
-                        </FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
-
-                  <Field
-                    name="collectionTotalSupply"
-                    validate={(value) => {
-                      setCollectionTotalSupplyInput(value);
-                    }}
-                  >
-                    {({ field, form }) => (
-                      <FormControl
-                        isRequired
-                        isInvalid={
-                          form.errors.collectionTotalSupply &&
-                          form.touched.collectionTotalSupply
-                        }
-                      >
-                        <FormLabel>Collection Size(Total Supply)</FormLabel>
-                        <Input className={Style.heroSection_tab_input_box} {...field} placeholder="" type="number" />
-
-                        <FormErrorMessage>
-                          {form.errors.collectionTotalSupply}
-                        </FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
-
-
-
                   {connectionStatus === "connected" && (
                     <>
-                      {collectionNameInput &&
-                        collectionSymbolInput &&
-                        collectionDescriptionInput &&
-                        collectionTotalSupplyInput && (
+                      {prompt && (
                           <SocialCreateNFTButton
-                            contractAddress="0x34Eb633C2f2346979eB89385A2b5fbBa8C9740f4"
-                            collectionNameInput={collectionNameInput}
-                            collectionSymbolInput={collectionSymbolInput}
-                            collectionDescriptionInput={
-                              collectionDescriptionInput
-                            }
-                            collectionTotalSupplyInput={
-                              collectionTotalSupplyInput
-                            }
+                            contractAddress=""
+                            prompt={prompt}
                           />
                         )}
                     </>
@@ -346,20 +263,10 @@ const CreateSection = () => {
 
                   {isConnected && (
                     <>
-                      {collectionNameInput &&
-                        collectionSymbolInput &&
-                        collectionDescriptionInput &&
-                        collectionTotalSupplyInput && (
+                      {prompt && (
                           <CreateNFTButton
-                            contractAddress="0x34Eb633C2f2346979eB89385A2b5fbBa8C9740f4"
-                            collectionNameInput={collectionNameInput}
-                            collectionSymbolInput={collectionSymbolInput}
-                            collectionDescriptionInput={
-                              collectionDescriptionInput
-                            }
-                            collectionTotalSupplyInput={
-                              collectionTotalSupplyInput
-                            }
+                            contractAddress=""
+                            prompt={prompt}
                           />
                         )}
                     </>

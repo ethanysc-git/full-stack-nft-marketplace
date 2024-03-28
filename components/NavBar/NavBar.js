@@ -1,6 +1,6 @@
 import Style from "./NavBar.module.css";
 import React, { useState, useEffect, useContext, useMemo } from "react";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { ConnectButton, WalletButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import Link from "next/link";
 import { MdNotifications } from "react-icons/md";
@@ -205,7 +205,7 @@ const NavBar = () => {
 
           {/* Connect Wallet botton section */}
           {connectionStatus !== "connected" && (
-            <div className={Style.navbar_container_right_notify}>
+            <div className={Style.navbar_container_right_connect_button}>
               <ConnectButton />
             </div>
           )}
@@ -213,11 +213,6 @@ const NavBar = () => {
           {/* NOTIFICATION */}
           {connectionStatus !== "connected" && isConnected && (
             <div className={Style.navbar_container_right_notify}>
-              {/* <MdNotifications
-                className={Style.notify}
-                onClick={() => openNotification()}
-              />
-              {notification && <Notification _userInfo={_userInfo} />} */}
               <div className={Style.notification}>
                 <NotificationCenter />
               </div>
@@ -225,11 +220,6 @@ const NavBar = () => {
           )}
           {connectionStatus == "connected" && !isConnected && (
             <div className={Style.navbar_container_right_notify}>
-              {/* <MdNotifications
-                className={Style.notify}
-                onClick={() => openNotification()}
-              />
-              {notification && <Notification _userInfo={_userInfo} />} */}
               <div className={Style.notification}>
                 <NotificationCenter />
               </div>

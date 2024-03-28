@@ -83,15 +83,23 @@
     cursor: pointer;
 }
 
+.navbar_container_right_connect_button{
+    padding: 0.5rem ;
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: all .2s ease-in;
+    border-radius: 2rem;
+    white-space: nowrap;
+}
+
 .navbar_container_right_social_connect_button{
     background-color: var(--icons-connect-color);
-    padding: 0.9rem ;
+    padding: 0.5rem ;
     border: 1px solid var(--icons-connect-color);
-    font-size: 1.1rem;
+    font-size: 1.6rem;
     color: var(--shadow-light-color);
     cursor: pointer;
     transition: all .2s ease-in;
-    box-shadow: var(--box-shadow);
     border-radius: 2rem;
     white-space: nowrap;
 }
