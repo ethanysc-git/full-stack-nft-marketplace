@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 import CreateNFTButton from "../Button/CreateNFTButton";
-import SocialCreateNFTButton from "../Button/SocialCreateNFTButton";
+import PromptButton from "../Button/PromptButton";
 import { useAccount } from "wagmi";
 import {
   useConnect,
@@ -38,6 +38,8 @@ const CreateSection = () => {
     
   const [tabIndex, setTabIndex] = useState(0);
   const [prompt, setPrompt] = useState("");
+  const [model11Output, setModel11Output] = useState("");
+  const [model50Output, setModel50Output] = useState("");
 
   return (
     <div className={Style.heroSection_home_page}>
@@ -253,10 +255,12 @@ const CreateSection = () => {
                   {connectionStatus === "connected" && (
                     <>
                       {prompt && (
-                          <SocialCreateNFTButton
-                            contractAddress=""
-                            prompt={prompt}
-                          />
+                          <PromptButton
+                          contractAddress=""
+                          prompt={prompt}
+                          setModel11Output={setModel11Output}
+                          setModel50Output={setModel50Output}
+                        />
                         )}
                     </>
                   )}
@@ -264,7 +268,7 @@ const CreateSection = () => {
                   {isConnected && (
                     <>
                       {prompt && (
-                          <CreateNFTButton
+                          <PromptButton
                             contractAddress=""
                             prompt={prompt}
                           />
