@@ -1,0 +1,139 @@
+.heroSection{
+    width:88% ;
+    margin: 3rem auto; 
+}
+.heroSection_home_page{
+    width:88% ;
+    margin: 3rem auto; 
+    background-image: url("../../public/rainbowhotair.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.heroSection_box{
+    display: grid;
+    grid-template-columns:repeat(2,1fr) ;
+    gap: 2rem;  
+}
+.heroSection_box_left{
+    padding-right: 5rem; 
+    border-radius: 5rem;   
+}
+.heroSection_box_left h1{
+    font-size: 5rem;
+    line-height: 1;
+}
+.heroSection_box_left p{
+    margin-bottom: 2rem;
+}
+
+.heroSection_box_right{
+    padding-left: 5rem;  
+    border-radius: 5rem; 
+
+}
+.heroSection_box_right h1{
+    font-size: 5rem;
+    line-height: 1;
+}
+.heroSection_box_right p{
+    margin-bottom: 2rem;
+}
+
+.heroSection_image_right {
+    width: 100%;
+    height: auto;
+}
+
+.heroSection_upload_image {
+    width: 60px;
+    height: 60px;
+}
+
+.heroSection_upload_button{
+    background-color: var(--icons-color);
+    padding: 1rem ;
+    border: 1px solid var(--icons-color);
+    font-size: 1.1rem;
+    color: var(--shadow-light-color);
+    cursor: pointer;
+    transition: all .2s ease-in;
+    box-shadow: var(--box-shadow);
+    border-radius: 2rem;
+}
+
+.heroSection_upload_button:hover{
+    background-color: var(--main-bg-color);
+    border: 1px solid var(--icons-color);
+    color: var(--icons-color);
+}
+
+.heroSection_p{
+    Color:red;
+}
+
+.heroSection_tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    padding: .5rem;
+    transition: 0.3s;
+    border-radius: 1rem;
+  }
+  .heroSection_tab_list {
+    /* Color:rgb(255, 233, 207) !important; */
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: .5rem;
+    transition: 0.3s;
+    border-radius: 1rem;
+    font-size: 2rem;
+  }
+  .heroSection_tab_button {
+    Color:rgb(190, 188, 200) !important;
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: .5rem;
+    transition: 0.3s;
+    border-radius: 1rem;
+  }
+  .heroSection_tab_button:hover {
+    background-color: #2056eb;
+  }
+
+  .heroSection_tab_button:active {
+    background-color: #2056eb;
+  }
+  .heroSection_tab_input_box{
+    width: 60%; 
+    border: 1px solid var(--icons-color);
+    display: flex;
+    align-items: center;
+    padding: .5rem;
+    border-radius: 2rem;
+}
+  
+
+@media screen and (max-width:35em){
+    .heroSection{
+        width: 90%;
+    }
+}
+@media screen and (max-width:55em){
+    .heroSection_box{
+        grid-template-columns: 1fr;
+        gap: 4rem;
+    }
+    .heroSection_box_left{
+        padding-right: 2rem  ;
+    }
+    .heroSection_box_left h1{
+        line-height: 1;
+        font-size: 3rem;
+    }
+}

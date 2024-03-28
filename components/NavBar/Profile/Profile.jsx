@@ -24,10 +24,10 @@ const Profile = (props) => {
           <div className={Style.profile_menu_one_item}>
             <FaUserAlt/>
             {!(props.crptoGeek) &&(            <p>
-              <Link href="/myprofile" legacyBehavior>My Profile</Link>
+              <Link href="/social-profile" legacyBehavior>My Profile</Link>
             </p>)}
             {(props.crptoGeek) &&(            <p>
-              <Link href="/mycrptogeekprofile" legacyBehavior>My Profile</Link>
+              <Link href="/profile" legacyBehavior>My Profile</Link>
             </p>)}
           </div>
         </div>
