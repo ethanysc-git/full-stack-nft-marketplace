@@ -103,7 +103,7 @@ const ProfileSection = () => {
           token_id,
           token_uri,
         }));
-        //console.log(finalData);
+        // finalData = finalData.sort((a, b) => a.token_id < b.token_id);
         setUserProfiles(finalData);
       };
       fetchData();

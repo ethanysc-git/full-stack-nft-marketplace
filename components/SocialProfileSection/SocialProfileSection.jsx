@@ -13,7 +13,7 @@ import NFTCard from "../Image/NFTCard";
 import { useQuery } from "@apollo/client";
 import GET_ACTIVE_ITEMS from "../../pages/api/subgraphQueries";
 import {
-  FormControl,
+  Code,
   FormLabel,
   FormErrorMessage,
   FormHelperText,
@@ -141,6 +141,7 @@ const SocialProfileSection = () => {
       token_id,
       token_uri,
     }));
+    // finalData = finalData.sort((a, b) => a.token_id < b.token_id);
     setUserProfiles(finalData);
   };
 
@@ -184,7 +185,8 @@ const SocialProfileSection = () => {
       <div className={Style.heroSection}>
         <h1>My Profile</h1>
         {caAddress && (
-          <div>{`Your Social Account Deposit Address : ${caAddress}`}</div>
+          <div><Code>{`Your Social Account Deposit Address : ${caAddress}`}</Code></div>
+          
         )}
         <Wrap>
           {loading || !userProfiles ? (

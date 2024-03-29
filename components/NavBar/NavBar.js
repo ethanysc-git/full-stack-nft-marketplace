@@ -138,7 +138,7 @@ const NavBar = () => {
                 <div className={Style.navbar_container_right_notify}>
                   <Image
                     priority
-                    src={images.hero}
+                    src={images.profile}
                     alt="Profile"
                     width={80}
                     height={80}
@@ -157,7 +157,7 @@ const NavBar = () => {
             <div className={Style.navbar_container_right_notify}>
               <Image
                 priority
-                src={images.hero}
+                src={images.profile}
                 alt="Profile"
                 width={80}
                 height={80}

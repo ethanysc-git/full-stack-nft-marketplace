@@ -139,7 +139,7 @@ import {
 } from "@particle-network/auth-core-modal";
 
 export default function NFTCard(props) {
-  const { isConnected } = useAccount();
+  const { address: metaAddress, isConnected } = useAccount();
   const {
     address,
     chainId,
@@ -150,6 +150,7 @@ export default function NFTCard(props) {
     switchChain,
   } = useEthereum();
   const [imageURI, setImageURI] = useState("");
+  let buy = true;
 
   async function updateUI() {
     if (props.cid) {
@@ -162,6 +163,16 @@ export default function NFTCard(props) {
   }
 
   useEffect(() => {
+    if (metaAddress) {
+      if (metaAddress == props.seller) {
+        buy = false;
+      }
+    }
+    if (address) {
+      if (address == props.seller) {
+        buy = false;
+      }
+    }
     updateUI();
   });
 
@@ -216,7 +227,7 @@ export default function NFTCard(props) {
       <Divider />
       <CardFooter>
         <ButtonGroup spacing="3">
-          {!address && isConnected && (
+          {!address && isConnected && buy && (
             <div>
               <BuyNFTButton
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"
@@ -226,7 +237,7 @@ export default function NFTCard(props) {
               />
             </div>
           )}
-          {address && !isConnected && (
+          {address && !isConnected && buy && (
             <div>
               <SocialBuyNFTButton
                 contractAddress="0x1c92920ca2445C3c29A9CcC551152317219C61A6"

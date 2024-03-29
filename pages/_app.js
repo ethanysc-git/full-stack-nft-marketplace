@@ -51,7 +51,7 @@ const MyApp = ({ Component, pageProps }) => (
           version: "1.0.0",
         },
         wallet: {
-          visible: false,
+          visible: true,
           preload: true,
           themeType: "dark",
           topMenuType: "close",

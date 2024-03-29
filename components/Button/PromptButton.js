@@ -43,7 +43,7 @@ export default function PromptButton({
 
   async function handleCalculateAIResultBy50() {
     try {
-      const res = await calculateAIResultBy50();
+      await calculateAIResultBy50();
     } catch (error) {
       console.log(error);
       setIsLoading(false);
@@ -76,7 +76,7 @@ export default function PromptButton({
       toast(`Model_11 Prompt is pending`, {
         type: "default",
       });
-      const res = calculateAIResultBy11();
+      calculateAIResultBy11();
     } catch (error) {
       console.log(error);
       setIsLoading(false);
@@ -175,7 +175,7 @@ export default function PromptButton({
             toast(`Model_50 Prompt is pending`, {
               type: "default",
             });
-            const res = await handleCalculateAIResultBy50();
+            await handleCalculateAIResultBy50();
             setIsListening(false);
             setIsLoading(true);
             setModel50IsDone(true);
