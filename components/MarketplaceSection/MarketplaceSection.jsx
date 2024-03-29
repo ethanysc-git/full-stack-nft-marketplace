@@ -63,7 +63,7 @@ const MarketplaceSection = () => {
   return (
     <div>
       <div className={Style.heroSection}>
-        <h1>NFT Marketplace</h1>
+        <h1>Collect NFT</h1>
         <Wrap>
           {loading || !listedNftData ? (
             <div>

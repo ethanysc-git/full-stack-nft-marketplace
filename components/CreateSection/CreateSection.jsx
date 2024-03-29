@@ -2,6 +2,7 @@ import Style from './HeroSection.module.css'
 import React, { useState, useEffect, useContext, useMemo, useRef } from "react";
 import Image from 'next/image'
 import images from "../../img"
+import { NFTBox } from '../componentindex'
 import {
   FormControl,
   FormLabel,
@@ -17,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 import CreateNFTButton from "../Button/CreateNFTButton";
+import SocialCreateNFTButton from "../Button/SocialCreateNFTButton";
 import PromptButton from "../Button/PromptButton";
 import { useAccount } from "wagmi";
 import {
@@ -38,17 +40,12 @@ const CreateSection = () => {
     
   const [tabIndex, setTabIndex] = useState(0);
   const [prompt, setPrompt] = useState("");
-  const [model11Output, setModel11Output] = useState("");
-  const [model50Output, setModel50Output] = useState("");
 
   return (
     <div className={Style.heroSection_home_page}>
       <div className={Style.heroSection_box}>
       <div className={Style.heroSection_box_left}>
-        <h1>Discover, Collect and Create NFT</h1>
-          <p>
-            Upload your photo below and mint your own NFT.
-          </p> 
+        <h1>Create NFT</h1>
         <Tabs
         className={Style.heroSection_tab}
         onChange={(index) => {
@@ -252,18 +249,16 @@ const CreateSection = () => {
                     )}
                   </Field>
 
-                  {connectionStatus === "connected" && (
+                  {/* {connectionStatus === "connected" && (
                     <>
                       {prompt && (
                           <PromptButton
                           contractAddress=""
                           prompt={prompt}
-                          setModel11Output={setModel11Output}
-                          setModel50Output={setModel50Output}
                         />
                         )}
                     </>
-                  )}
+                  )} */}
 
                   {isConnected && (
                     <>

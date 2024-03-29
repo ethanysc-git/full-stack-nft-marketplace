@@ -1,20 +1,27 @@
 import Style from "./Button.module.css";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext, useMemo, useRef } from "react";
 import { Button } from "@chakra-ui/react";
 import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
 import { parseEther, formatEther } from "viem";
 import { ToastContainer, toast, TypeOptions } from "react-toastify";
 const { ethers } = require("ethers");
+import { PromptNFTBox } from "../componentindex";
 
-export default function PromptButton(props) {
+export default function PromptButton({
+  contractAddress,
+  prompt,
+  // setModel11Output,
+  // setModel50Output,
+}) {
   const { address, isConnected } = useAccount();
   const [isLoading, setIsLoading] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [model11IsSuccess, setModel11IsSuccess] = useState(false);
   const [model50IsDone, setModel50IsDone] = useState(false);
-  const [prompt, setPrompt] = useState(props.prompt);
+  const [model11Output, setModel11Output] = useState("");
+  const [model50Output, setModel50Output] = useState("");
   const { config: config50 } = usePrepareContractWrite({
-    address: "0xD61d937E3505d76f5111aCD63c74A09D0Db1ecd3",
+    address: "0xA1773ce3B92c265dCF8dEF22f69a14c2fD00D764",
     abi: [
       {
         name: "calculateAIResult",
@@ -44,7 +51,7 @@ export default function PromptButton(props) {
   }
 
   const { config: config11 } = usePrepareContractWrite({
-    address: "0xD61d937E3505d76f5111aCD63c74A09D0Db1ecd3",
+    address: "0xA1773ce3B92c265dCF8dEF22f69a14c2fD00D764",
     abi: [
       {
         name: "calculateAIResult",
@@ -79,14 +86,14 @@ export default function PromptButton(props) {
   useEffect(() => {
     if (model50IsDone && !model11IsSuccess) {
       const abi = [
-        "event promptsUpdated(uint256 requestId, uint256 modelId, string input, string output, bytes callbackData)",
+        "event Mint2(address indexed to, uint256 indexed requestId, string indexed prompt, uint256 modelId, string output)",
       ];
 
       const alchemyProvider = new ethers.providers.JsonRpcProvider(
         process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL
       );
 
-      const contractAddress = "0xD61d937E3505d76f5111aCD63c74A09D0Db1ecd3";
+      const contractAddress = "0xA1773ce3B92c265dCF8dEF22f69a14c2fD00D764";
 
       const contract = new ethers.Contract(
         contractAddress,
@@ -94,12 +101,12 @@ export default function PromptButton(props) {
         alchemyProvider
       );
 
-      contract.once(
-        "promptsUpdated",
-        (requestId, modelId, input, output, callbackData) => {
+      contract.on("Mint2", (to, requestId, prompt, modelId, output) => {
+        if (to == address && modelId == 50) {
           console.log(
-            `event promptsUpdated( requestId : ${requestId}, ${modelId}, ${input}, output : ${output}, ${callbackData}`
+            `event Mint2( requestId : ${requestId}, modelId : ${modelId}, prompt : ${prompt}, output : ${output}, to : ${to}`
           );
+          setModel50Output(output);
           toast("Model_50 Prompts Updated successfully", {
             type: "success",
           });
@@ -107,21 +114,21 @@ export default function PromptButton(props) {
           setModel11IsSuccess(true);
           setModel50IsDone(false);
         }
-      );
+      });
     }
   }, [model50IsDone]);
 
   useEffect(() => {
     if (model11IsSuccess) {
       const abi = [
-        "event promptsUpdated(uint256 requestId, uint256 modelId, string input, string output, bytes callbackData)",
+        "event Mint2(address indexed to, uint256 indexed requestId, string indexed prompt, uint256 modelId, string output)",
       ];
 
       const alchemyProvider = new ethers.providers.JsonRpcProvider(
         process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL
       );
 
-      const contractAddress = "0xD61d937E3505d76f5111aCD63c74A09D0Db1ecd3";
+      const contractAddress = "0xA1773ce3B92c265dCF8dEF22f69a14c2fD00D764";
 
       const contract = new ethers.Contract(
         contractAddress,
@@ -129,19 +136,19 @@ export default function PromptButton(props) {
         alchemyProvider
       );
 
-      contract.once(
-        "promptsUpdated",
-        (requestId, modelId, input, output, callbackData) => {
+      contract.on("Mint2", (to, requestId, prompt, modelId, output) => {
+        if (to == address && modelId == 11) {
           console.log(
-            `event promptsUpdated( requestId : ${requestId}, ${modelId}, ${input}, output : ${output}, ${callbackData}`
+            `event Mint2( requestId : ${requestId}, modelId : ${modelId}, prompt : ${prompt}, output : ${output}, to : ${to}`
           );
+          setModel11Output(output);
           toast("Model_11 Prompts Updated successfully", {
             type: "success",
           });
           setModel11IsSuccess(false);
           setIsLoading(false);
         }
-      );
+      });
     }
   }, [model11IsSuccess]);
 
@@ -178,6 +185,8 @@ export default function PromptButton(props) {
           {isLoading ? "Loading" : "Prompt"}
         </button>
       )}
+      {model50Output.length > 0 && <PromptNFTBox cid={model50Output} />}
+      <div>{`${model11Output}`}</div>
     </div>
   );
 }
