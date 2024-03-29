@@ -1,6 +1,6 @@
 import Style from "./Button.module.css";
 import React, { useState, useEffect, useContext, useMemo, useRef } from "react";
-import { Button } from "@chakra-ui/react";
+import { Stack, Heading, Text, Button } from "@chakra-ui/react";
 import { useAccount, usePrepareContractWrite, useContractWrite } from "wagmi";
 import { parseEther, formatEther } from "viem";
 import { ToastContainer, toast, TypeOptions } from "react-toastify";
@@ -37,7 +37,7 @@ export default function PromptButton({
     functionName: "calculateAIResult",
     args: [50, prompt],
     from: address,
-    value: parseEther("0.025"),
+    value: parseEther("0.03"),
   });
   const { writeAsync: calculateAIResultBy50 } = useContractWrite(config50);
 
@@ -67,7 +67,7 @@ export default function PromptButton({
     functionName: "calculateAIResult",
     args: [11, prompt],
     from: address,
-    value: parseEther("0.03"),
+    value: parseEther("0.05"),
   });
   const { write: calculateAIResultBy11 } = useContractWrite(config11);
 
@@ -186,7 +186,14 @@ export default function PromptButton({
         </button>
       )}
       {model50Output.length > 0 && <PromptNFTBox cid={model50Output} />}
-      <div>{`${model11Output}`}</div>
+      {model11Output.length > 0 && (
+        <div>
+          <Stack mt="6" spacing="3">
+            <Heading size="md">{`${prompt}`}</Heading>
+            <Text>{`${model11Output}`}</Text>
+          </Stack>
+        </div>
+      )}
     </div>
   );
 }
