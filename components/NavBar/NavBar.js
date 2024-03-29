@@ -182,7 +182,7 @@ const NavBar = () => {
                     {connectionStatus === "disconnected"
                       ? "Social Connect "
                       : connectionStatus.toUpperCase()}
-                    <FaUserFriends />
+                    {/* <FaUserFriends /> */}
                   </button>
                 </div>
               </>
