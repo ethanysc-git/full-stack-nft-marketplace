@@ -135,7 +135,7 @@ const NavBar = () => {
           {connectionStatus === "connected" && (
             <>
               {_userInfo && (
-                <div className={Style.navbar_container_right_discover}>
+                <div className={Style.navbar_container_right_notify}>
                   <Image
                     priority
                     src={images.hero}
@@ -154,7 +154,7 @@ const NavBar = () => {
           )}
 
           {isConnected && (
-            <div className={Style.navbar_container_right_discover}>
+            <div className={Style.navbar_container_right_notify}>
               <Image
                 priority
                 src={images.hero}
@@ -168,7 +168,7 @@ const NavBar = () => {
             </div>
           )}
 
-          <div className={Style.navbar_container_right_discover}>
+          <div className={Style.navbar_container_right_notify}>
             {" "}
             {connectionStatus !== "connected" && !isConnected && (
               <>
@@ -207,7 +207,7 @@ const NavBar = () => {
             )}
             {/* Connect Wallet botton section */}
             {connectionStatus !== "connected" && (
-              <div className={Style.navbar_container_right_connect_button}>
+              <div className={Style.navbar_container_right_notify}>
                 <ConnectButton />
               </div>
             )}
