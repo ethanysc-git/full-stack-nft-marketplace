@@ -99,7 +99,7 @@
     color: var(--shadow-light-color);
     cursor: pointer;
     transition: all .2s ease-in;
-    border-radius: 0.8rem;
+    border-radius: 0.75rem;
     white-space: nowrap;
 }
 
