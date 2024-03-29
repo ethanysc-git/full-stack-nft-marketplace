@@ -122,20 +122,20 @@ const NavBar = () => {
           </div>
 
           {/* About */}
-          <div className={Style.navbar_container_right_help}>
+          {/* <div className={Style.navbar_container_right_help}>
             <p onClick={(e) => openMenu(e)}>About</p>
             {help && (
               <div className={Style.navbar_container_right_help_box}>
                 <About />
               </div>
             )}
-          </div>
+          </div> */}
 
           {/* Profile */}
           {connectionStatus === "connected" && (
             <>
               {_userInfo && (
-                <div className={Style.navbar_container_right_notify}>
+                <div className={Style.navbar_container_right_discover}>
                   <Image
                     priority
                     src={images.hero}
@@ -154,7 +154,7 @@ const NavBar = () => {
           )}
 
           {isConnected && (
-            <div className={Style.navbar_container_right_notify}>
+            <div className={Style.navbar_container_right_discover}>
               <Image
                 priority
                 src={images.hero}
@@ -168,50 +168,53 @@ const NavBar = () => {
             </div>
           )}
 
-          {connectionStatus !== "connected" && !isConnected && (
-            <>
-              <div className={Style.navbar_container_right_notify}>
-                <button
-                  className={Style.navbar_container_right_social_connect_button}
-                  onClick={handleConnect}
-                >
-                  {connectionStatus === "disconnected"
-                    ? "Social Connect "
-                    : connectionStatus.toUpperCase()}
-                  <FaUserFriends />
-                </button>
-              </div>
-            </>
-          )}
-
-          {connectionStatus === "connected" && (
-            <>
-              {_userInfo && (
+          <div className={Style.navbar_container_right_discover}>
+            {" "}
+            {connectionStatus !== "connected" && !isConnected && (
+              <>
                 <div className={Style.navbar_container_right_notify}>
-                  <div></div>
                   <button
                     className={
                       Style.navbar_container_right_social_connect_button
                     }
-                    onClick={handleDisconnect}
+                    onClick={handleConnect}
                   >
-                    {`${_userInfo.name}  `}
-                    <MdOutlineLogin className={Style.notify} />
+                    {connectionStatus === "disconnected"
+                      ? "Social Connect "
+                      : connectionStatus.toUpperCase()}
+                    <FaUserFriends />
                   </button>
                 </div>
-              )}
-            </>
-          )}
-
-          {/* Connect Wallet botton section */}
-          {connectionStatus !== "connected" && (
-            <div className={Style.navbar_container_right_connect_button}>
-              <ConnectButton />
-            </div>
-          )}
+              </>
+            )}
+            {connectionStatus === "connected" && (
+              <>
+                {_userInfo && (
+                  <div className={Style.navbar_container_right_notify}>
+                    <div></div>
+                    <button
+                      className={
+                        Style.navbar_container_right_social_connect_button
+                      }
+                      onClick={handleDisconnect}
+                    >
+                      {`${_userInfo.name}  `}
+                      <MdOutlineLogin className={Style.notify} />
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+            {/* Connect Wallet botton section */}
+            {connectionStatus !== "connected" && (
+              <div className={Style.navbar_container_right_connect_button}>
+                <ConnectButton />
+              </div>
+            )}
+          </div>
 
           {/* NOTIFICATION */}
-          {connectionStatus !== "connected" && isConnected && (
+          {/* {connectionStatus !== "connected" && isConnected && (
             <div className={Style.navbar_container_right_notify}>
               <div className={Style.notification}>
                 <NotificationCenter />
@@ -224,7 +227,7 @@ const NavBar = () => {
                 <NotificationCenter />
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>
