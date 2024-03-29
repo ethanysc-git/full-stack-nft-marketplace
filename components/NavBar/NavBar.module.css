@@ -84,7 +84,6 @@
 }
 
 .navbar_container_right_connect_button{
-    padding: 0.1rem ;
     font-size: 1.2rem;
     cursor: pointer;
     transition: all .2s ease-in;
@@ -94,7 +93,7 @@
 
 .navbar_container_right_social_connect_button{
     background-color: var(--icons-connect-color);
-    padding: 0.6rem ;
+    padding: 0.520rem ;
     border: 1px solid var(--icons-connect-color);
     font-size: 1.25rem;
     color: var(--shadow-light-color);
