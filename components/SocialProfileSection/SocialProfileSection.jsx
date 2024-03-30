@@ -207,12 +207,12 @@ const SocialProfileSection = () => {
                 >
                   ERC721
                 </Tab>
-                <Tab
+                {/* <Tab
                   className={Style.heroSection_tab_list}
                   _selected={{ color: "white", bg: "blue" }}
                 >
                   ERC7007
-                </Tab>
+                </Tab> */}
               </TabList>
               <TabPanels>
                 <TabPanel>
@@ -256,7 +256,7 @@ const SocialProfileSection = () => {
                   </Wrap>
                 </TabPanel>
 
-                <TabPanel></TabPanel>
+                {/* <TabPanel></TabPanel> */}
               </TabPanels>
             </Tabs>
           )}
