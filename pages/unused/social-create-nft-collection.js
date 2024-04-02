@@ -1,7 +1,7 @@
 import React from "react";
-import Style from "../components/HeroSection/HeroSection.module.css";
+import Style from "../../components/HeroSection/HeroSection.module.css";
 
-function TouristCreateNFTCollection() {
+function SocailCreateNFTCollection() {
   return (
     <div>
       <div className={Style.heroSection}>
@@ -11,4 +11,4 @@ function TouristCreateNFTCollection() {
   );
 }
 
-export default TouristCreateNFTCollection;
+export default SocailCreateNFTCollection;

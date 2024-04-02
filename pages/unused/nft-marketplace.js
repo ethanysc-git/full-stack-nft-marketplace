@@ -1,11 +1,11 @@
-import Style from "../components/CreateSection/HeroSection.module.css";
+import Style from "../../components/CreateSection/HeroSection.module.css";
 import React, { useState, useEffect, useContext, useMemo, useRef } from "react";
 import { Wrap, WrapItem, Center } from "@chakra-ui/react";
-import images from "../img";
+import images from "../../img";
 import Image from "next/image";
-import NFTCard from "../components/Image/NFTCard";
+import NFTCard from "../../components/Image/NFTCard";
 import { useQuery } from "@apollo/client";
-import GET_ACTIVE_ITEMS from "../pages/api/subgraphQueries";
+import GET_ACTIVE_ITEMS from "../api/subgraphQueries";
 import {
   FormControl,
   FormLabel,

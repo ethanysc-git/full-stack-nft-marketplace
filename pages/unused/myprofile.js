@@ -1,4 +1,4 @@
-import Style from "../components/HeroSection/HeroSection.module.css";
+import Style from "../../components/HeroSection/HeroSection.module.css";
 import React, { useState, useEffect, useContext, useMemo, useRef } from "react";
 import { ethers } from "ethers";
 import {
@@ -12,9 +12,9 @@ import {
   SmartAccount,
 } from "@particle-network/aa";
 import { ChainId } from "@biconomy/core-types";
-import SocialProfileNFTCard from "../components/Image/SocialProfileNFTCard";
+import SocialProfileNFTCard from "../../components/Image/SocialProfileNFTCard";
 import { Wrap, WrapItem, Center } from "@chakra-ui/react";
-import GET_ACTIVE_ITEMS from "../pages/api/subgraphQueries";
+import GET_ACTIVE_ITEMS from "../api/subgraphQueries";
 import { useQuery } from "@apollo/client";
 
 function MyProfile() {

@@ -1,9 +1,9 @@
-import Style from "../components/HeroSection/HeroSection.module.css";
+import Style from "../../components/HeroSection/HeroSection.module.css";
 import React, { useState, useEffect, useContext, useMemo, useRef } from "react";
 import { useAccount, useWaitForTransaction } from "wagmi";
-import ProfileNFTCard from "../components/Image/ProfileNFTCard";
+import ProfileNFTCard from "../../components/Image/ProfileNFTCard";
 import { Wrap, WrapItem, Center, Box } from "@chakra-ui/react";
-import GET_ACTIVE_ITEMS from "../pages/api/subgraphQueries";
+import GET_ACTIVE_ITEMS from "../api/subgraphQueries";
 import { useQuery } from "@apollo/client";
 
 function MyCrptoGeekProfile() {

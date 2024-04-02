@@ -1,4 +1,4 @@
-import Style from "../components/HeroSection/HeroSection.module.css";
+import Style from "../../components/HeroSection/HeroSection.module.css";
 import React, { useState, useEffect, useContext, useMemo, useRef } from "react";
 import {
   FormControl,
@@ -14,13 +14,13 @@ import {
   TabPanel,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
-import NFTBox from "../components/Image/NFTBox";
-import CreateNFTButton from "../components/Button/CreateNFTButton";
-import SocialCreateNFTButton from "../components/Button/SocialCreateNFTButton";
-import Create_404_NFTButton from "../components/Button/Create_404_NFTButton";
-import Create_1155_NFTButton from "../components/Button/Create_1155_NFTButton";
-import SocialCreate_404_NFTButton from "../components/Button/SocialCreate_404_NFTButton";
-import SocialCreate_1155_NFTButton from "../components/Button/SocialCreate_1155_NFTButton";
+import NFTBox from "../../components/Image/NFTBox";
+import CreateNFTButton from "../../components/Button/CreateNFTButton";
+import SocialCreateNFTButton from "../../components/Button/SocialCreateNFTButton";
+import Create_404_NFTButton from "../../components/Button/Create_404_NFTButton";
+import Create_1155_NFTButton from "../../components/Button/Create_1155_NFTButton";
+import SocialCreate_404_NFTButton from "../../components/Button/SocialCreate_404_NFTButton";
+import SocialCreate_1155_NFTButton from "../../components/Button/SocialCreate_1155_NFTButton";
 //
 import { useAccount } from "wagmi";
 import {

@@ -1,11 +1,11 @@
-import Style from "../components/HeroSection/HeroSection.module.css";
+import Style from "../../components/HeroSection/HeroSection.module.css";
 import React, { useState, useEffect, useRef } from "react";
 import { Wrap, WrapItem, Center } from "@chakra-ui/react";
-import TouristNFTCard from "../components/Image/TouristNFTCard";
+import SocialNFTCard from "../../components/Image/SocialNFTCard";
 import { useQuery } from "@apollo/client";
-import GET_ACTIVE_ITEMS from "../pages/api/subgraphQueries";
+import GET_ACTIVE_ITEMS from "../api/subgraphQueries";
 
-function TouristNFTMarketplace() {
+function SocailNFTMarketplace() {
   const [listedNftData, setListedNftData] = useState(null);
   const {
     loading,
@@ -48,7 +48,7 @@ function TouristNFTMarketplace() {
                     <WrapItem>
                       <Center>
                         {cid && (
-                          <TouristNFTCard
+                          <SocialNFTCard
                             nftAddress={nftAddress}
                             tokenId={tokenId}
                             seller={seller}
@@ -69,4 +69,4 @@ function TouristNFTMarketplace() {
   );
 }
 
-export default TouristNFTMarketplace;
+export default SocailNFTMarketplace;
