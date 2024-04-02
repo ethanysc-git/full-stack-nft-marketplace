@@ -14,7 +14,4 @@
 npx @next/codemod new-link
 
 ## **Headup**
-
-- localStorage
 - require("events").EventEmitter.defaultMaxListeners = 50
-- Discover page separation
