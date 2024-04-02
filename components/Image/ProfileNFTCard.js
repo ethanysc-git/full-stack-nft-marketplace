@@ -21,10 +21,6 @@ import {
   HStack,
   VStack,
   Text,
-  Wrap,
-  WrapItem,
-  Link,
-  ExternalLinkIcon,
   Center,
 } from "@chakra-ui/react";
 

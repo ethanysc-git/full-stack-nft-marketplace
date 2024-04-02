@@ -1,24 +1,10 @@
 import Style from './HeroSection.module.css'
 import React, { useState, useEffect, useContext, useMemo, useRef } from "react";
 import { useAccount } from "wagmi";
-import {
-  useConnect,
-  useEthereum,
-  useAuthCore,
-} from "@particle-network/auth-core-modal";
 import { Wrap, WrapItem, Center, Box } from "@chakra-ui/react";
-import images from "../../img";
-import Image from "next/image";
-import NFTCard from "../Image/NFTCard";
 import { useQuery } from "@apollo/client";
 import GET_ACTIVE_ITEMS from "../../pages/api/subgraphQueries";
 import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Button,
-  Input,
   Tabs,
   TabList,
   TabPanels,

@@ -12,13 +12,7 @@ import {
   Button,
   ButtonGroup,
   Stack,
-  HStack,
-  VStack,
   Text,
-  Wrap,
-  WrapItem,
-  Link,
-  ExternalLinkIcon,
   Center,
 } from "@chakra-ui/react";
 import images from "../../img";

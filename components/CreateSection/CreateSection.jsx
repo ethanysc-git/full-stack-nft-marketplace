@@ -20,12 +20,14 @@ import { Field, Form, Formik } from "formik";
 import CreateNFTButton from "../Button/CreateNFTButton";
 import SocialCreateNFTButton from "../Button/SocialCreateNFTButton";
 import PromptButton from "../Button/PromptButton";
+import SocialPromptButton from '../Button/SocialPromptButton';
 import { useAccount } from "wagmi";
 import {
   useConnect,
   useEthereum,
   useAuthCore,
 } from "@particle-network/auth-core-modal";
+
 
 const CreateSection = () => {
   const { isConnected } = useAccount();
@@ -249,16 +251,16 @@ const CreateSection = () => {
                     )}
                   </Field>
 
-                  {/* {connectionStatus === "connected" && (
+                  {connectionStatus === "connected" && (
                     <>
                       {prompt && (
-                          <PromptButton
+                          <SocialPromptButton
                           contractAddress=""
                           prompt={prompt}
                         />
                         )}
                     </>
-                  )} */}
+                  )}
 
                   {isConnected && (
                     <>
