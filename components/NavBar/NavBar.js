@@ -172,7 +172,9 @@ const NavBar = () => {
             {" "}
             {connectionStatus !== "connected" && !isConnected && (
               <>
-                <div className={Style.navbar_container_right_notify}>
+                <div
+                  className={Style.navbar_container_right_notify_connect_button}
+                >
                   <button
                     className={
                       Style.navbar_container_right_social_connect_button
@@ -190,7 +192,11 @@ const NavBar = () => {
             {connectionStatus === "connected" && (
               <>
                 {_userInfo && (
-                  <div className={Style.navbar_container_right_notify}>
+                  <div
+                    className={
+                      Style.navbar_container_right_notify_connect_button
+                    }
+                  >
                     <div></div>
                     <button
                       className={
@@ -207,7 +213,9 @@ const NavBar = () => {
             )}
             {/* Connect Wallet botton section */}
             {connectionStatus !== "connected" && (
-              <div className={Style.navbar_container_right_notify}>
+              <div
+                className={Style.navbar_container_right_notify_connect_button}
+              >
                 <ConnectButton />
               </div>
             )}

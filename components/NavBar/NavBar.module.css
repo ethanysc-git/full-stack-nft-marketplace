@@ -54,6 +54,14 @@
     grid-template-columns: 1fr 1fr 1fr .3fr .3fr;
     gap: 2rem;
     align-items: center;
+    border-width: 1px;
+    border-style: outset;
+    border-color: #e2e6e9;
+    border-radius: 1rem;
+    padding: 1px;
+    box-shadow: 5px -5px 5px 0px #e2e6e9;
+    align-items: center;
+    justify-content: center;
 }
 .navbar_container_right_help{
     font-size: 2rem;
@@ -66,6 +74,7 @@
     font-weight: bold;
     position: relative;
     cursor: pointer;
+    
 }
 .navbar_container_right_discover_box,
 .navbar_container_right_help_box{
@@ -79,6 +88,11 @@
     background-color: var(--main-bg-color);
 }
 .navbar_container_right_notify{
+    position: relative;
+    cursor: pointer;
+}
+
+.navbar_container_right_notify_connect_button{
     position: relative;
     cursor: pointer;
 }
