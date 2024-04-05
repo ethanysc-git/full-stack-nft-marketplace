@@ -112,7 +112,7 @@
     background-color: var(--icons-connect-color);
     padding: 0.520rem ;
     border: 1px solid var(--icons-connect-color);
-    font-size: 0.955rem;
+    font-size: 1.11rem;
     color: var(--shadow-light-color);
     cursor: pointer;
     transition: all .2s ease-in;

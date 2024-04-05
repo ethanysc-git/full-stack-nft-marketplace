@@ -58,7 +58,7 @@
     color: var(--shadow-light-color);
     cursor: pointer;
     transition: all .2s ease-in;
-    box-shadow: var(--box-shadow);
+    box-shadow: 5px -5px 5px 0px #e2e6e9;
     border-radius: 2rem;
 }
 
