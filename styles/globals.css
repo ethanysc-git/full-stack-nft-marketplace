@@ -7,7 +7,7 @@
   --icons-bg-color: #e2e6e9;
   --shadow-dark-color: #d3dae7;
   --shadow-light-color: #fff;
-  --main-bg-color: background: repeat-x 100% 0 / 1% 100% radial-gradient(circle at 100% 0, #6aa5ffb3 1%, #4aa4fd 65%); 
+  --main-bg-color: repeat-x 100% 0 / 1% 100% radial-gradient(circle at 100% 0, #6aa5ffb3 1%, #4aa4fd 65%); 
   --icons-connect-color: #e9bf65;
 
   --box-shadow: 1rem 1rem 1rem var(--shadow-dark-color),
