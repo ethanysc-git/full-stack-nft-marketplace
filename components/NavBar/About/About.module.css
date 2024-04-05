@@ -3,6 +3,7 @@
     transition: all .3s ease-in;
     z-index: 222222222;
     border: 1px outset #6bb8f2;
+    border-radius: 1rem;
 }
 .about:hover{
     background-color: var(--icons-color);
