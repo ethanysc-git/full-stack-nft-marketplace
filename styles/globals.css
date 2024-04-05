@@ -26,6 +26,7 @@ body {
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   color: rgb(0, 0, 0);
+  background: repeat-x 100% 0 / 1% 100% radial-gradient(circle at 100% 0, #6aa5ffb3 1%, #4aa4fd 65%);
   /* background: rgb(215, 230, 245); */
 }
 
@@ -73,6 +74,6 @@ a {
   }
   body {
     color: rgb(0, 0, 0);
-        background: repeat-x 100% 0 / 1% 100% radial-gradient(circle at 100% 0, #6aa5ffb3 1%, #4aa4fd 65%);
+    background: repeat-x 100% 0 / 1% 100% radial-gradient(circle at 100% 0, #6aa5ffb3 1%, #4aa4fd 65%);
   }
 }
