@@ -12,6 +12,7 @@ import { AuthCoreContextProvider } from "@particle-network/auth-core-modal";
 import { Ethereum, EthereumSepolia, Polygon } from "@particle-network/chains";
 import NotificationCenter from "../components/NotificationCenter/NotificationCenter";
 import { ToastContainer, toast, TypeOptions } from "react-toastify";
+import { background } from "@chakra-ui/react";
 
 require("events").EventEmitter.defaultMaxListeners = 50;
 

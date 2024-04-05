@@ -7,7 +7,7 @@
   --icons-bg-color: #e2e6e9;
   --shadow-dark-color: #d3dae7;
   --shadow-light-color: #fff;
-  --main-bg-color: #ecf0f3; 
+  --main-bg-color: repeat-x 100% 0 / 1% 100% radial-gradient(circle at 100% 0, transparent 1%, #4aa4fd 65%); 
   --icons-connect-color: #e9bf65;
 
   --box-shadow: 1rem 1rem 1rem var(--shadow-dark-color),
@@ -19,14 +19,27 @@
 }
 
 html,
+
+.hero_background {
+  background: repeat-x 100% 0 / 1% 100% radial-gradient(circle at 100% 0, transparent 1%, #4aa4fd 65%);
+}
+
 body {
   padding: 0;
   margin: 0;
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   color: rgb(0, 0, 0);
-  background: rgb(215, 230, 245);
+  /* background: rgb(215, 230, 245); */
 }
+
+/* .item--color1 {
+  color: #7f5fff;
+}
+.item--color1::before {
+  background: repeat-x 100% 0/50% 100% radial-gradient(circle at 50% 0, transparent 25%, #7f5fff 65%);
+} */
+
 
 a {
   color: inherit;
@@ -64,6 +77,6 @@ a {
   }
   body {
     color: rgb(0, 0, 0);
-    background: rgb(215, 230, 245);
+    background: repeat-x 100% 0 / 1% 100% radial-gradient(circle at 100% 0, transparent 1%, #4aa4fd 65%);
   }
 }

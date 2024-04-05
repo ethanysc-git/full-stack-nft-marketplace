@@ -7,6 +7,7 @@
     /* background-image: url("../../public/bg.png");
     background-repeat: no-repeat;
     background-position: center; */
+    background: repeat-x 100% 0 / 100% 100% radial-gradient(circle at 100% 0, transparent 1%, #4aa4fd 100%);
 }
 .navbar_container{
     width: 80%;
@@ -85,7 +86,8 @@
     width: 15rem ;
     top: 4rem;
     border-radius: 1rem;
-    background-color: var(--main-bg-color);
+    background-color: #78bbfd;
+    z-index: 222222222;
 }
 .navbar_container_right_notify{
     position: relative;
@@ -95,6 +97,7 @@
 .navbar_container_right_notify_connect_button{
     position: relative;
     cursor: pointer;
+    white-space: nowrap !important;
 }
 
 .navbar_container_right_connect_button{
@@ -102,19 +105,20 @@
     cursor: pointer;
     transition: all .2s ease-in;
     border-radius: 1.2rem;
-    white-space: nowrap;
+    white-space: nowrap !important;
 }
 
 .navbar_container_right_social_connect_button{
     background-color: var(--icons-connect-color);
     padding: 0.520rem ;
     border: 1px solid var(--icons-connect-color);
-    font-size: 1.25rem;
+    font-size: 0.955rem;
     color: var(--shadow-light-color);
     cursor: pointer;
     transition: all .2s ease-in;
-    border-radius: 0.75rem;
-    white-space: nowrap;
+    border-radius: 0.6rem;
+    white-space: nowrap !important;
+    font-weight: 600;
 }
 
 .notify{

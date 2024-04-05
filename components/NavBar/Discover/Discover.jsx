@@ -7,7 +7,7 @@ import Style from "./Discover.module.css"
 const Discover = () => {
 
   return (
-    <div className={Style.box}>
+    <div>
       <div key={0} className={Style.discover}>
         <Link href="/" legacyBehavior>
         <a><p>Home Page</p></a>

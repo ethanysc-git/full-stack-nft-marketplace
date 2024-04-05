@@ -8,6 +8,7 @@
     background-image: url("../../public/rainbowhotair.png");
     background-repeat: no-repeat;
     background-position: center;
+    mix-blend-mode: normal;
 }
 .heroSection_box{
     display: grid;
@@ -28,8 +29,8 @@
 
 .heroSection_box_right{
     padding-left: 5rem;  
-    border-radius: 5rem; 
-
+    border-radius: 5rem;
+    mix-blend-mode: normal;
 }
 .heroSection_box_right h1{
     font-size: 5rem;
