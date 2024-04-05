@@ -204,7 +204,7 @@
     grid-template-columns: 1fr;
    }
    .navbar_container_right{
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(1,1fr);
    }
    .navbar_container_right_menuBtn{
     display: none;

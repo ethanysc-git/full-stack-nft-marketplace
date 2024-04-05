@@ -1,6 +1,8 @@
 .about{
     padding: .5rem 1rem;
     transition: all .3s ease-in;
+    z-index: 222222222;
+    border: 1px outset #6bb8f2;
 }
 .about:hover{
     background-color: var(--icons-color);
