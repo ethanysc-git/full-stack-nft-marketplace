@@ -75,6 +75,7 @@
     font-weight: bold;
     position: relative;
     cursor: pointer;
+    padding: 1rem;
     
 }
 .navbar_container_right_discover_box,
