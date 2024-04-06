@@ -64,10 +64,16 @@
     border-radius: 2rem;
 }
 
+.heroSection_upload_button:active {
+    transform: scale(1);
+    box-shadow: inset 0 0 10px 1px rgba(0, 0, 0, .2);
+  }
+
 .heroSection_upload_button:hover{
     background-color: var(--main-bg-color);
-    border: 1px solid var(--icons-color);
-    color: var(--icons-color);
+    border: 1px solid #fff;
+    color: #000000;
+    transform: scale(1.05);
 }
 
 .heroSection_p{
