@@ -9,6 +9,7 @@
     background-position: center; */
     background: repeat-x 100% 0 / 1% 100% radial-gradient(circle at 100% 0, #6aa5ffb3 1%, #4aa4fd 65%);
 }
+
 .navbar_container{
     width: 80%;
     margin: 0 auto;
