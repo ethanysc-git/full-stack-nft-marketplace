@@ -7,7 +7,8 @@
     /* background-image: url("../../public/bg.png");
     background-repeat: no-repeat;
     background-position: center; */
-    background: repeat-x 100% 0 / 1% 100% radial-gradient(circle at 100% 0, #6aa5ffb3 1%, #4aa4fd 65%);
+    /* background: repeat-x 100% 0 / 1% 100% radial-gradient(circle at 100% 0, #6aa5ffb3 1%, #4aa4fd 65%); */
+    background: repeat-x 95% 0 / 1% 95% radial-gradient(circle at 100% 0, #78a2e3 1%, #4aa4fd 65%, #4dadff69 95%);
 }
 
 .navbar_container{
