@@ -90,7 +90,7 @@ a {
   left: 0;
 
   width: 100vw;
-  height: 50vh;
+  height: 30vh;
 
   background-image: url("../public/cloud_x.png");
 
@@ -100,7 +100,7 @@ a {
   --posX: right;
   --duration: 15s;
   --lowHeight: 20vh;
-  --highHeight: 50vh;
+  --highHeight: 30vh;
   --layerNum: 4;
   --index: 0;
   --opacity: 0.2;
