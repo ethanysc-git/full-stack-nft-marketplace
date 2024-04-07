@@ -225,6 +225,32 @@
 
 }
 
+.navbar_container_right_discover p {
+    position: relative;
+  }
+
+.navbar_container_right_discover p::before {  
+    transform: scaleX(0);
+    transform-origin: bottom right;
+}
+  
+.navbar_container_right_discover p:hover::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+  
+.navbar_container_right_discover p::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    inset: 0 0 0 0;
+    background: hsl(200, 100%, 62%);
+    z-index: -1;
+    transition: transform .3s ease;
+    border-radius:1rem ;
+}
+
 @media screen  and (min-device-width: 320px) and (max-device-width:768px){
    .navbar_container{
     grid-template-columns: 1fr 1fr; 
