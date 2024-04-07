@@ -97,6 +97,7 @@
     transition: all .2s ease-in;
     box-shadow: 5px -5px 5px 0px #e2e6e9;
     border-radius: 2rem;
+    z-index: 9999;
 }
 
 .heroSection_upload_button:active {
