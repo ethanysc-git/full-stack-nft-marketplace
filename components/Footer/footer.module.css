@@ -43,11 +43,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 2rem;
+    padding: 1rem 1rem;
     background-color: var(--icons-color);
     color: var(--shadow-dark-color);
     border-radius: 5rem;
-    margin-top: 3rem;
+    margin-top: 1rem;
 }
 .footer_box input{
       background: transparent;
