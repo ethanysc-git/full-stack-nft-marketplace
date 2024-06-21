@@ -10,8 +10,3 @@
 - AA 錢包
 - NFT 訂單簿
 - 創作團隊及行銷團隊等之商業合作媒合
-
-npx @next/codemod new-link
-
-## **Headup**
-- require("events").EventEmitter.defaultMaxListeners = 50
