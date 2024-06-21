@@ -6,7 +6,8 @@
   - Create NFT Collection / Mint Single NFT
   - NFT Marketplace
   - Transfewr NFT Tool / NFT Airdrop Tool
-- 提供生成 NFT 白名單以及拍賣形式的 NFT 販賣方式
-- AA 錢包
-- NFT 訂單簿
-- 創作團隊及行銷團隊等之商業合作媒合
+- 提供AI生成 NFT 的介面(圖片及文字)
+  -Create ERC7007介面
+- 虛擬貨幣錢包創建功能
+  -透過google等帳戶創建虛擬貨幣錢包
+
